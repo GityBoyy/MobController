@@ -16,7 +16,7 @@ public class ItemRegistry
             Registries.ITEM);
 
     public static RegistrySupplier<Item> COPPER_CONTROLLER = ITEMS.register(Utils.resource("copper_controller"),
-            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1))));
+            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.COPPER)));
 
 
 }

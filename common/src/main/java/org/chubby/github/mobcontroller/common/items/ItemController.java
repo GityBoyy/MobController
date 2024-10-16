@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -19,17 +20,18 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * The ItemController class allows players to control mobs, making them attack other entities or prevent them from attacking the player.
- */
+
 public class ItemController extends Item implements Equipable {
 
-    private static final int ATTACK_DURATION = 200;
+    public final ControllerType type;
+    private final int ATTACK_DURATION;
     public static final Map<Player, Monster> playerMobControlMap = new HashMap<>();
 
 
-    public ItemController(Properties properties) {
+    public ItemController(Properties properties, ControllerType type) {
         super(properties);
+        this.type = type;
+        this.ATTACK_DURATION = type.getControlTime();
     }
 
     @Override
@@ -67,11 +69,10 @@ public class ItemController extends Item implements Equipable {
         try {
             Field goalSelectorField = Mob.class.getDeclaredField("goalSelector");
             goalSelectorField.setAccessible(true);
-
+            PreventPlayerTargetGoal goal = new PreventPlayerTargetGoal(mob, player);
             var goalSelector = goalSelectorField.get(mob);
-
-            if (goalSelector instanceof net.minecraft.world.entity.ai.goal.GoalSelector selector) {
-                selector.addGoal(1, new PreventPlayerTargetGoal(mob, player));
+            if (goalSelector instanceof GoalSelector selector) {
+                selector.addGoal(1, goal);
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
@@ -91,13 +92,14 @@ public class ItemController extends Item implements Equipable {
             controlledMob.setAggressive(false);
             controlledMob.setTarget(target);
         }
+
         controlledMob.setTarget(target);
         try {
             Field goalSelectorField = Mob.class.getDeclaredField("goalSelector");
             goalSelectorField.setAccessible(true);
             var goalSelector = goalSelectorField.get(controlledMob);
 
-            if (goalSelector instanceof net.minecraft.world.entity.ai.goal.GoalSelector selector) {
+            if (goalSelector instanceof GoalSelector selector) {
                 selector.addGoal(0, new ControlledAttackGoal(owner, controlledMob, target, duration));
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -111,6 +113,12 @@ public class ItemController extends Item implements Equipable {
         return EquipmentSlot.HEAD;
     }
 
+    public ControllerType getControllerType()
+
+    {
+        return type;
+    }
+
     /**
      * Custom goal for controlled mob attacks, allowing the mob to attack the target for a specified duration.
      */
@@ -120,7 +128,6 @@ public class ItemController extends Item implements Equipable {
         private final LivingEntity target;
         private final int duration;
         private int tickCount = 0;
-
 
         public ControlledAttackGoal(Player player, Monster controlledMob, LivingEntity target, int duration) {
             super(controlledMob, true);
@@ -150,6 +157,7 @@ public class ItemController extends Item implements Equipable {
 
             if (tickCount > duration) {
                 this.controlledMob.setTarget(null);
+
             }
         }
 
@@ -171,6 +179,7 @@ public class ItemController extends Item implements Equipable {
             this.controlledMob.setTarget(null);
             super.stop();
         }
+
     }
 
     /**
@@ -180,6 +189,8 @@ public class ItemController extends Item implements Equipable {
 
         private final Monster controlledMob;
         private final Player owner;
+        NearestAttackableTargetGoal<Player> goal ;
+
 
         /**
          * Constructs a PreventPlayerTargetGoal.
@@ -191,6 +202,8 @@ public class ItemController extends Item implements Equipable {
             super(controlledMob, Player.class, true);
             this.controlledMob = controlledMob;
             this.owner = owner;
+            this.goal = new NearestAttackableTargetGoal<>(controlledMob, Player.class,false);
+
         }
 
         /**
@@ -221,5 +234,10 @@ public class ItemController extends Item implements Equipable {
         public boolean canContinueToUse() {
             return controlledMob.getTarget() != owner && super.canContinueToUse();
         }
+
+        public NearestAttackableTargetGoal<Player> getGoal() {
+            return goal;
+        }
     }
+
 }
