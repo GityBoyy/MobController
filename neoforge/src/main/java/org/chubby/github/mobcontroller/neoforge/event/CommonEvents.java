@@ -18,10 +18,8 @@ import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 
 import java.util.Set;
-
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-public class CommonEvents
-{
+public class CommonEvents {
 
     @SubscribeEvent
     public static void onPlayerRightClickMob(PlayerInteractEvent.EntityInteract event)
@@ -38,7 +36,7 @@ public class CommonEvents
                 ItemController.assignControlledMob(player,mob);
             }
 
-            if (ItemController.playerMobControlMap.containsKey(player) && ItemController.playerMobControlMap.get(player).equals(mob)) {
+            if (ItemController.getplayerMobControlMap().containsKey(player) && ItemController.getplayerMobControlMap().get(player).equals(mob)) {
                 if (!mob.isPassenger()) {
                     player.startRiding(mob,true);
                 }
@@ -48,17 +46,15 @@ public class CommonEvents
     }
 
     @SubscribeEvent
-    public static void livingVisibility(LivingEvent.LivingVisibilityEvent event) {
-        LivingEntity entity = event.getEntity();
-
-        if (entity instanceof Monster monster) {
-            if (ItemController.playerMobControlMap.containsValue(monster)) {
-                Set<Player> players = ItemController.playerMobControlMap.keySet();
-                for (Player player : players) {
-                    if (monster.getTarget() != null && monster.getTarget().equals(player)) {
-                        event.modifyVisibility(0);
-                    }
-                }
+    public static void livingEquipmentChange(LivingEquipmentChangeEvent event)
+    {
+        Entity entity = event.getEntity();
+        if(entity instanceof Monster monster)
+        {
+            if(ItemController.getplayerMobControlMap().containsValue(monster))
+            {
+                monster.getNavigation().recomputePath();
+                monster.setAggressive(false);
             }
         }
     }

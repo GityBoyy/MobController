@@ -6,7 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "MixinLivingEntityMobController"
+    "MixinRideControlledMob"
   ],
   "injectors": {
     "defaultRequire": 1

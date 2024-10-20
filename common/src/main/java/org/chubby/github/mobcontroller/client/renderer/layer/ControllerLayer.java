@@ -24,19 +24,7 @@ public class ControllerLayer<T extends Monster, M extends EntityModel<T>> extend
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ItemController controller) {
-            ControllerType type = controller.getControllerType();
 
-            Block block = type.getAssociatedBlock();
-            BlockItem blockItem = (BlockItem) block.asItem();
-
-            poseStack.pushPose();
-
-            poseStack.translate(0.0, 1.5, 0.0);
-            poseStack.scale(0.5f, 0.5f, 0.5f);
-
-            this.getParentModel().renderToBuffer(poseStack, multiBufferSource.getBuffer(this.getParentModel().renderType(ResourceLocation.parse(blockItem.getDefaultInstance().toString()))), packedLight, OverlayTexture.NO_OVERLAY);
-
-            poseStack.popPose();
         }
     }
 }

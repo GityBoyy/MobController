@@ -35,7 +35,7 @@ public final class MobcontrollerFabricClient implements ClientModInitializer {
                 return InteractionResult.SUCCESS;
             }
 
-            if (ItemController.playerMobControlMap.containsKey(player) && ItemController.playerMobControlMap.get(player).equals(monster)) {
+            if (ItemController.getplayerMobControlMap().containsKey(player) && ItemController.getplayerMobControlMap().get(player).equals(monster)) {
                 if (!monster.isPassenger()) {
                     player.startRiding(monster,true);
                     return InteractionResult.SUCCESS;
