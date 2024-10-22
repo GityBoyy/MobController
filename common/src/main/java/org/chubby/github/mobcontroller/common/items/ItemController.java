@@ -20,7 +20,6 @@ public class ItemController extends Item implements Equipable {
     private final int ATTACK_DURATION;
     private static final Map<Player, Monster> PLAYER_MONSTER_MAP = new HashMap<>();
 
-
     public ItemController(Properties properties, ControllerType type) {
         super(properties);
         this.type = type;
@@ -70,7 +69,7 @@ public class ItemController extends Item implements Equipable {
      * @param duration The duration of the attack in ticks.
      */
     private void startControlledAttack(Player owner, Monster controlledMob, LivingEntity target, int duration) {
-        if (controlledMob.getTarget() instanceof Player player) {
+        if (controlledMob.getTarget() instanceof Player) {
             if(ItemController.getplayerMobControlMap().containsKey(owner)){
                 controlledMob.setAggressive(false);
                 controlledMob.setTarget(target);

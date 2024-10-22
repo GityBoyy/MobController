@@ -4,58 +4,45 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.common.items.ItemController;
+import org.chubby.github.mobcontroller.util.UtilityMethods;
 
-import java.util.Set;
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void onPlayerRightClickMob(PlayerInteractEvent.EntityInteract event)
-    {
+    public static void onPlayerRightClickMob(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();
-        Level level = event.getLevel();
-        Entity entity = event.getTarget();
-        if(entity instanceof Monster mob)
-        {
-            ItemStack stack = player.getMainHandItem();
-            if(stack.getItem() instanceof ItemController && player.isShiftKeyDown()){
-                mob.setItemSlot(EquipmentSlot.HEAD,stack.copyWithCount(1));
-                stack.consume(1,player);
-                ItemController.assignControlledMob(player,mob);
-            }
+        Entity targetEntity = event.getTarget();
 
-            if (ItemController.getplayerMobControlMap().containsKey(player) && ItemController.getplayerMobControlMap().get(player).equals(mob)) {
-                if (!mob.isPassenger()) {
-                    player.startRiding(mob,true);
-                }
-            }
+        if (!(targetEntity instanceof Monster monster)) return;
+
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof ItemController controller)) return;
+
+        if (player.isShiftKeyDown()) {
+            UtilityMethods.assignControl(player, monster, stack, controller);
         }
 
+        if (UtilityMethods.isPlayerControllingMob(player, monster) && UtilityMethods.isMobEligibleForRide(monster)) {
+            player.startRiding(monster, true);
+        }
     }
 
     @SubscribeEvent
-    public static void livingEquipmentChange(LivingEquipmentChangeEvent event)
-    {
+    public static void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
         Entity entity = event.getEntity();
-        if(entity instanceof Monster monster)
-        {
-            if(ItemController.getplayerMobControlMap().containsValue(monster))
-            {
-                monster.getNavigation().recomputePath();
-                monster.setAggressive(false);
-            }
+
+        if (entity instanceof Monster monster && ItemController.getplayerMobControlMap().containsValue(monster)) {
+            monster.getNavigation().recomputePath();
+            monster.setAggressive(false);
         }
     }
+
+
 }
