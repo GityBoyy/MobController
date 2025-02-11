@@ -17,6 +17,14 @@ public class ItemRegistry
 
     public static RegistrySupplier<Item> COPPER_CONTROLLER = ITEMS.register(Utils.resource("copper_controller"),
             Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.COPPER)));
+    public static RegistrySupplier<Item> IRON_CONTROLLER = ITEMS.register(Utils.resource("iron_controller"),
+            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.IRON)));
+    public static RegistrySupplier<Item> GOLD_CONTROLLER = ITEMS.register(Utils.resource("gold_controller"),
+            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.GOLD)));
+    public static RegistrySupplier<Item> DIAMOND_CONTROLLER = ITEMS.register(Utils.resource("diamond_controller"),
+            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.DIAMOND)));
+    public static RegistrySupplier<Item> NETHERITE_CONTROLLER = ITEMS.register(Utils.resource("netherite_controller"),
+            Suppliers.memoize(()->new ItemController(new Item.Properties().stacksTo(1),ControllerType.NETHERITE)));
 
 
 }

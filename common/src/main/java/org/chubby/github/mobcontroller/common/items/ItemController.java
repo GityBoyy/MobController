@@ -31,8 +31,13 @@ public class ItemController extends Item implements Equipable {
         if (entity instanceof Player player) {
             Monster controlledMob = findControlledMob(player);
             if (controlledMob != null) {
+                if (controlledMob.getTarget() == player) {
+                    controlledMob.setTarget(null);
+                    controlledMob.setAggressive(false);
+                }
+
                 LivingEntity target = player.getLastHurtMob();
-                if (target != null) {
+                if (target != null && target != player) {
                     startControlledAttack(player, controlledMob, target, ATTACK_DURATION);
                 }
             }
@@ -69,15 +74,14 @@ public class ItemController extends Item implements Equipable {
      * @param duration The duration of the attack in ticks.
      */
     private void startControlledAttack(Player owner, Monster controlledMob, LivingEntity target, int duration) {
-        if (controlledMob.getTarget() instanceof Player) {
-            if(ItemController.getplayerMobControlMap().containsKey(owner)){
-                controlledMob.setAggressive(false);
+        if (ItemController.getplayerMobControlMap().containsKey(owner) &&
+                ItemController.getplayerMobControlMap().get(owner) == controlledMob) {
+
+            if (target != owner) {
                 controlledMob.setTarget(target);
+                controlledMob.setAggressive(true);
             }
-
         }
-
-        controlledMob.setTarget(target);
     }
 
 

@@ -4,8 +4,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.chubby.github.mobcontroller.Constants;
@@ -41,6 +43,19 @@ public class CommonEvents {
         if (entity instanceof Monster monster && ItemController.getplayerMobControlMap().containsValue(monster)) {
             monster.getNavigation().recomputePath();
             monster.setAggressive(false);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onEntityTarget(LivingChangeTargetEvent event) {
+        Entity entity = event.getEntity();
+        Entity target = event.getNewAboutToBeSetTarget();
+
+        if (entity instanceof Monster monster && target instanceof Player player) {
+            if (ItemController.getplayerMobControlMap().containsKey(player) &&
+                    ItemController.getplayerMobControlMap().get(player) == monster) {
+                event.setCanceled(true);
+            }
         }
     }
 
