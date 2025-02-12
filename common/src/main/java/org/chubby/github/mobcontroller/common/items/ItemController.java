@@ -9,6 +9,7 @@ import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.chubby.github.mobcontroller.core.config.MCConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -36,9 +37,12 @@ public class ItemController extends Item implements Equipable {
                     controlledMob.setAggressive(false);
                 }
 
-                LivingEntity target = player.getLastHurtMob();
-                if (target != null && target != player) {
-                    startControlledAttack(player, controlledMob, target, ATTACK_DURATION);
+                if (player.getLastHurtMob() != null) {
+                    startControlledAttack(player, controlledMob, player.getLastHurtMob(), MCConfig.controlTick.getValue());
+                }
+
+                if (player.getLastHurtByMob() != null && player.getLastHurtByMob() != controlledMob) {
+                    startControlledAttack(player, controlledMob, player.getLastHurtByMob(), MCConfig.controlTick.getValue());
                 }
             }
         }
@@ -62,6 +66,7 @@ public class ItemController extends Item implements Equipable {
      * @param mob The mob being controlled.
      */
     public static void assignControlledMob(Player player, Monster mob) {
+
         getplayerMobControlMap().put(player, mob);
     }
 

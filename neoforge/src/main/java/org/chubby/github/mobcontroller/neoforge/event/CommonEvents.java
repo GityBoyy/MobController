@@ -1,16 +1,26 @@
 package org.chubby.github.mobcontroller.neoforge.event;
 
-import net.minecraft.world.entity.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import org.chubby.github.mobcontroller.Constants;
+import org.chubby.github.mobcontroller.common.data.SaveControlledMob;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
 
@@ -28,11 +38,25 @@ public class CommonEvents {
         if (!(stack.getItem() instanceof ItemController controller)) return;
 
         if (player.isShiftKeyDown()) {
-            UtilityMethods.assignControl(player, monster, stack, controller);
-        }
+            if (UtilityMethods.assignControl(player, monster, stack, controller)) {
+                player.displayClientMessage(Component.translatable("message.mobcontroller.control_success")
+                        .withStyle(ChatFormatting.GREEN), true);
 
-        if (UtilityMethods.isPlayerControllingMob(player, monster) && UtilityMethods.isMobEligibleForRide(monster)) {
-            player.startRiding(monster, true);
+                player.level().playSound(null, monster.getX(), monster.getY(), monster.getZ(),
+                        SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+                for (int i = 0; i < 10; i++) {
+                    player.level().addParticle(ParticleTypes.END_ROD,
+                            monster.getX() + (player.level().random.nextDouble() - 0.5D) * 2.0D,
+                            monster.getY() + player.level().random.nextDouble() * 2.0D,
+                            monster.getZ() + (player.level().random.nextDouble() - 0.5D) * 2.0D,
+                            0, 0, 0);
+                }
+            }
+
+            if (UtilityMethods.isPlayerControllingMob(player, monster) && UtilityMethods.isMobEligibleForRide(monster)) {
+                player.startRiding(monster, true);
+            }
         }
     }
 
@@ -43,6 +67,7 @@ public class CommonEvents {
         if (entity instanceof Monster monster && ItemController.getplayerMobControlMap().containsValue(monster)) {
             monster.getNavigation().recomputePath();
             monster.setAggressive(false);
+
         }
     }
 
@@ -59,5 +84,16 @@ public class CommonEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onPlayerLogIn(PlayerEvent.PlayerLoggedInEvent event) {
+        SaveControlledMob savedData = SaveControlledMob.get((ServerLevel) event.getEntity().level());
+        savedData.loadControlledMobs((ServerLevel) event.getEntity().level());
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        SaveControlledMob savedData = SaveControlledMob.get((ServerLevel) event.getEntity().level());
+        savedData.setDirty();
+    }
 
 }

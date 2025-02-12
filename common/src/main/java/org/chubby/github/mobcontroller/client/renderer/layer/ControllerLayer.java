@@ -14,6 +14,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import org.chubby.github.mobcontroller.common.items.ControllerType;
 import org.chubby.github.mobcontroller.common.items.ItemController;
+import org.joml.Quaternionf;
 
 public class ControllerLayer<T extends Monster, M extends EntityModel<T>> extends RenderLayer<T, M> {
 

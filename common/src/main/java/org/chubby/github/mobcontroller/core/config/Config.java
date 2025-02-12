@@ -2,6 +2,7 @@ package org.chubby.github.mobcontroller.core.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.core.config.property.BoolProperty;
 import org.chubby.github.mobcontroller.core.config.property.DoubleProperty;
 import org.chubby.github.mobcontroller.core.config.property.FloatProperty;
@@ -44,17 +45,13 @@ public class Config {
                     field.setAccessible(true);
                     Object property = field.get(null);
 
-                    if (property instanceof IntProperty) {
-                        IntProperty intProperty = (IntProperty) property;
+                    if (property instanceof IntProperty intProperty) {
                         configJson.add("intProperty", createJsonObject(intProperty));
-                    } else if (property instanceof BoolProperty) {
-                        BoolProperty boolProperty = (BoolProperty) property;
+                    } else if (property instanceof BoolProperty boolProperty) {
                         configJson.add("boolProperty", createJsonObject(boolProperty));
-                    } else if (property instanceof FloatProperty) {
-                        FloatProperty floatProperty = (FloatProperty) property;
+                    } else if (property instanceof FloatProperty floatProperty) {
                         configJson.add("floatProperty", createJsonObject(floatProperty));
-                    } else if (property instanceof DoubleProperty) {
-                        DoubleProperty doubleProperty = (DoubleProperty) property;
+                    } else if (property instanceof DoubleProperty doubleProperty) {
                         configJson.add("doubleProperty", createJsonObject(doubleProperty));
                     }
                 } catch (IllegalAccessException e) {
@@ -105,25 +102,21 @@ public class Config {
                     field.setAccessible(true);
                     Object property = field.get(null);
 
-                    if (property instanceof IntProperty && configJson.has("intProperty")) {
-                        IntProperty intProperty = (IntProperty) property;
+                    if (property instanceof IntProperty intProperty && configJson.has("intProperty")) {
                         JsonObject intObj = configJson.getAsJsonObject("intProperty");
                         intProperty.setValue(intObj.get("value").getAsInt());
-                    } else if (property instanceof BoolProperty && configJson.has("boolProperty")) {
-                        BoolProperty boolProperty = (BoolProperty) property;
+                    } else if (property instanceof BoolProperty boolProperty && configJson.has("boolProperty")) {
                         JsonObject boolObj = configJson.getAsJsonObject("boolProperty");
                         boolProperty.setValue(boolObj.get("value").getAsBoolean());
-                    } else if (property instanceof FloatProperty && configJson.has("floatProperty")) {
-                        FloatProperty floatProperty = (FloatProperty) property;
+                    } else if (property instanceof FloatProperty floatProperty && configJson.has("floatProperty")) {
                         JsonObject floatObj = configJson.getAsJsonObject("floatProperty");
                         floatProperty.setValue(floatObj.get("value").getAsFloat());
-                    } else if (property instanceof DoubleProperty && configJson.has("doubleProperty")) {
-                        DoubleProperty doubleProperty = (DoubleProperty) property;
+                    } else if (property instanceof DoubleProperty doubleProperty && configJson.has("doubleProperty")) {
                         JsonObject doubleObj = configJson.getAsJsonObject("doubleProperty");
                         doubleProperty.setValue(doubleObj.get("value").getAsDouble());
                     }
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    Constants.LOGGER.warn("Properties file is null!");
                 }
             }
         }

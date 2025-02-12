@@ -17,41 +17,54 @@ public class ConfigScreen extends Screen {
         super(Component.literal("Mob Controller Config"));
     }
 
-    public ConfigScreen(Screen screen)
-    {
+    public ConfigScreen(Screen parent) {
         super(Component.literal("Mob Controller Config"));
     }
 
     @Override
     protected void init() {
-        this.addRenderableWidget(new StringWidget(120,60,Component.literal("Mob Controller Config"), this.font));
+        // Title
+        this.addRenderableWidget(new StringWidget(width / 2 - 75, 30, Component.literal("Mob Controller Config")
+                .setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.GOLD)), this.font));
 
-        this.addRenderableWidget(new StringWidget(120,55,Component.literal("                 "), this.font));
+        // Subtitle
+        this.addRenderableWidget(new StringWidget(width / 2 - 75, 50, Component.literal("Configure your settings here")
+                .setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)), this.font));
 
-        addIntConfigSlider(MCConfig.controlTick, 50);
+        // Separator
+        this.addRenderableWidget(createSeparator(70));
+
+        // Sliders
+        addIntConfigSlider(MCConfig.controlTick, 90);
     }
 
     private Component createTitle(String title) {
         return Component.literal(title).setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.YELLOW));
     }
 
-    private AbstractSliderButton createSeparator(int offset) {
-        return new AbstractSliderButton(10, offset, 180, 2, Component.empty(), 0.0) {
+    private AbstractSliderButton createSeparator(int yOffset) {
+        return new AbstractSliderButton(width / 2 - 90, yOffset, 180, 2, Component.empty(), 0.0) {
             @Override
-            protected void updateMessage() {
-
-            }
+            protected void updateMessage() {}
 
             @Override
-            protected void applyValue() {
+            protected void applyValue() {}
 
+            @Override
+            public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+                guiGraphics.fillGradient(this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height,
+                        0xFF555555, 0xFFAAAAAA);
             }
         };
     }
 
     private void addIntConfigSlider(IntProperty property, int yOffset) {
-        this.addRenderableWidget(new StringWidget(-5,yOffset,150,20,Component.literal(property.getName()),this.font));
-        this.addRenderableWidget(new AbstractSliderButton(100, yOffset, 150, 20,
+        // Label
+        this.addRenderableWidget(new StringWidget(width / 2 - 150, yOffset + 5, 150, 20,
+                Component.literal(property.getName()).setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)), this.font));
+
+        // Slider
+        this.addRenderableWidget(new AbstractSliderButton(width / 2, yOffset, 150, 20,
                 Component.literal(property.getValue().toString()), property.getValue() / 500.0) {
 
             @Override
@@ -65,12 +78,12 @@ public class ConfigScreen extends Screen {
             }
 
             @Override
-            public void renderWidget(GuiGraphics guiGraphics, int i, int j, float f) {
-                super.renderWidget(guiGraphics, i, j, f);
+            public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+                super.renderWidget(guiGraphics, mouseX, mouseY, partialTicks);
 
-                if(this.isHovered())
-                {
-                    guiGraphics.renderTooltip(font,Component.literal(property.getDescription()),i,j);
+                // Tooltip
+                if (this.isHovered()) {
+                    guiGraphics.renderTooltip(font, Component.literal(property.getDescription()), mouseX, mouseY);
                 }
             }
         });

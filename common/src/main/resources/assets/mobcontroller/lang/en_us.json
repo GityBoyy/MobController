@@ -1,3 +1,4 @@
 {
-  "item.mobcontroller.copper_controller": "Copper Controller"
+  "item.mobcontroller.copper_controller": "Copper Controller",
+  "message.mobcontroller.control_success": "Successfully assigned a mob"
 }
