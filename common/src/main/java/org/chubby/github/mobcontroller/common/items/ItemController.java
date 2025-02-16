@@ -28,26 +28,30 @@ public class ItemController extends Item implements Equipable {
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof Player player) {
             Monster controlledMob = findControlledMob(player);
+
             if (controlledMob != null) {
                 if (controlledMob.getTarget() == player) {
                     controlledMob.setTarget(null);
                     controlledMob.setAggressive(false);
                 }
 
-                if (player.getLastHurtMob() != null) {
-                    startControlledAttack(player, controlledMob, player.getLastHurtMob(), MCConfig.controlTick.getValue());
+                LivingEntity lastHurtMob = player.getLastHurtMob();
+                if (lastHurtMob != null) {
+                    startControlledAttack(player, controlledMob, lastHurtMob, MCConfig.controlTick.getValue());
                 }
 
-                if (player.getLastHurtByMob() != null && player.getLastHurtByMob() != controlledMob) {
-                    startControlledAttack(player, controlledMob, player.getLastHurtByMob(), MCConfig.controlTick.getValue());
+                LivingEntity lastHurtByMob = player.getLastHurtByMob();
+                if (lastHurtByMob != null && lastHurtByMob != controlledMob) {
+                    startControlledAttack(player, controlledMob, lastHurtByMob, MCConfig.controlTick.getValue());
                 }
             }
         }
-        super.inventoryTick(itemStack, level, entity, i, bl);
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
     }
+
 
     /**
      * Finds the mob controlled by the given player.

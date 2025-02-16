@@ -1,6 +1,7 @@
 package org.chubby.github.mobcontroller.neoforge.event;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,16 +14,17 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import org.chubby.github.mobcontroller.Constants;
+import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
 import org.chubby.github.mobcontroller.common.data.SaveControlledMob;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
+import org.chubby.github.mobcontroller.util.Utils;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonEvents {
@@ -86,9 +88,12 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onPlayerLogIn(PlayerEvent.PlayerLoggedInEvent event) {
-        SaveControlledMob savedData = SaveControlledMob.get((ServerLevel) event.getEntity().level());
-        savedData.loadControlledMobs((ServerLevel) event.getEntity().level());
+        if (event.getEntity().level() instanceof ServerLevel serverLevel) {
+            SaveControlledMob savedData = SaveControlledMob.get(serverLevel);
+            savedData.loadControlledMobs(serverLevel);
+        }
     }
+
 
     @SubscribeEvent
     public static void onPlayerLogOut(PlayerEvent.PlayerLoggedOutEvent event) {
@@ -96,4 +101,9 @@ public class CommonEvents {
         savedData.setDirty();
     }
 
+    @SubscribeEvent
+    public static void onRenderGuiEvent(RenderGuiEvent.Post event)
+    {
+        GogglesScreen.onRenderGui(event.getGuiGraphics());
+    }
 }

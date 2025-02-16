@@ -1,6 +1,5 @@
 package org.chubby.github.mobcontroller.core.config.property.impl;
 
-import org.jetbrains.annotations.NotNull;
 import org.lwjgl.system.NonnullDefault;
 
 import java.lang.annotation.ElementType;
@@ -36,7 +35,6 @@ import java.lang.annotation.Target;
  * It is retained at runtime for reflection purposes.
  * </p>
  */
-@NotNull
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @NonnullDefault

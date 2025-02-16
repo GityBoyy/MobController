@@ -14,10 +14,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SaveControlledMob extends SavedData {
-    private static final String DATA_NAME = "controlled_mobs";
-    private final Map<UUID, UUID> controlledMobData = new HashMap<>();
+    private static final String
+            DATA_NAME = "controlled_mobs";
+    private final ConcurrentHashMap<UUID, UUID> controlledMobData = new ConcurrentHashMap<>();
 
     public SaveControlledMob() {
         super();
@@ -74,9 +76,10 @@ public class SaveControlledMob extends SavedData {
         });
     }
 
+
     public static SaveControlledMob get(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(
-                new Factory<SaveControlledMob>(SaveControlledMob::new,SaveControlledMob::load, DataFixTypes.ENTITY_CHUNK),
+                new Factory<>(SaveControlledMob::new, SaveControlledMob::load, DataFixTypes.ENTITY_CHUNK),
                 DATA_NAME
         );
     }

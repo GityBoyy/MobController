@@ -14,51 +14,65 @@ public class ControllerChances {
 
     static {
         // Basic hostile mobs
-        registerChance(EntityType.ZOMBIE, new ControlChanceData(80, 1.2f));
-        registerChance(EntityType.SKELETON, new ControlChanceData(75, 1.1f));
-        registerChance(EntityType.SPIDER, new ControlChanceData(70, 1.0f));
-        registerChance(EntityType.CREEPER, new ControlChanceData(60, 1.3f));
-        registerChance(EntityType.DROWNED, new ControlChanceData(75, 1.1f));
-        registerChance(EntityType.HUSK, new ControlChanceData(78, 1.2f));
-        registerChance(EntityType.STRAY, new ControlChanceData(72, 1.1f));
+        registerChance(EntityType.ZOMBIE, ControlChanceData.create(64, 1.2f));
+        registerChance(EntityType.SKELETON, ControlChanceData.create(60, 1.1f));
+        registerChance(EntityType.SPIDER, ControlChanceData.create(56, 1.0f));
+        registerChance(EntityType.CREEPER, ControlChanceData.create(48, 1.3f));
+        registerChance(EntityType.DROWNED, ControlChanceData.create(60, 1.1f));
+        registerChance(EntityType.HUSK, ControlChanceData.create(62, 1.2f));
+        registerChance(EntityType.STRAY, ControlChanceData.create(58, 1.1f));
 
         // Stronger mobs
-        registerChance(EntityType.WITCH, new ControlChanceData(50, 1.5f));
-        registerChance(EntityType.ENDERMAN, new ControlChanceData(40, 1.6f));
-        registerChance(EntityType.BLAZE, new ControlChanceData(45, 1.4f));
-        registerChance(EntityType.WITHER_SKELETON, new ControlChanceData(35, 1.7f));
-        registerChance(EntityType.PILLAGER, new ControlChanceData(65, 1.2f));
-        registerChance(EntityType.VINDICATOR, new ControlChanceData(50, 1.4f));
-        registerChance(EntityType.EVOKER, new ControlChanceData(30, 1.7f));
-        registerChance(EntityType.ILLUSIONER, new ControlChanceData(25, 1.8f));
+        registerChance(EntityType.WITCH, ControlChanceData.create(40, 1.5f));
+        registerChance(EntityType.ENDERMAN, ControlChanceData.create(32, 1.6f));
+        registerChance(EntityType.BLAZE, ControlChanceData.create(36, 1.4f));
+        registerChance(EntityType.WITHER_SKELETON, ControlChanceData.create(28, 1.7f));
+        registerChance(EntityType.PILLAGER, ControlChanceData.create(52, 1.2f));
+        registerChance(EntityType.VINDICATOR, ControlChanceData.create(40, 1.4f));
+        registerChance(EntityType.EVOKER, ControlChanceData.create(24, 1.7f));
+        registerChance(EntityType.ILLUSIONER, ControlChanceData.create(20, 1.8f));
 
         // Mini-bosses
-        registerChance(EntityType.RAVAGER, new ControlChanceData(30, 2.0f));
-        registerChance(EntityType.ELDER_GUARDIAN, new ControlChanceData(25, 2.0f));
-        registerChance(EntityType.WARDEN, new ControlChanceData(5, 3.5f));
+        registerChance(EntityType.RAVAGER, ControlChanceData.create(24, 2.0f));
+        registerChance(EntityType.ELDER_GUARDIAN, ControlChanceData.create(20, 2.0f));
+        registerChance(EntityType.WARDEN, ControlChanceData.create(4, 3.5f));
 
         // Nether mobs
-        registerChance(EntityType.PIGLIN_BRUTE, new ControlChanceData(35, 1.7f));
-        registerChance(EntityType.HOGLIN, new ControlChanceData(45, 1.5f));
-        registerChance(EntityType.GHAST, new ControlChanceData(40, 1.6f));
-        registerChance(EntityType.ZOGLIN, new ControlChanceData(30, 1.8f));
-        registerChance(EntityType.MAGMA_CUBE, new ControlChanceData(50, 1.3f));
+        registerChance(EntityType.PIGLIN_BRUTE, ControlChanceData.create(28, 1.7f));
+        registerChance(EntityType.HOGLIN, ControlChanceData.create(36, 1.5f));
+        registerChance(EntityType.GHAST, ControlChanceData.create(32, 1.6f));
+        registerChance(EntityType.ZOGLIN, ControlChanceData.create(24, 1.8f));
+        registerChance(EntityType.MAGMA_CUBE, ControlChanceData.create(40, 1.3f));
 
         // End mobs
-        registerChance(EntityType.SHULKER, new ControlChanceData(35, 1.8f));
-        registerChance(EntityType.ENDERMITE, new ControlChanceData(70, 1.0f));
-        registerChance(EntityType.PHANTOM, new ControlChanceData(55, 1.2f));
+        registerChance(EntityType.SHULKER, ControlChanceData.create(28, 1.8f));
+        registerChance(EntityType.ENDERMITE, ControlChanceData.create(56, 1.0f));
+        registerChance(EntityType.PHANTOM, ControlChanceData.create(44, 1.2f));
 
         // New hostile mobs in 1.21
-        registerChance(EntityType.BREEZE, new ControlChanceData(30, 2.2f));
-        registerChance(EntityType.BOGGED, new ControlChanceData(60, 1.5f));
+        registerChance(EntityType.BREEZE, ControlChanceData.create(24, 2.2f));
+        registerChance(EntityType.BOGGED, ControlChanceData.create(48, 1.5f));
     }
+
 
     /**
      * @param baseChance           Base chance percentage (0-100)
      * @param controllerMultiplier Multiplier for different controller types
      */
-    public record ControlChanceData(int baseChance, float controllerMultiplier) {
+    public record ControlChanceData(int baseChance, float controllerMultiplier)
+    {
+        public static ControlChanceData create(int baseChance, float controllerMultiplier)
+        {
+            return new ControlChanceData(baseChance,controllerMultiplier);
+        }
+        public static ControlChanceData withDefaultMultiplier(int baseChance)
+        {
+            return new ControlChanceData(baseChance,1.0F);
+        }
+        public static ControlChanceData withDefaultChance(float controllerMultiplier)
+        {
+            return new ControlChanceData(1,controllerMultiplier);
+        }
     }
 
     private static void registerChance(EntityType<?> entityType, ControlChanceData data) {

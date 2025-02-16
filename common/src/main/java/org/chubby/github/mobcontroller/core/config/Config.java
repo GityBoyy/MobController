@@ -25,23 +25,16 @@ public class Config {
 
     /**
      * Saves the current configuration properties to a JSON file.
-     * <p>
      *
-     * 1. Create a new JsonObject to hold the configuration data.<br>
-     * 2. Iterate through the declared fields of the MCConfig class.<br>
-     * 3. For each field annotated with @ConfigProperty:<br>
-     *    - Set it accessible to retrieve its value.<br>
-     *    - Check the type of the property (IntProperty, BoolProperty, etc.).<br>
-     *    - Create a JSON representation of the property and add it to the JsonObject.<br>
-     * 4. Write the JsonObject to the specified JSON file using Gson.<br>
+     * @return true if the configuration was saved successfully, false otherwise
      */
-    public static void saveConfig() {
+    public static boolean saveConfig() {
         JsonObject configJson = new JsonObject();
 
-        Field[] fields = MCConfig.class.getDeclaredFields();
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(ConfigProperty.class)) {
-                try {
+        try {
+            Field[] fields = MCConfig.class.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(ConfigProperty.class)) {
                     field.setAccessible(true);
                     Object property = field.get(null);
 
@@ -54,16 +47,19 @@ public class Config {
                     } else if (property instanceof DoubleProperty doubleProperty) {
                         configJson.add("doubleProperty", createJsonObject(doubleProperty));
                     }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
             }
-        }
 
-        try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
-            GSON.toJson(configJson, writer);
-        } catch (IOException e) {
+            try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
+                GSON.toJson(configJson, writer);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
