@@ -1,6 +1,5 @@
 package org.chubby.github.mobcontroller.mixin;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,11 +19,11 @@ public abstract class MixinRideControlledMob {
     private void mobcontroller$travel(Vec3 travelVector, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        // Check if this entity is being ridden and is a controlled Monster
+        // Check if the entity is being ridden and is a Monster
         if (entity.isVehicle() && entity instanceof Monster monster) {
-            Player controllingPlayer = (Player) entity.getControllingPassenger(); // Get the player riding this entity
+            if (entity.getControllingPassenger() instanceof Player controllingPlayer
+                    && ItemController.getplayerMobControlMap().containsKey(controllingPlayer)) {
 
-            if (controllingPlayer != null && ItemController.getplayerMobControlMap().containsKey(controllingPlayer)) {
                 // Control the mob's rotation to match the player's rotation
                 entity.setYRot(controllingPlayer.getYRot());
                 entity.yRotO = entity.getYRot();
@@ -33,21 +32,24 @@ public abstract class MixinRideControlledMob {
                 entity.yBodyRot = entity.getYRot();
                 entity.yHeadRot = entity.yBodyRot;
 
-                // Use player's movement inputs for mob's movement
-                float strafe = controllingPlayer.xxa * 0.5F; // Strafe movement
-                float forward = controllingPlayer.zza; // Forward/backward movement
+                // Get the player's movement inputs
+                float strafe = controllingPlayer.xxa * 0.5F;
+                float forward = controllingPlayer.zza;
 
+                // Only move if this instance controls the entity
                 if (entity.isControlledByLocalInstance()) {
-                    float movementSpeed = (float) entity.getAttributeValue(Attributes.MOVEMENT_SPEED);
+                    double baseSpeed = entity.getAttributeValue(Attributes.MOVEMENT_SPEED);
+                    float movementSpeed = (float) baseSpeed;
 
-                    // Double speed if sprinting
-                    if (Minecraft.getInstance().options.keySprint.isDown()) {
+                    // Double speed if the player is sprinting
+                    if (controllingPlayer.isSprinting()) {
                         movementSpeed *= 2.0F;
                     }
 
-                    entity.setSpeed(movementSpeed); // Set the speed based on the mob's movement speed
-                    entity.travel(new Vec3(strafe, travelVector.y, forward)); // Move the mob
-                    ci.cancel(); // Cancel further execution of the method to prevent normal movement
+                    // Set the speed and move the mob
+                    entity.setSpeed(movementSpeed);
+                    entity.travel(new Vec3(strafe, travelVector.y, forward));
+                    ci.cancel(); // Cancel further execution to override default movement
                 }
             }
         }
