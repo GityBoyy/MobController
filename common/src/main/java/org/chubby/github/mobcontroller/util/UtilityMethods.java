@@ -17,7 +17,9 @@ import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.common.items.util.ControllerChances;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 //This class will handle all the methods i need for Common Events class.
 public class UtilityMethods
@@ -25,7 +27,7 @@ public class UtilityMethods
     /**
      * Assigns control of the mob to the player, sets the controller item on the mob's head, and consumes the item.
      */
-    public static boolean assignControl(Player player, Monster mob, ItemStack stack, ItemController controller) {
+    public static boolean assignControl(UUID player, Monster mob, ItemStack stack, ItemController controller) {
 
         if (!ControllerChances.rollControlAttempt(mob, controller.getControllerType())) {
             return false;
@@ -37,7 +39,7 @@ public class UtilityMethods
         SaveControlledMob savedData;
         if(mob.level() instanceof ServerLevel level){
             savedData = SaveControlledMob.get(level);
-            savedData.addControlledMob(player, mob);
+            savedData.addControlledMob(Objects.requireNonNull(mob.level().getPlayerByUUID(player)), mob);
         }
         return true;
     }
@@ -45,8 +47,12 @@ public class UtilityMethods
     /**
      * Checks if the player is already controlling the specified mob.
      */
-    public static boolean isPlayerControllingMob(Player player, Monster mob) {
-        return ItemController.getplayerMobControlMap().get(player) == mob;
+    public static boolean isPlayerControllingMob(UUID player, Monster mob)
+    {
+        if(ItemController.getplayerMobControlMap().get(player).isPresent()){
+            return ItemController.getplayerMobControlMap().get(player).get() == mob;
+        }
+        return false;
     }
 
     /**

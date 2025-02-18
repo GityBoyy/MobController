@@ -1,4 +1,16 @@
 {
   "item.mobcontroller.copper_controller": "Copper Controller",
-  "message.mobcontroller.control_success": "Successfully assigned a mob"
+  "item.mobcontroller.iron_controller": "Iron Controller",
+  "item.mobcontroller.gold_controller": "Gold Controller",
+  "item.mobcontroller.diamond_controller": "Diamond Controller",
+  "item.mobcontroller.netherite_controller": "Netherite Controller",
+
+  "copper_to_iron_upgrade": "Copper to Iron Upgrade",
+  "iron_to_gold_upgrade": "Iron to Gold Upgrade",
+  "gold_to_diamon_upgrade": "Gold to Diamond Upgrade",
+  "diamond_to_netherite_upgrade": "Diamond to Netherite Upgrade",
+
+  "message.mobcontroller.control_success": "Successfully assigned a mob",
+
+  "creativetab.mobcontroller.tab" : "Mob Controller Tab"
 }

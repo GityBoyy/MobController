@@ -46,7 +46,7 @@ public final class MobcontrollerFabricClient implements ClientModInitializer {
 
         ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof ItemController controller)) return InteractionResult.FAIL;
-        if (UtilityMethods.assignControl(player, monster, stack, controller)) {
+        if (UtilityMethods.assignControl(player.getUUID(), monster, stack, controller)) {
             player.displayClientMessage(Component.translatable("message.mobcontroller.control_success")
                     .withStyle(ChatFormatting.GREEN), true);
 
@@ -64,7 +64,7 @@ public final class MobcontrollerFabricClient implements ClientModInitializer {
         }
         if (player.isShiftKeyDown()) {
 
-            if (UtilityMethods.isPlayerControllingMob(player, monster) && UtilityMethods.isMobEligibleForRide(monster)) {
+            if (UtilityMethods.isPlayerControllingMob(player.getUUID(), monster) && UtilityMethods.isMobEligibleForRide(monster)) {
                 player.startRiding(monster, true);
             }
         }

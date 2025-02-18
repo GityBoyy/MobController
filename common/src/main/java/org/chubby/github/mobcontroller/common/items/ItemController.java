@@ -9,17 +9,21 @@ import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.core.config.MCConfig;
+import org.chubby.github.mobcontroller.util.SafeConcurrentMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemController extends Item implements Equipable {
 
     public final ControllerType type;
     private final int ATTACK_DURATION;
-    private static final Map<Player, Monster> PLAYER_MONSTER_MAP = new HashMap<>();
+    private static final SafeConcurrentMap<UUID, Monster> PLAYER_MONSTER_MAP = new SafeConcurrentMap<>();
 
     public ItemController(Properties properties, ControllerType type) {
         super(properties);
@@ -30,7 +34,7 @@ public class ItemController extends Item implements Equipable {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof Player player) {
-            Monster controlledMob = findControlledMob(player);
+            Monster controlledMob = findControlledMob(player.getUUID());
 
             if (controlledMob != null) {
                 if (controlledMob.getTarget() == player) {
@@ -40,12 +44,12 @@ public class ItemController extends Item implements Equipable {
 
                 LivingEntity lastHurtMob = player.getLastHurtMob();
                 if (lastHurtMob != null) {
-                    startControlledAttack(player, controlledMob, lastHurtMob, MCConfig.controlTick.getValue());
+                    startControlledAttack(player.getUUID(), controlledMob, lastHurtMob, MCConfig.controlTick.getValue());
                 }
 
                 LivingEntity lastHurtByMob = player.getLastHurtByMob();
                 if (lastHurtByMob != null && lastHurtByMob != controlledMob) {
-                    startControlledAttack(player, controlledMob, lastHurtByMob, MCConfig.controlTick.getValue());
+                    startControlledAttack(player.getUUID(), controlledMob, lastHurtByMob, MCConfig.controlTick.getValue());
                 }
             }
         }
@@ -56,22 +60,23 @@ public class ItemController extends Item implements Equipable {
     /**
      * Finds the mob controlled by the given player.
      *
-     * @param player The player controlling the mob.
+     * @param uuid The player controlling the mob.
      * @return The controlled mob or null if none is found.
      */
-    private Monster findControlledMob(Player player) {
-        return getplayerMobControlMap().get(player);
+    private Monster findControlledMob(UUID uuid) {
+        if(getplayerMobControlMap().get(uuid).isPresent()) return getplayerMobControlMap().get(uuid).get();
+        return null;
     }
 
     /**
      * Assigns a mob to a player for control, preventing the mob from attacking the player.
      *
-     * @param player The player controlling the mob.
+     * @param playerUUID The player's uuid controlling the mob.
      * @param mob The mob being controlled.
      */
-    public static void assignControlledMob(Player player, Monster mob) {
+    public static void assignControlledMob(UUID playerUUID, Monster mob) {
 
-        getplayerMobControlMap().put(player, mob);
+        getplayerMobControlMap().put(playerUUID, mob);
     }
 
     /**
@@ -82,11 +87,11 @@ public class ItemController extends Item implements Equipable {
      * @param target The target of the attack.
      * @param duration The duration of the attack in ticks.
      */
-    private void startControlledAttack(Player owner, Monster controlledMob, LivingEntity target, int duration) {
-        if (ItemController.getplayerMobControlMap().containsKey(owner) &&
-                ItemController.getplayerMobControlMap().get(owner) == controlledMob) {
+    private void startControlledAttack(UUID owner, Monster controlledMob, LivingEntity target, int duration) {
+        if (ItemController.getplayerMobControlMap().containsKey(owner) && ItemController.getplayerMobControlMap().get(owner).isPresent() &&
+                ItemController.getplayerMobControlMap().get(owner).get() == controlledMob) {
 
-            if (target != owner) {
+            if (target != controlledMob.level().getPlayerByUUID(owner)) {
                 controlledMob.setTarget(target);
                 controlledMob.setAggressive(true);
             }
@@ -104,8 +109,20 @@ public class ItemController extends Item implements Equipable {
         return type;
     }
 
-    public static Map<Player, Monster> getplayerMobControlMap()
+    public static SafeConcurrentMap<UUID, Monster> getplayerMobControlMap()
     {
         return PLAYER_MONSTER_MAP;
+    }
+
+    private static class MonsterControl {
+        final Monster monster;
+        final long startTime;
+        boolean inventoryOpen;
+
+        MonsterControl(Monster monster) {
+            this.monster = monster;
+            this.startTime = System.currentTimeMillis();
+            this.inventoryOpen = false;
+        }
     }
 }

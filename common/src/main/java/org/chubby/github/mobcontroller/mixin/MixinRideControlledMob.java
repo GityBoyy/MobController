@@ -19,12 +19,10 @@ public abstract class MixinRideControlledMob {
     private void mobcontroller$travel(Vec3 travelVector, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        // Check if the entity is being ridden and is a Monster
         if (entity.isVehicle() && entity instanceof Monster monster) {
             if (entity.getControllingPassenger() instanceof Player controllingPlayer
-                    && ItemController.getplayerMobControlMap().containsKey(controllingPlayer)) {
+                    && ItemController.getplayerMobControlMap().containsKey(controllingPlayer.getUUID())) {
 
-                // Control the mob's rotation to match the player's rotation
                 entity.setYRot(controllingPlayer.getYRot());
                 entity.yRotO = entity.getYRot();
                 entity.setXRot(controllingPlayer.getXRot() * 0.5F);
@@ -32,24 +30,20 @@ public abstract class MixinRideControlledMob {
                 entity.yBodyRot = entity.getYRot();
                 entity.yHeadRot = entity.yBodyRot;
 
-                // Get the player's movement inputs
                 float strafe = controllingPlayer.xxa * 0.5F;
                 float forward = controllingPlayer.zza;
 
-                // Only move if this instance controls the entity
                 if (entity.isControlledByLocalInstance()) {
                     double baseSpeed = entity.getAttributeValue(Attributes.MOVEMENT_SPEED);
                     float movementSpeed = (float) baseSpeed;
 
-                    // Double speed if the player is sprinting
                     if (controllingPlayer.isSprinting()) {
                         movementSpeed *= 2.0F;
                     }
 
-                    // Set the speed and move the mob
                     entity.setSpeed(movementSpeed);
                     entity.travel(new Vec3(strafe, travelVector.y, forward));
-                    ci.cancel(); // Cancel further execution to override default movement
+                    ci.cancel();
                 }
             }
         }

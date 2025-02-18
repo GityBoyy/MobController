@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "texture": {
+    "lyaer0": "mobcontroller:item/copper_to_iron_upgrade"
+  }
+}

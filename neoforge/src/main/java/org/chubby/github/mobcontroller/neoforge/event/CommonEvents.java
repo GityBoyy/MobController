@@ -5,15 +5,22 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -21,10 +28,15 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
+import org.chubby.github.mobcontroller.client.screen.MonsterInventoryMenu;
 import org.chubby.github.mobcontroller.common.data.SaveControlledMob;
 import org.chubby.github.mobcontroller.common.items.ItemController;
+import org.chubby.github.mobcontroller.common.registry.MenuRegistry;
+import org.chubby.github.mobcontroller.mixin.MonsterMixin;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
 import org.chubby.github.mobcontroller.util.Utils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonEvents {
@@ -40,7 +52,8 @@ public class CommonEvents {
         if (!(stack.getItem() instanceof ItemController controller)) return;
 
         if (player.isShiftKeyDown()) {
-            if (UtilityMethods.assignControl(player, monster, stack, controller)) {
+            if (UtilityMethods.assignControl(player.getUUID(), monster, stack, controller)) {
+
                 player.displayClientMessage(Component.translatable("message.mobcontroller.control_success")
                         .withStyle(ChatFormatting.GREEN), true);
 
@@ -56,8 +69,10 @@ public class CommonEvents {
                 }
             }
 
-            if (UtilityMethods.isPlayerControllingMob(player, monster) && UtilityMethods.isMobEligibleForRide(monster)) {
-                player.startRiding(monster, true);
+            else if (UtilityMethods.isPlayerControllingMob(player.getUUID(), monster)) {
+                if (player.getMainHandItem().isEmpty() && UtilityMethods.isMobEligibleForRide(monster)) {
+                    player.startRiding(monster, true);
+                }
             }
         }
     }
@@ -79,8 +94,8 @@ public class CommonEvents {
         Entity target = event.getNewAboutToBeSetTarget();
 
         if (entity instanceof Monster monster && target instanceof Player player) {
-            if (ItemController.getplayerMobControlMap().containsKey(player) &&
-                    ItemController.getplayerMobControlMap().get(player) == monster) {
+            if (ItemController.getplayerMobControlMap().containsKey(player.getUUID()) && ItemController.getplayerMobControlMap().get(player.getUUID()).isPresent() &&
+                    ItemController.getplayerMobControlMap().get(player.getUUID()).get() == monster) {
                 event.setCanceled(true);
             }
         }
@@ -106,4 +121,5 @@ public class CommonEvents {
     {
         GogglesScreen.onRenderGui(event.getGuiGraphics());
     }
+
 }

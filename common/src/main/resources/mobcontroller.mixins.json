@@ -6,8 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "MixinRideControlledMob",
-    "MobMixin",
     "MonsterMixin"
   ],
   "injectors": {

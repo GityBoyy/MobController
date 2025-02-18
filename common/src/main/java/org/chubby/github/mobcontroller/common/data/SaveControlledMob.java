@@ -70,7 +70,7 @@ public class SaveControlledMob extends SavedData {
             if (player != null) {
                 var entity = level.getEntity(mobUUID);
                 if (entity instanceof Monster monster) {
-                    ItemController.assignControlledMob(player, monster);
+                    ItemController.assignControlledMob(playerUUID, monster);
                 }
             }
         });
