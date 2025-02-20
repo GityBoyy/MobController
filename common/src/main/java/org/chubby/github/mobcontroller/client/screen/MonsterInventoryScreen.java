@@ -9,13 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.InventoryMenu;
 import org.chubby.github.mobcontroller.util.Utils;
 
 public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInventoryMenu>
 {
     private final Monster controlledMonster;
     public static final ResourceLocation GUI = Utils.resource("textures/gui/menu/entity_inventory.png");
+    int x;
+    int y;
     public MonsterInventoryScreen(MonsterInventoryMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.controlledMonster = menu.monster;
@@ -24,10 +25,16 @@ public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInven
     @Override
     protected void init() {
         super.init();
+        this.x = (width - imageWidth) / 2;
+        this.y = (height - imageHeight) / 2;
+        this.inventoryLabelX = 100000;
+        this.inventoryLabelY = 100000;
+
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
+    {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
@@ -36,8 +43,7 @@ public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInven
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI);
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+
         guiGraphics.blit(GUI,x,y,0,0,imageWidth,imageHeight);
         renderEntity(controlledMonster,x,y,mouseX,mouseY,guiGraphics);
     }

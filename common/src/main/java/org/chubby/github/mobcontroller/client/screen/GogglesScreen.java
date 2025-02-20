@@ -33,7 +33,7 @@ public class GogglesScreen {
 
         var targetEntity = UtilityMethods.isLookingAtEntity(player, player.level(), 30.0D);
         if (targetEntity.isEmpty() || !(targetEntity.get() instanceof Monster monster)  ) return;
-        if(ItemController.getplayerMobControlMap().containsValue(monster)) return;
+        if(ItemController.getPlayerMobControlMap().containsValue(monster)) return;
         int screenWidth = minecraft.getWindow().getGuiScaledWidth();
         int screenHeight = minecraft.getWindow().getGuiScaledHeight();
         int centerX = screenWidth / 2;

@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
-import org.chubby.github.mobcontroller.common.data.SaveControlledMob;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
 

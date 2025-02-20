@@ -1,8 +1,10 @@
 package org.chubby.github.mobcontroller.client;
 
 import dev.architectury.platform.Platform;
+import dev.architectury.registry.menu.MenuRegistry;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.ConfigScreen;
+import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
 
 public class MobControllerClient
 {

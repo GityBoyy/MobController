@@ -7,17 +7,18 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import org.chubby.github.mobcontroller.common.entity.IMonsterInventory;
+
+import org.chubby.github.mobcontroller.common.data.MobControllerDataManager;
+import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.common.registry.MenuRegistry;
-import org.chubby.github.mobcontroller.mixin.MonsterMixin;
 import org.jetbrains.annotations.NotNull;
 
 public class MonsterInventoryMenu extends AbstractContainerMenu {
-    private final Container monsterInventory;
+    private final SimpleContainer monsterInventory;
     public final Monster monster;
     private static final int INVENTORY_SIZE = 14;
 
@@ -29,17 +30,17 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
     private static final int INVENTORY_START = 5;
     private static final int INVENTORY_END = 13;
 
-    public MonsterInventoryMenu(int containerId, Inventory playerInventory, Container monsterContainer, Monster monster) {
+    public MonsterInventoryMenu(int containerId, Inventory playerInventory, SimpleContainer monsterContainer, Monster monster) {
         super(MenuRegistry.MONSTER_MENU.get(), containerId);
         this.monsterInventory = monsterContainer;
         this.monster = monster;
-
+        MobControllerDataManager.syncArmorToInventory(monster, monsterContainer);
         this.addSlot(new ArmorSlot(monsterInventory, HELMET_SLOT, 8, 8, EquipmentSlot.HEAD));
         this.addSlot(new ArmorSlot(monsterInventory, CHESTPLATE_SLOT, 8, 26, EquipmentSlot.CHEST));
         this.addSlot(new ArmorSlot(monsterInventory, LEGGINGS_SLOT, 8, 44, EquipmentSlot.LEGS));
         this.addSlot(new ArmorSlot(monsterInventory, BOOTS_SLOT, 8, 62, EquipmentSlot.FEET));
 
-        this.addSlot(new Slot(monsterInventory, SPECIAL_SLOT, 8, 80));
+        this.addSlot(new ControllerSlot(monsterInventory, SPECIAL_SLOT, 81, 8));
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -139,11 +140,21 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
         }
     }
 
-    @Override
-    public void removed(Player player) {
-        super.removed(player);
-        if (monster instanceof IMonsterInventory inventory) {
-            inventory.setInventoryOpened(false);
+    private static class ControllerSlot extends Slot {
+        public ControllerSlot(Container container, int index, int x, int y) {
+            super(container, index, x, y);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return stack.getItem() instanceof ItemController;
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 1;
         }
     }
+
+
 }
