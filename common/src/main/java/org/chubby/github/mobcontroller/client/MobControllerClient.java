@@ -5,6 +5,7 @@ import dev.architectury.registry.menu.MenuRegistry;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.ConfigScreen;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
+import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
 
 public class MobControllerClient
 {

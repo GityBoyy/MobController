@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Inventory;
+import org.chubby.github.mobcontroller.common.menu.MonsterInventoryMenu;
 import org.chubby.github.mobcontroller.util.Utils;
 
 public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInventoryMenu>

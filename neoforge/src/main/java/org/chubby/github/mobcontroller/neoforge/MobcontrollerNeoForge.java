@@ -3,15 +3,13 @@ package org.chubby.github.mobcontroller.neoforge;
 import dev.architectury.platform.hooks.EventBusesHooks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.Mobcontroller;
 import net.neoforged.fml.common.Mod;
 import org.chubby.github.mobcontroller.client.MobControllerClient;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
-import org.chubby.github.mobcontroller.common.registry.MenuRegistry;
+import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
 
 @Mod(Constants.MOD_ID)
 public final class MobcontrollerNeoForge {
@@ -29,7 +27,7 @@ public final class MobcontrollerNeoForge {
     }
 
     private void registerMenuScreens(RegisterMenuScreensEvent event) {
-        event.register(MenuRegistry.MONSTER_MENU.get(), MonsterInventoryScreen::new);
+        event.register(MenusRegistry.MONSTER_MENU.get(), MonsterInventoryScreen::new);
     }
 
 }

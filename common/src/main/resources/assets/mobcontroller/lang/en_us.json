@@ -10,7 +10,15 @@
   "gold_to_diamon_upgrade": "Gold to Diamond Upgrade",
   "diamond_to_netherite_upgrade": "Diamond to Netherite Upgrade",
 
-  "message.mobcontroller.control_success": "Successfully assigned a mob",
+  "message.mobcontroller.already_controlling":"You are already controlling a mob",
+  "message.mobcontroller.mob_already_controlled":"This mob is already being controlled",
+  "message.mobcontroller.control_started":"You are now controlling %s in %s mode",
+
+  "tooltip.mobcontroller.type.copper": "Copper Tier",
+  "tooltip.mobcontroller.type.iron": "Iron Tier",
+  "tooltip.mobcontroller.type.gold": "Gold Tier",
+  "tooltip.mobcontroller.type.diamond": "Diamond Tier",
+  "tooltip.mobcontroller.type.netherite": "Netherite Tier",
 
   "creativetab.mobcontroller.tab" : "Mob Controller Tab"
 }
