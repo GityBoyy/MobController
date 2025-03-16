@@ -29,6 +29,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
 import org.chubby.github.mobcontroller.common.data.ControllerTierData;
@@ -89,7 +90,7 @@ public class CommonEvents {
 
                 for (ItemStack stack : player.getInventory().items) {
                     if (stack.getItem() instanceof SoulEssence &&
-                            stack.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
+                            !stack.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
                         stack.set(DataComponentRegistry.SOUL_ESSENCE.get(), essenceData);
                         break;
                     }
@@ -218,8 +219,7 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onCraftItem(PlayerEvent.ItemCraftedEvent event)
-    {
+    public static void onCraftItem(PlayerEvent.ItemCraftedEvent event) {
         ItemStack craftedStack = event.getCrafting();
         Player player = event.getEntity();
         Level level = event.getEntity().level();
