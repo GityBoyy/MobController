@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "ISI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "mobcontroller:soul_essence"
+    }
+  },
+  "result": {
+    "id": "mobcontroller:copper_controller",
+    "count": 1
+  }
+}

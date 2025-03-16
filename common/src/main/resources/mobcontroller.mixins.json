@@ -6,6 +6,8 @@
   "client": [
   ],
   "mixins": [
+    "EntityTick",
+    "MobTargetChange"
   ],
   "injectors": {
     "defaultRequire": 1

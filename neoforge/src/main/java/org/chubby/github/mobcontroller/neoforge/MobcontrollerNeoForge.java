@@ -8,6 +8,7 @@ import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.Mobcontroller;
 import net.neoforged.fml.common.Mod;
 import org.chubby.github.mobcontroller.client.MobControllerClient;
+import org.chubby.github.mobcontroller.client.screen.DataDisplayerScreen;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
 import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
 
@@ -28,6 +29,7 @@ public final class MobcontrollerNeoForge {
 
     private void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(MenusRegistry.MONSTER_MENU.get(), MonsterInventoryScreen::new);
+        event.register(MenusRegistry.DATA_DISPLAYER_MENU.get(), DataDisplayerScreen::new);
     }
 
 }

@@ -8,10 +8,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import org.chubby.github.mobcontroller.Constants;
-import org.chubby.github.mobcontroller.common.items.ControllerType;
-import org.chubby.github.mobcontroller.common.items.ItemController;
-import org.chubby.github.mobcontroller.common.items.ItemControllerUpgrade;
-import org.chubby.github.mobcontroller.common.items.ItemGoggles;
+import org.chubby.github.mobcontroller.common.items.*;
 import org.chubby.github.mobcontroller.util.Utils;
 
 public class ItemRegistry {
@@ -39,6 +36,10 @@ public class ItemRegistry {
 
     public static final RegistrySupplier<Item> GOGGLES = registerItem("goggles",
             () -> new ItemGoggles(new Item.Properties().stacksTo(1)));
+    public static final RegistrySupplier<Item> SOUL_ESSENCE = registerItem("soul_essence",
+            ()-> new SoulEssence(new Item.Properties()));
+    public static final RegistrySupplier<Item> TABLET = registerItem("tablet",
+            ()-> new TabletItem(new Item.Properties()));
 
     public static RegistrySupplier<Item> registerItem(String name, Supplier<Item> supplier) {
         RegistrySupplier<Item> regObj = ITEMS.register(Utils.resource(name), supplier);

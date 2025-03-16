@@ -30,28 +30,22 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
         super(MenusRegistry.MONSTER_MENU.get(), containerId);
         this.monster = monster;
 
-        // Store a reference to the head item - we'll need this to save inventory changes
         this.headItem = monster.getItemBySlot(EquipmentSlot.HEAD);
 
-        // Initialize the container
         if (headItem.has(DataComponentRegistry.CONTROLLER.get()) &&
                 headItem.get(DataComponentRegistry.CONTROLLER.get()) != null) {
             this.container = headItem.get(DataComponentRegistry.CONTROLLER.get()).mobInventory;
         } else {
-            // Fallback to empty container if no controller data exists
             this.container = new SimpleContainer(14);
         }
 
-        // Add armor slots
         this.addSlot(new ArmorSlot(container, 0, 8, 8, EquipmentSlot.HEAD));
         this.addSlot(new ArmorSlot(container, 1, 8, 26, EquipmentSlot.CHEST));
         this.addSlot(new ArmorSlot(container, 2, 8, 44, EquipmentSlot.LEGS));
         this.addSlot(new ArmorSlot(container, 3, 8, 62, EquipmentSlot.FEET));
 
-        // Add controller slot
         this.addSlot(new ControllerSlot(container, 4, 81, 8));
 
-        // Add inventory slots (3x3 grid)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 this.addSlot(new Slot(container,
@@ -61,7 +55,6 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
             }
         }
 
-        // Add player inventory slots (3 rows)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 this.addSlot(new Slot(playerInventory,
@@ -71,7 +64,6 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
             }
         }
 
-        // Add player hotbar slots
         for (int col = 0; col < 9; col++) {
             this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
         }
@@ -87,13 +79,11 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
             itemstack = itemstack1.copy();
 
             if (index < INVENTORY_END) {
-                // Move from monster inventory to player inventory
                 if (!this.moveItemStackTo(itemstack1, INVENTORY_END, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             else {
-                // Move from player inventory to monster inventory
                 if (itemstack1.getItem() instanceof ArmorItem armorItem) {
                     int armorSlot = getArmorSlotIndex(armorItem.getEquipmentSlot());
                     if (!this.moveItemStackTo(itemstack1, armorSlot, armorSlot + 1, false)) {
@@ -103,7 +93,6 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
                     }
                 }
                 else if (itemstack1.getItem() instanceof ItemController) {
-                    // Try to place in controller slot
                     if (!this.moveItemStackTo(itemstack1, 4, 5, false)) {
                         if (!this.moveItemStackTo(itemstack1, INVENTORY_START, INVENTORY_END, false)) {
                             return ItemStack.EMPTY;

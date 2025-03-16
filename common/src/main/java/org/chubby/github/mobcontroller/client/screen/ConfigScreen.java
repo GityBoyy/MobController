@@ -2,13 +2,16 @@ package org.chubby.github.mobcontroller.client.screen;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import org.chubby.github.mobcontroller.core.config.Config;
 import org.chubby.github.mobcontroller.core.config.MCConfig;
+import org.chubby.github.mobcontroller.core.config.property.BoolProperty;
 import org.chubby.github.mobcontroller.core.config.property.IntProperty;
 
 public class ConfigScreen extends Screen {
@@ -36,6 +39,7 @@ public class ConfigScreen extends Screen {
 
         // Sliders
         addIntConfigSlider(MCConfig.controlTick, 90);
+        addToggleButton(MCConfig.enableDebug,110);
     }
 
     private Component createTitle(String title) {
@@ -87,6 +91,21 @@ public class ConfigScreen extends Screen {
                 }
             }
         });
+    }
+
+    private void addToggleButton(BoolProperty property, int yOffset) {
+        // Label
+        this.addRenderableWidget(new StringWidget(width / 2 - 150, yOffset + 5, 150, 20,
+                Component.literal(property.getName()).setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)), this.font));
+
+        // Toggle Button
+        this.addRenderableWidget(new Button.Builder(
+                Component.literal(property.getValue() ? "Enabled" : "Disabled"),
+                button -> {
+                    property.setValue(!property.getValue());
+                    button.setMessage(Component.literal(property.getValue() ? "Enabled" : "Disabled"));
+                }
+        ).bounds(width / 2, yOffset, 150, 20).build());
     }
 
     @Override
