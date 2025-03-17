@@ -25,6 +25,7 @@ subprojects {
 
     repositories {
         maven { url "https://maven.parchmentmc.org" }
+
     }
 
     dependencies {
