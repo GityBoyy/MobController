@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
  */
 public class Config {
     private static final Gson GSON = new Gson();
-    private static final String CONFIG_PATH = "msconfig.json";
+    private static final String CONFIG_PATH = "config/msconfig.json";
 
     /**
      * Saves the current configuration properties to a JSON file.

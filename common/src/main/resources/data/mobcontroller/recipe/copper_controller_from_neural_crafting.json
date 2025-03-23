@@ -1,0 +1,24 @@
+{
+  "type": "mobcontroller:neural_crafting",
+  "pattern": [
+    "III",
+    "RRR",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "mobcontroller:copper_controller"
+  },
+  "specialItem": {
+    "id": "minecraft:diamond"
+  },
+  "craftTime": 200,
+  "energyRequired": 500
+}

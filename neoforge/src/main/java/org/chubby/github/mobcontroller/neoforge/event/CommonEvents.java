@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -42,6 +43,7 @@ import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.core.config.MCConfig;
 import org.chubby.github.mobcontroller.debug.screen.DebugScreen;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
+import org.chubby.github.mobcontroller.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -256,11 +258,13 @@ public class CommonEvents {
         GogglesScreen.onRenderGui(event.getGuiGraphics());
     }
 
+
+
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiLayerEvent.Post event) {
         if (event.getName() == VanillaGuiLayers.DEBUG_OVERLAY && MCConfig.enableDebug.getValue()) {
             Minecraft minecraft = Minecraft.getInstance();
-            DEBUG_SCREEN.render(event.getGuiGraphics(), event.getPartialTick());
+            DEBUG_SCREEN.layer.render(event.getGuiGraphics(), event.getPartialTick());
         }
     }
 }

@@ -18,6 +18,7 @@ import org.chubby.github.mobcontroller.common.data.SoulEssenceData;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.common.menu.DataDisplayerMenu;
 import org.chubby.github.mobcontroller.common.menu.MonsterInventoryMenu;
+import org.chubby.github.mobcontroller.common.menu.NeuralInterfaceStationMenu;
 import org.chubby.github.mobcontroller.util.Utils;
 
 import java.util.UUID;
@@ -48,4 +49,8 @@ public class MenusRegistry
                 return new DataDisplayerMenu(id, inventory, data.getControlledMobIds());
             })
     );
+
+    public static final RegistrySupplier<MenuType<NeuralInterfaceStationMenu>> NEURAL_INTERFACE_STATION_MENU = TYPES
+            .register(Utils.resource("neural_interface_station_menu"),
+                    Suppliers.memoize(()->MenuRegistry.ofExtended(NeuralInterfaceStationMenu::new)));
 }

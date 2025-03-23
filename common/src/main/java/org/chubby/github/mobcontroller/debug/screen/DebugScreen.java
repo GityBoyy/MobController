@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -24,9 +25,24 @@ public class DebugScreen {
     private Entity hoveredEntity = null;
     private DataComponentData componentData = null;
     private boolean visible = false;
+    public final LayeredDraw.Layer layer;
 
     public DebugScreen() {
         this.minecraft = Minecraft.getInstance();
+
+        layer = (guiGraphics, deltaTracker) ->  {
+            if (!visible) return;
+
+            // Update the hovered entity
+            updateHoveredEntity();
+
+            // Render entity information if an entity is hovered
+            if (hoveredEntity != null) {
+                int mouseX = (int) minecraft.mouseHandler.xpos();
+                int mouseY = (int) minecraft.mouseHandler.ypos();
+                renderEntityInfo(guiGraphics, mouseX, mouseY);
+            }
+        };
     }
 
     public void toggle() {
@@ -41,19 +57,7 @@ public class DebugScreen {
         return visible;
     }
 
-    public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
-        if (!visible) return;
 
-        // Update the hovered entity
-        updateHoveredEntity();
-
-        // Render entity information if an entity is hovered
-        if (hoveredEntity != null) {
-            int mouseX = (int) minecraft.mouseHandler.xpos();
-            int mouseY = (int) minecraft.mouseHandler.ypos();
-            renderEntityInfo(guiGraphics, mouseX, mouseY);
-        }
-    }
 
     private void updateHoveredEntity() {
         // Get what the player is looking at

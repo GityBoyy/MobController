@@ -13,6 +13,7 @@
   "message.mobcontroller.already_controlling":"You are already controlling a mob",
   "message.mobcontroller.mob_already_controlled":"This mob is already being controlled",
   "message.mobcontroller.control_started":"You are now controlling %s in %s mode",
+  "container.mobcontroller.neural_interface_station": "Neural Interface Station",
 
   "tooltip.mobcontroller.type.copper": "Copper Tier",
   "tooltip.mobcontroller.type.iron": "Iron Tier",

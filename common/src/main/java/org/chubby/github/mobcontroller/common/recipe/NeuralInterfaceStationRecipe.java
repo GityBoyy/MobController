@@ -13,22 +13,28 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.Level;
 import org.chubby.github.mobcontroller.common.recipe.input.NeuralInterfaceStationRecipeInput;
 import org.chubby.github.mobcontroller.common.registry.RecipeRegistry;
-import org.chubby.github.mobcontroller.util.MCCodec;
 
-public record NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingredient> inputItems,
-                                           ItemStack outputStack, ItemStack specialItemHolder, int craftTime,
-                                           int energyRequired) implements Recipe<NeuralInterfaceStationRecipeInput> {
+import java.util.Optional;
 
-    public NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingredient> inputItems,
-                                        ItemStack outputStack, ItemStack specialItemHolder,
+public class NeuralInterfaceStationRecipe implements Recipe<NeuralInterfaceStationRecipeInput> {
+
+    private final ItemStack result;
+    private final ShapedRecipePattern pattern;
+    private final ItemStack specialItemHolder;
+    private final int craftTime;
+    private final int energyRequired;
+
+    public NeuralInterfaceStationRecipe(ShapedRecipePattern pattern,
+                                        ItemStack result, ItemStack specialItemHolder,
                                         int craftTime, int energyRequired) {
-        this.id = id;
-        this.inputItems = inputItems;
-        this.outputStack = outputStack.copy();
-        this.specialItemHolder = specialItemHolder.copy();
+        this.pattern = pattern;
+        this.result = result;
+        this.specialItemHolder = specialItemHolder;
         this.craftTime = craftTime;
         this.energyRequired = energyRequired;
     }
@@ -39,13 +45,47 @@ public record NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingr
             return false;
         }
 
-        if (input.size() < inputItems.size()) {
+        // First, check if we have the special item (if required)
+        if (!specialItemHolder.isEmpty()) {
+            ItemStack specialSlotItem = input.getItem(0); // Assuming first slot is special item
+            if (specialSlotItem.isEmpty() || !ItemStack.isSameItem(specialSlotItem, specialItemHolder)) {
+                return false;
+            }
+        }
+
+        return matchesGrid(input);
+    }
+
+    private boolean matchesGrid(NeuralInterfaceStationRecipeInput input) {
+        int width = this.pattern.width();
+        int height = this.pattern.height();
+
+        // Skip the special slot (index 0) and start checking from index 1
+        // Make sure we have enough items for the recipe
+        if (input.size() - 2 < width * height) { // -2 for special slot and output slot
             return false;
         }
 
-        for (int i = 0; i < inputItems.size(); i++) {
-            if (!inputItems.get(i).test(input.getItem(i))) {
-                return false;
+        NonNullList<Ingredient> ingredients = this.pattern.ingredients();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int ingredientIndex = x + y * width;
+                if (ingredientIndex >= ingredients.size()) {
+                    continue; // Skip if out of range
+                }
+
+                Ingredient ingredient = ingredients.get(ingredientIndex);
+                // Skip slot 0 (special item) and map to crafting grid (slot 1-9)
+                int inputIndex = 1 + x + y * 3;
+
+                if (inputIndex >= input.size() - 1) { // Don't check output slot
+                    return false;
+                }
+
+                if (!ingredient.test(input.getItem(inputIndex))) {
+                    return false;
+                }
             }
         }
 
@@ -54,17 +94,22 @@ public record NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingr
 
     @Override
     public ItemStack assemble(NeuralInterfaceStationRecipeInput input, HolderLookup.Provider registries) {
-        return outputStack.copy();
+        return this.result.copy();
     }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
-        return true; // Recipe uses its own container, not a crafting grid
+        return width >= this.pattern.width() && height >= this.pattern.height();
     }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return outputStack.copy();
+        return this.result.copy();
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.pattern.ingredients();
     }
 
     @Override
@@ -77,17 +122,27 @@ public record NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingr
         return RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get();
     }
 
-    @Override
+    public ShapedRecipePattern getPattern() {
+        return this.pattern;
+    }
+
     public ItemStack specialItemHolder() {
-        return specialItemHolder.copy();
+        return this.specialItemHolder.copy();
+    }
+
+    public int craftTime() {
+        return this.craftTime;
+    }
+
+    public int energyRequired() {
+        return this.energyRequired;
     }
 
     public static class Serializer implements RecipeSerializer<NeuralInterfaceStationRecipe> {
 
         public static final MapCodec<NeuralInterfaceStationRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                ResourceLocation.CODEC.fieldOf("id").forGetter(NeuralInterfaceStationRecipe::id),
-                MCCodec.nonNullList(Ingredient.CODEC).fieldOf("inputItems").forGetter(NeuralInterfaceStationRecipe::inputItems),
-                ItemStack.CODEC.fieldOf("outputItem").forGetter(NeuralInterfaceStationRecipe::outputStack),
+                ShapedRecipePattern.MAP_CODEC.forGetter(NeuralInterfaceStationRecipe::getPattern),
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
                 ItemStack.CODEC.fieldOf("specialItem").forGetter(NeuralInterfaceStationRecipe::specialItemHolder),
                 Codec.INT.fieldOf("craftTime").forGetter(NeuralInterfaceStationRecipe::craftTime),
                 Codec.INT.fieldOf("energyRequired").forGetter(NeuralInterfaceStationRecipe::energyRequired)
@@ -97,36 +152,24 @@ public record NeuralInterfaceStationRecipe(ResourceLocation id, NonNullList<Ingr
                 StreamCodec.of(Serializer::writeToBuffer, Serializer::readFromBuffer);
 
         private static NeuralInterfaceStationRecipe readFromBuffer(RegistryFriendlyByteBuf buf) {
-            ResourceLocation id = buf.readResourceLocation();
-            int ingredientCount = buf.readVarInt();
+            ShapedRecipePattern pattern = ShapedRecipePattern.STREAM_CODEC.decode(buf);
 
-            NonNullList<Ingredient> inputItems = NonNullList.create();
-            for (int i = 0; i < ingredientCount; i++) {
-                inputItems.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-            }
-
-            ItemStack outputStack = ItemStack.STREAM_CODEC.decode(buf);
+            ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
             ItemStack specialItemHolder = ItemStack.STREAM_CODEC.decode(buf);
             int craftTime = buf.readVarInt();
             int energyRequired = buf.readVarInt();
 
-            return new NeuralInterfaceStationRecipe(id, inputItems, outputStack, specialItemHolder, craftTime, energyRequired);
+            return new NeuralInterfaceStationRecipe(pattern, result, specialItemHolder, craftTime, energyRequired);
         }
 
         private static void writeToBuffer(RegistryFriendlyByteBuf buf, NeuralInterfaceStationRecipe recipe) {
-            buf.writeResourceLocation(recipe.id());
-            buf.writeVarInt(recipe.inputItems().size());
+            ShapedRecipePattern.STREAM_CODEC.encode(buf, recipe.pattern);
 
-            for (Ingredient ingredient : recipe.inputItems()) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
-            }
-
-            ItemStack.STREAM_CODEC.encode(buf, recipe.outputStack());
-            ItemStack.STREAM_CODEC.encode(buf, recipe.specialItemHolder());
-            buf.writeVarInt(recipe.craftTime());
-            buf.writeVarInt(recipe.energyRequired());
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.specialItemHolder);
+            buf.writeVarInt(recipe.craftTime);
+            buf.writeVarInt(recipe.energyRequired);
         }
-
 
         @Override
         public MapCodec<NeuralInterfaceStationRecipe> codec() {
