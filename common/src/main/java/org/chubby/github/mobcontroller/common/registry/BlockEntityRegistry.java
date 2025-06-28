@@ -1,20 +1,24 @@
 package org.chubby.github.mobcontroller.common.registry;
 
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.chubby.github.mobcontroller.Constants;
+import net.minecraft.world.level.block.state.BlockState;
 import org.chubby.github.mobcontroller.common.blocks.entity.NeuralInterfaceStationBE;
+import org.chubby.github.mobcontroller.platform.services.Services;
 import org.chubby.github.mobcontroller.util.Utils;
+
+import java.util.function.Supplier;
 
 public class BlockEntityRegistry
 {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
-            .create(Constants.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
 
-    public static final RegistrySupplier<BlockEntityType<NeuralInterfaceStationBE>> NEURAL_INTERFACE_STATION_BE =
-            BLOCK_ENTITIES.register(Utils.resource("neural_interface_station_be"
-            ), ()->BlockEntityType.Builder.of(NeuralInterfaceStationBE::new,BlockRegistry.NEURAL_INTERFACE_STATION.get())
-                            .build(null));
+    public static final Supplier<BlockEntityType<NeuralInterfaceStationBE>> NEURAL_INTERFACE_STATION_BE =
+            Services.REGISTRY_HELPER.registerBE(Utils.resource("neural_interface_station_be"
+            ), ()-> Services.REGISTRY_HELPER.createBlockEntityType(NeuralInterfaceStationBE::new,()->new Block[]{
+                    BlockRegistry.NEURAL_INTERFACE_STATION.get()
+            }));
+    public static void init(){}
+
 }

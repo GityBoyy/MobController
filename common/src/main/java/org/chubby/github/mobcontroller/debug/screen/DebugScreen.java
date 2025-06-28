@@ -33,10 +33,8 @@ public class DebugScreen {
         layer = (guiGraphics, deltaTracker) ->  {
             if (!visible) return;
 
-            // Update the hovered entity
             updateHoveredEntity();
 
-            // Render entity information if an entity is hovered
             if (hoveredEntity != null) {
                 int mouseX = (int) minecraft.mouseHandler.xpos();
                 int mouseY = (int) minecraft.mouseHandler.ypos();

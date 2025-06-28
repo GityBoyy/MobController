@@ -1,6 +1,7 @@
 package org.chubby.github.mobcontroller.core.config;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.core.config.property.BoolProperty;
@@ -20,7 +21,7 @@ import java.lang.reflect.Field;
  * properties to and from a JSON file.
  */
 public class Config {
-    private static final Gson GSON = new Gson();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String CONFIG_PATH = "config/msconfig.json";
 
     /**
@@ -66,14 +67,14 @@ public class Config {
     /**
      * Loads configuration properties from a JSON file.
      * <p>
-     * Algorithm:
-     * 1. Open the JSON file for reading.
-     * 2. Use Gson to parse the JSON data into a JsonObject.
-     * 3. Iterate through the declared fields of the MCConfig class.
-     * 4. For each field annotated with @ConfigProperty:
-     *    - Set it accessible to retrieve its value.
-     *    - Check the type of the property (IntProperty, BoolProperty, etc.).
-     *    - If the corresponding property exists in the JsonObject, set its value from the JSON.
+     * Algorithm:<br>
+     * 1. Open the JSON file for reading.<br>
+     * 2. Use Gson to parse the JSON data into a JsonObject.<br>
+     * 3. Iterate through the declared fields of the MCConfig class.<br>
+     * 4. For each field annotated with @ConfigProperty:<br>
+     *    - Set it accessible to retrieve its value.<br>
+     *    - Check the type of the property (IntProperty, BoolProperty, etc.).<br>
+     *    - If the corresponding property exists in the JsonObject, set its value from the JSON.<br>
      * 5. Close the file reader.
      */
     public static void loadConfig() {

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
-public class EntityTick
+public abstract class EntityTick
 {
 
     @Inject(method = "tick",at = @At("HEAD"))

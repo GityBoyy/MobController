@@ -9,8 +9,6 @@ Take control of any mob with the power of the **Mob Controller**! Transform the 
 - **👾 Control Any Mob**: Right-click with the Mob Controller to gain control of any mob in the game.
 - **🎮 Direct Commands**: Seamlessly use your keyboard controls to move the mob or perform actions.
 - **🐴 Ride Mobs**: Hold Shift while right-clicking to ride mobs that are eligible for riding!
-- **✨ Visual Effects**: Enjoy cool particle effects when successfully controlling a mob.
-- **🔊 Sound Feedback**: Hear satisfying sound effects upon gaining control.
 - **🔄 Multiplayer Compatibility**: Works in multiplayer, so you can impress (or prank) your friends!
 
 ---
@@ -44,7 +42,6 @@ Take control of any mob with the power of the **Mob Controller**! Transform the 
 
 - **🧠 Advanced AI Controls**: Direct mobs to attack, defend, or follow you.
 - **🎨 Customizable Skins**: Change the appearance of controlled mobs.
-- **💬 Interaction Dialogues**: Make mobs communicate with other players.
 - **⚔️ Special Abilities**: Unlock special abilities unique to each mob type.
 
 ---
@@ -54,7 +51,7 @@ Take control of any mob with the power of the **Mob Controller**! Transform the 
 Encounter a bug or crash? Help us improve the mod by reporting it!
 
 - **Join our Discord server**: [![Discord chat](https://img.shields.io/badge/chat%20on-discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/KdeGWyu6Zg)
-- **Submit an Issue**: Open an issue on our GitHub repository with detailed information on the bug or crash.
+- **Submit an Issue**: [Issue](https://github.com/AdarshKumarGit/MobController/issues)
 
 ---
 

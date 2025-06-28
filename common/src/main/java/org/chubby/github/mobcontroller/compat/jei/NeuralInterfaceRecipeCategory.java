@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.common.recipe.NeuralInterfaceStationRecipe;
 import org.chubby.github.mobcontroller.common.registry.BlockRegistry;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInterfaceStationRecipe> {
@@ -36,8 +37,13 @@ public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInte
     }
 
     @Override
-    public RecipeType<NeuralInterfaceStationRecipe> getRecipeType() {
+    public @NotNull RecipeType<NeuralInterfaceStationRecipe> getRecipeType() {
         return NEURAL_STATION_RECIPE_RECIPE_TYPE;
+    }
+
+    @Override
+    public @Nullable IDrawable getBackground() {
+        return background;
     }
 
     @Override

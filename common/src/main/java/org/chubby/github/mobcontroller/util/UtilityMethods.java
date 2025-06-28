@@ -11,6 +11,7 @@ import net.minecraft.world.phys.Vec3;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class UtilityMethods {
@@ -63,7 +64,7 @@ public class UtilityMethods {
                 }
             }
             case DEFENSIVE -> {
-                if (controller.getLastHurtByMob() != null) {
+                if (controller.getLastHurtByMob() != null && Objects.requireNonNull(controller.getLastHurtMob()).is(monster)) {
                     monster.setTarget(controller.getLastHurtByMob());
                 }
             }

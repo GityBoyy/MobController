@@ -11,18 +11,20 @@ out
 *.ipr
 *.iws
 *.iml
-.idea
+.idea/*
+!.idea/scopes
 
 # gradle
 build
 .gradle
 
 # other
+.docusaurus
 eclipse
 run
-
-# Files from Forge MDK
-forge*changelog.txt
-
-run-data/
-src/generated/
+node_modules
+/forge/runs/
+/neoforge/runs/
+/forge/src/generated/
+/fabric/src/generated/
+/neoforge/src/generated/

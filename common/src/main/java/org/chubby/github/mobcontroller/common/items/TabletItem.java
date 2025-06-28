@@ -1,7 +1,6 @@
 package org.chubby.github.mobcontroller.common.items;
 
-import dev.architectury.registry.menu.ExtendedMenuProvider;
-import dev.architectury.registry.menu.MenuRegistry;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.Level;
 import org.chubby.github.mobcontroller.common.data.SoulEssenceData;
 import org.chubby.github.mobcontroller.common.menu.DataDisplayerMenu;
 import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
+import org.chubby.github.mobcontroller.platform.services.Services;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,26 +55,26 @@ public class TabletItem extends Item
             return InteractionResultHolder.fail(stack);
         }
 
-        MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
-            @Override
-            public void saveExtraData(FriendlyByteBuf buf) {
-                buf.writeInt(data.getControlledMobIds().size());
-                for (int i = 0; i < data.getControlledMobIds().size(); i++) {
-                    buf.writeInt(data.getControlledMobIds().get(i));
-                    buf.writeUUID(data.getControllerIds().get(i < data.getControllerIds().size() ? i : 0));
-                }
-            }
-
-            @Override
-            public Component getDisplayName() {
-                return Component.translatable("container.mobcontroller.tablet");
-            }
-
-            @Override
-            public AbstractContainerMenu createMenu(int windowId, Inventory playerInventory, Player player) {
-                return new DataDisplayerMenu(windowId, playerInventory, data.getControlledMobIds());
-            }
-        });
+//        Services.MENU_HELPER.openMenu(serverPlayer, new ExtendedMenuProvider() {
+//            @Override
+//            public void saveExtraData(FriendlyByteBuf buf) {
+//                buf.writeInt(data.getControlledMobIds().size());
+//                for (int i = 0; i < data.getControlledMobIds().size(); i++) {
+//                    buf.writeInt(data.getControlledMobIds().get(i));
+//                    buf.writeUUID(data.getControllerIds().get(i < data.getControllerIds().size() ? i : 0));
+//                }
+//            }
+//
+//            @Override
+//            public Component getDisplayName() {
+//                return Component.translatable("container.mobcontroller.tablet");
+//            }
+//
+//            @Override
+//            public AbstractContainerMenu createMenu(int windowId, Inventory playerInventory, Player player) {
+//                return new DataDisplayerMenu(windowId, playerInventory, data.getControlledMobIds());
+//            }
+//        });
 
         return InteractionResultHolder.success(stack);
     }

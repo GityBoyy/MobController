@@ -10,6 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import org.chubby.github.mobcontroller.common.enums.EnumControlledStates;
 import org.chubby.github.mobcontroller.util.MCCodec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +25,8 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public static final Codec<MobControllerData> CODEC = RecordCodecBuilder.create(inst-> inst.group(
             MCCodec.UUID_CODEC.fieldOf("controllingPlayer").forGetter(data -> data.controllingPlayer),
             Codec.INT.fieldOf("controlledMob").forGetter(data -> data.controlledMob),
-            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(data->data.mobInventory.getItems())
+            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(data->data.mobInventory.getItems()),
+            EnumControlledStates.CODEC.fieldOf("currentState").forGetter(data->data.state)
     ).apply(inst, MobControllerData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf,MobControllerData> STREAM_CODEC =
@@ -33,14 +35,15 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public final UUID controllingPlayer;
     public final int controlledMob;
     public final SimpleContainer mobInventory;
-
+    public EnumControlledStates state;
     public MobControllerData(UUID controllingPlayer, int controlledMob) {
         this.controllingPlayer = controllingPlayer;
         this.controlledMob = controlledMob;
         this.mobInventory = new SimpleContainer(14);
+        this.state = EnumControlledStates.STAY;
     }
 
-    public MobControllerData(UUID controllingPlayer, int controlledMob, List<ItemStack> inventoryItems) {
+    public MobControllerData(UUID controllingPlayer, int controlledMob, List<ItemStack> inventoryItems, EnumControlledStates state) {
         this.controllingPlayer = controllingPlayer;
         this.controlledMob = controlledMob;
         this.mobInventory = new SimpleContainer(14);
@@ -50,6 +53,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                 this.mobInventory.setItem(i, inventoryItems.get(i));
             }
         }
+        this.state = state;
     }
 
     public MobControllerData(MobControllerData self){
@@ -60,6 +64,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         for (int i = 0; i < self.mobInventory.getContainerSize(); i++) {
             this.mobInventory.setItem(i, self.mobInventory.getItem(i).copy());
         }
+        this.state = EnumControlledStates.STAY;
     }
 
     public int getControlledMob() {
@@ -68,6 +73,14 @@ public class MobControllerData implements DataComponentType<MobControllerData>
 
     public UUID getControllingPlayer() {
         return controllingPlayer;
+    }
+
+    public EnumControlledStates getState() {
+        return state;
+    }
+
+    public void setState(EnumControlledStates state) {
+        this.state = state;
     }
 
     public MobControllerData copy() {return new MobControllerData(this);}

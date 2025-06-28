@@ -1,6 +1,7 @@
 package org.chubby.github.mobcontroller.common.menu;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,6 +17,8 @@ import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class MonsterInventoryMenu extends AbstractContainerMenu {
 
@@ -34,11 +37,39 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
 
         if (headItem.has(DataComponentRegistry.CONTROLLER.get()) &&
                 headItem.get(DataComponentRegistry.CONTROLLER.get()) != null) {
-            this.container = headItem.get(DataComponentRegistry.CONTROLLER.get()).mobInventory;
+            this.container = Objects.requireNonNull(headItem.get(DataComponentRegistry.CONTROLLER.get())).mobInventory;
         } else {
             this.container = new SimpleContainer(14);
         }
 
+        setupSlots(playerInventory);
+    }
+
+    public MonsterInventoryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
+        super(MenusRegistry.MONSTER_MENU.get(), containerId);
+
+        int monsterId = buf.readInt();
+
+        this.monster = (Monster) playerInventory.player.level().getEntity(monsterId);
+
+        if (this.monster != null) {
+            this.headItem = monster.getItemBySlot(EquipmentSlot.HEAD);
+
+            if (headItem.has(DataComponentRegistry.CONTROLLER.get()) &&
+                    headItem.get(DataComponentRegistry.CONTROLLER.get()) != null) {
+                this.container = Objects.requireNonNull(headItem.get(DataComponentRegistry.CONTROLLER.get())).mobInventory;
+            } else {
+                this.container = new SimpleContainer(14);
+            }
+        } else {
+            this.headItem = ItemStack.EMPTY;
+            this.container = new SimpleContainer(14);
+        }
+
+        setupSlots(playerInventory);
+    }
+
+    private void setupSlots(Inventory playerInventory) {
         this.addSlot(new ArmorSlot(container, 0, 8, 8, EquipmentSlot.HEAD));
         this.addSlot(new ArmorSlot(container, 1, 8, 26, EquipmentSlot.CHEST));
         this.addSlot(new ArmorSlot(container, 2, 8, 44, EquipmentSlot.LEGS));
@@ -124,10 +155,12 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
     @Override
     public void removed(Player player) {
         super.removed(player);
-
+        if (monster == null || headItem.isEmpty()) {
+            return;
+        }
         if (headItem.has(DataComponentRegistry.CONTROLLER.get())) {
             MobControllerData controllerData = headItem.get(DataComponentRegistry.CONTROLLER.get());
-
+            if(controllerData == null) return;
             MobControllerData updatedData = new MobControllerData(controllerData.getControllingPlayer(),
                     controllerData.getControlledMob());
 
@@ -144,7 +177,9 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
     @Override
     public void slotsChanged(Container container) {
         super.slotsChanged(container);
-
+        if (monster == null || headItem.isEmpty()) {
+            return;
+        }
         if (headItem.has(DataComponentRegistry.CONTROLLER.get())) {
             MobControllerData controllerData = headItem.get(DataComponentRegistry.CONTROLLER.get());
             if(controllerData == null ) return;

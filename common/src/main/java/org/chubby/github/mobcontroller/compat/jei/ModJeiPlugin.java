@@ -11,19 +11,21 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.NeuralInterfaceStationScreen;
 import org.chubby.github.mobcontroller.common.recipe.NeuralInterfaceStationRecipe;
 import org.chubby.github.mobcontroller.common.registry.BlockRegistry;
 import org.chubby.github.mobcontroller.common.registry.RecipeRegistry;
 import org.chubby.github.mobcontroller.util.Utils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-
+@JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
     @Override
-    public ResourceLocation getPluginUid() {
-        return Utils.resource("jei_plugin");
+    public @NotNull ResourceLocation getPluginUid() {
+        return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID,"jei_plugin");
     }
 
     @Override
@@ -41,6 +43,7 @@ public class ModJeiPlugin implements IModPlugin {
                 RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get()
         ).stream().map(RecipeHolder::value).toList();
         registration.addRecipes(NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE, recipes);
+
     }
 
     @Override

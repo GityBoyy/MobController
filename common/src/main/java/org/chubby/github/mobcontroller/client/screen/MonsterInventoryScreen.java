@@ -50,6 +50,6 @@ public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInven
     }
 
     private void renderEntity(Monster entity, int x, int y, int mouseX, int mouseY, GuiGraphics graphics){
-        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, x + 26, y + 18, x + 78, y + 70, 24, 0.25F, mouseX, mouseY, entity);
+        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, x + 26, y + 18, x + 78, y + 70, 24, 0.15F, mouseX, mouseY, entity);
     }
 }

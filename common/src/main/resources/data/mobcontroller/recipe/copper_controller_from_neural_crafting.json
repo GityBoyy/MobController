@@ -1,13 +1,22 @@
 {
   "type": "mobcontroller:neural_crafting",
   "pattern": [
-    "III",
-    "RRR",
-    "III"
+    "BEB",
+    "RCR",
+    "LLL"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "B": {
+      "item": "mobcontroller:brain"
+    },
+    "E": {
+      "item": "mobcontroller:electrolyte"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "C": {
+      "item": "minecraft:copper"
     },
     "R": {
       "item": "minecraft:redstone"
@@ -17,7 +26,7 @@
     "id": "mobcontroller:copper_controller"
   },
   "specialItem": {
-    "id": "minecraft:diamond"
+    "id": "mobcontroller:soul_essence"
   },
   "craftTime": 200,
   "energyRequired": 500

@@ -1,13 +1,10 @@
 package org.chubby.github.mobcontroller.neoforge.event;
 
-import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,19 +15,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
-import net.neoforged.neoforge.event.entity.item.ItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
 import org.chubby.github.mobcontroller.common.data.ControllerTierData;
@@ -42,9 +35,9 @@ import org.chubby.github.mobcontroller.common.menu.MonsterInventoryMenu;
 import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.core.config.MCConfig;
 import org.chubby.github.mobcontroller.debug.screen.DebugScreen;
+import org.chubby.github.mobcontroller.platform.services.Services;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
-import org.chubby.github.mobcontroller.util.Utils;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -73,20 +66,35 @@ public class CommonEvents {
 
         if (!(heldItem.getItem() instanceof ItemController controller)) return;
 
-        ItemStack helmetItem = new ItemStack(controller);
+        ItemStack controllerItem = new ItemStack(controller);
 
         MobControllerData controllerData = new MobControllerData(player.getUUID(), monster.getId());
-        helmetItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
+        controllerItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
 
         ControllerTierData tierData = new ControllerTierData(controller.getType());
+        controllerItem.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
+
+        ItemStack helmetItem = new ItemStack(controller);
+        helmetItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
         helmetItem.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
 
         monster.setItemSlot(EquipmentSlot.HEAD, helmetItem);
+
+        if (helmetItem.has(DataComponentRegistry.CONTROLLER.get())) {
+            MobControllerData mobData = helmetItem.get(DataComponentRegistry.CONTROLLER.get());
+            if (mobData != null) {
+                mobData.mobInventory.setItem(4, controllerItem.copy());
+
+                helmetItem.set(DataComponentRegistry.CONTROLLER.get(), mobData);
+                monster.setItemSlot(EquipmentSlot.HEAD, helmetItem);
+            }
+        }
+
         heldItem.shrink(1);
         ItemController.getPlayerMobControlMap().put(player.getUUID(), monster.getId());
 
-        if (helmetItem.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
-            SoulEssenceData essenceData = helmetItem.get(DataComponentRegistry.SOUL_ESSENCE.get());
+        if (controllerItem.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
+            SoulEssenceData essenceData = controllerItem.get(DataComponentRegistry.SOUL_ESSENCE.get());
             if (essenceData != null) {
                 essenceData.addControlledMob(monster.getId(), player.getUUID());
 
@@ -108,17 +116,17 @@ public class CommonEvents {
     }
 
     private static void openMonsterInventory(ServerPlayer player, Monster monster) {
-        MenuRegistry.openExtendedMenu(player, new MenuProvider() {
+        Services.MENU_HELPER.openMenu(player, new MenuProvider() {
             @Override
-            public @NotNull Component getDisplayName() {
-                return Component.translatable("container.mobcontroller.monster_inventory");
+            public Component getDisplayName() {
+                return Component.empty();
             }
 
             @Override
-            public @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory, Player playerEntity) {
-                return new MonsterInventoryMenu(i, inventory, monster);
+            public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+                return new MonsterInventoryMenu(i,inventory,monster);
             }
-        }, buf -> buf.writeInt(monster.getId()));
+        },buf -> buf.writeInt(monster.getId()));
     }
 
     @SubscribeEvent
@@ -134,8 +142,8 @@ public class CommonEvents {
         UUID playerUUID = attachment.getControllingPlayer();
         var player = monster.level().getPlayerByUUID(playerUUID);
         if (player == null) return;
-        if(monster.getTarget() == player)
-        {
+
+        if(monster.getTarget() == player) {
             monster.setTarget(null);
             monster.setAggressive(false);
         }
@@ -154,6 +162,20 @@ public class CommonEvents {
             if (armorPiece.getItem() instanceof ArmorItem) {
                 monster.setItemSlot(armorSlots[i], armorPiece);
             }
+        }
+
+        ItemStack controllerSlotItem = attachment.mobInventory.getItem(4);
+        if (controllerSlotItem.isEmpty() || !(controllerSlotItem.getItem() instanceof ItemController)) {
+            ItemStack controllerForSlot = new ItemStack(headItem.getItem());
+            controllerForSlot.set(DataComponentRegistry.CONTROLLER.get(), attachment);
+            if (headItem.has(DataComponentRegistry.CONTROLLER_TIER.get())) {
+                controllerForSlot.set(DataComponentRegistry.CONTROLLER_TIER.get(),
+                        headItem.get(DataComponentRegistry.CONTROLLER_TIER.get()));
+            }
+            attachment.mobInventory.setItem(4, controllerForSlot);
+
+            headItem.set(DataComponentRegistry.CONTROLLER.get(), attachment);
+            monster.setItemSlot(EquipmentSlot.HEAD, headItem);
         }
 
         UtilityMethods.updateMobBehavior(monster, player);
@@ -248,17 +270,9 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onModifyItemProperties(ItemAttributeModifierEvent event)
-    {
-        ItemStack stack = event.getItemStack();
-    }
-
-    @SubscribeEvent
     public static void onRenderGuiEvent(RenderGuiEvent.Post event) {
         GogglesScreen.onRenderGui(event.getGuiGraphics());
     }
-
-
 
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiLayerEvent.Post event) {

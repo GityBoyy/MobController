@@ -1,7 +1,7 @@
 package org.chubby.github.mobcontroller.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import dev.architectury.registry.menu.MenuRegistry;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -38,7 +38,7 @@ public class NeuralInterfaceStation extends BaseEntityBlock
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof NeuralInterfaceStationBE menuProvider) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    MenuRegistry.openExtendedMenu(serverPlayer,menuProvider,buf -> buf.writeBlockPos(menuProvider.getBlockPos()));
+                    Services.MENU_HELPER.openMenu(serverPlayer,menuProvider,buf -> buf.writeBlockPos(menuProvider.getBlockPos()));
                 }
             }
         }

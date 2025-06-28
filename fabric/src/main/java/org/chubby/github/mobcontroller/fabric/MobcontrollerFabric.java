@@ -1,6 +1,6 @@
 package org.chubby.github.mobcontroller.fabric;
 
-import org.chubby.github.mobcontroller.Mobcontroller;
+import org.chubby.github.mobcontroller.MobController;
 import net.fabricmc.api.ModInitializer;
 
 public final class MobcontrollerFabric implements ModInitializer {
@@ -11,6 +11,6 @@ public final class MobcontrollerFabric implements ModInitializer {
         // Proceed with mild caution.
 
         // Run our common setup.
-        Mobcontroller.init();
+        MobController.init();
     }
 }
