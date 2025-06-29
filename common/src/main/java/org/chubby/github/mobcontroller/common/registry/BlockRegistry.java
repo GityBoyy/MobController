@@ -12,6 +12,6 @@ import java.util.function.Supplier;
 public class BlockRegistry
 {
     public static final Supplier<Block> NEURAL_INTERFACE_STATION = Services.REGISTRY_HELPER.registerBlock(Utils
-            .resource("neural_interface_station"),()-> new NeuralInterfaceStation(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            .resource("neural_interface_station"),()-> new NeuralInterfaceStation(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static void init(){}
 }

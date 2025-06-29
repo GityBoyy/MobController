@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -28,12 +29,7 @@ public class NeuralInterfaceStation extends BaseEntityBlock
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(NeuralInterfaceStation::new);
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState $$0, Level level, BlockPos pos, Player player, InteractionHand $$4, BlockHitResult $$5) {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof NeuralInterfaceStationBE menuProvider) {
@@ -44,6 +40,7 @@ public class NeuralInterfaceStation extends BaseEntityBlock
         }
         return InteractionResult.SUCCESS;
     }
+
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new NeuralInterfaceStationBE(pos,state);

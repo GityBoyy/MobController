@@ -7,6 +7,6 @@ public class Utils
 {
     public static ResourceLocation resource(String pPath)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID,pPath);
+        return new ResourceLocation(Constants.MOD_ID,pPath);
     }
 }

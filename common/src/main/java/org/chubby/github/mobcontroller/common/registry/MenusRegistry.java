@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import org.chubby.github.mobcontroller.api.registry.MenuRegistry;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
-import org.chubby.github.mobcontroller.common.data.SoulEssenceData;
 import org.chubby.github.mobcontroller.common.menu.DataDisplayerMenu;
 import org.chubby.github.mobcontroller.common.menu.MonsterInventoryMenu;
 import org.chubby.github.mobcontroller.common.menu.NeuralInterfaceStationMenu;
@@ -27,18 +26,7 @@ public class MenusRegistry
     );
 
 
-    public static final Supplier<MenuType<DataDisplayerMenu>> DATA_DISPLAYER_MENU = Services.CLIENT_REGISTRY_HELPER.registerMenu(
-            Utils.resource("data_displayer_menu"),
-            (id, inventory,  buf) -> {
-                var player = inventory.player;
-                int monsterEntityId = buf.readInt();
-                Monster monster = (Monster) player.level().getEntity(monsterEntityId);
-                if(monster==null) return null;
-                SoulEssenceData data= monster.getItemBySlot(EquipmentSlot.HEAD).get(DataComponentRegistry.SOUL_ESSENCE.get());
-                if(data==null) return null;
-                return new DataDisplayerMenu(id, inventory, data.getControlledMobIds());
-            }
-    );
+    public static final Supplier<MenuType<DataDisplayerMenu>> DATA_DISPLAYER_MENU = null;
 
     public static final Supplier<MenuType<NeuralInterfaceStationMenu>> NEURAL_INTERFACE_STATION_MENU = Services.CLIENT_REGISTRY_HELPER
             .registerMenu(Utils.resource("neural_interface_station_menu"),

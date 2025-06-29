@@ -927,10 +927,10 @@ instanceKlass com/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition
 instanceKlass com/sun/tools/javac/util/AbstractLog
 instanceKlass com/sun/tools/javac/util/Context$Factory
 instanceKlass com/sun/tools/javac/util/Context$Key
-instanceKlass net/neoforged/neoform/runtime/actions/RecompileSourcesActionWithJDK$1
+instanceKlass net/forged/neoform/runtime/actions/RecompileSourcesActionWithJDK$1
 instanceKlass jdk/nio/zipfs/ZipUtils
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/RecompileSourcesActionWithJDK run (Lnet/neoforged/neoform/runtime/engine/ProcessingEnvironment;)V 121 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/actions/RecompileSourcesActionWithJDK$$Lambda+0x00000265011b7a08
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/RecompileSourcesActionWithJDK run (Lnet/neoforged/neoform/runtime/engine/ProcessingEnvironment;)V 103 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/RecompileSourcesActionWithJDK$$Lambda+0x00000265011b77c8
+instanceKlass  @bci net/forged/neoform/runtime/actions/RecompileSourcesActionWithJDK run (Lnet/forged/neoform/runtime/engine/ProcessingEnvironment;)V 121 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/actions/RecompileSourcesActionWithJDK$$Lambda+0x00000265011b7a08
+instanceKlass  @bci net/forged/neoform/runtime/actions/RecompileSourcesActionWithJDK run (Lnet/forged/neoform/runtime/engine/ProcessingEnvironment;)V 103 <appendix> argL0 ; # net/forged/neoform/runtime/actions/RecompileSourcesActionWithJDK$$Lambda+0x00000265011b77c8
 instanceKlass  @bci java/nio/file/Files walk (Ljava/nio/file/Path;I[Ljava/nio/file/FileVisitOption;)Ljava/util/stream/Stream; 43 <appendix> argL0 ; # java/nio/file/Files$$Lambda+0x00000265011ee2c0
 instanceKlass  @bci java/nio/file/Files walk (Ljava/nio/file/Path;I[Ljava/nio/file/FileVisitOption;)Ljava/util/stream/Stream; 30 <appendix> member <vmtarget> ; # java/nio/file/Files$$Lambda+0x00000265011ee0a8
 instanceKlass jdk/nio/zipfs/ZipDirectoryStream$1
@@ -976,8 +976,8 @@ instanceKlass java/nio/channels/AsynchronousChannel
 instanceKlass java/nio/file/FileStore
 instanceKlass java/nio/file/spi/FileSystemProvider$1
 instanceKlass java/util/zip/ZipFile$ZipEntryIterator
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectZipContentAction computeCacheKey (Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 36 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501203c00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectZipContentAction computeCacheKey (Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 36 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501203800
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectZipContentAction computeCacheKey (Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 36 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501203c00
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectZipContentAction computeCacheKey (Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 36 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501203800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501203400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501203000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501202c00
@@ -1013,16 +1013,16 @@ instanceKlass java/util/zip/Deflater$DeflaterZStreamRef
 instanceKlass java/util/zip/Deflater
 instanceKlass sun/security/util/ManifestEntryVerifier
 instanceKlass  @bci java/util/regex/Pattern asMatchPredicate ()Ljava/util/function/Predicate; 1 <appendix> member <vmtarget> ; # java/util/regex/Pattern$$Lambda+0x00000265011e06e0
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction run (Lnet/neoforged/neoform/runtime/engine/ProcessingEnvironment;)V 56 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b5908
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction run (Lnet/neoforged/neoform/runtime/engine/ProcessingEnvironment;)V 28 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b56c8
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction computeCacheKey (Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 17 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b5498
+instanceKlass  @bci net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction run (Lnet/forged/neoform/runtime/engine/ProcessingEnvironment;)V 56 <appendix> argL0 ; # net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b5908
+instanceKlass  @bci net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction run (Lnet/forged/neoform/runtime/engine/ProcessingEnvironment;)V 28 <appendix> argL0 ; # net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b56c8
+instanceKlass  @bci net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction computeCacheKey (Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 17 <appendix> argL0 ; # net/forged/neoform/runtime/actions/SplitResourcesFromClassesAction$$Lambda+0x00000265011b5498
 instanceKlass java/lang/foreign/MemorySegment
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/CreateLibrariesOptionsFileAction run (Lnet/neoforged/neoform/runtime/engine/ProcessingEnvironment;)V 53 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/CreateLibrariesOptionsFileAction$$Lambda+0x00000265011b5268
-instanceKlass  @bci net/neoforged/neoform/runtime/artifacts/ArtifactManager resolveClasspath (Ljava/util/Collection;)Ljava/util/List; 57 <appendix> argL2 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501202000
+instanceKlass  @bci net/forged/neoform/runtime/actions/CreateLibrariesOptionsFileAction run (Lnet/forged/neoform/runtime/engine/ProcessingEnvironment;)V 53 <appendix> argL0 ; # net/forged/neoform/runtime/actions/CreateLibrariesOptionsFileAction$$Lambda+0x00000265011b5268
+instanceKlass  @bci net/forged/neoform/runtime/artifacts/ArtifactManager resolveClasspath (Ljava/util/Collection;)Ljava/util/List; 57 <appendix> argL2 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501202000
 instanceKlass java/lang/invoke/MethodHandleImpl$CountingWrapper$1
-# instanceKlass net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b5050
-# instanceKlass net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b4e38
-instanceKlass  @bci net/neoforged/neoform/runtime/artifacts/ArtifactManager download (Ljava/nio/file/Path;Lnet/neoforged/neoform/runtime/downloads/DownloadSpec;)Lnet/neoforged/neoform/runtime/artifacts/Artifact; 5 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b4c20
+# instanceKlass net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b5050
+# instanceKlass net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b4e38
+instanceKlass  @bci net/forged/neoform/runtime/artifacts/ArtifactManager download (Ljava/nio/file/Path;Lnet/forged/neoform/runtime/downloads/DownloadSpec;)Lnet/forged/neoform/runtime/artifacts/Artifact; 5 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x00000265011b4c20
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501201c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501201800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501201400
@@ -1036,7 +1036,7 @@ instanceKlass  @bci java/lang/invoke/BootstrapMethodInvoker invoke (Ljava/lang/C
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011bf400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011bf000
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011bec00
-instanceKlass  @bci net/neoforged/neoform/runtime/manifests/MinecraftLibrary <init> (Ljava/lang/String;Lnet/neoforged/neoform/runtime/manifests/MinecraftLibrary$Downloads;Ljava/util/List;Ljava/util/Map;)V 12 <appendix> argL0 ; # net/neoforged/neoform/runtime/manifests/MinecraftLibrary$$Lambda+0x00000265011b4a10
+instanceKlass  @bci net/forged/neoform/runtime/manifests/MinecraftLibrary <init> (Ljava/lang/String;Lnet/forged/neoform/runtime/manifests/MinecraftLibrary$Downloads;Ljava/util/List;Ljava/util/Map;)V 12 <appendix> argL0 ; # net/forged/neoform/runtime/manifests/MinecraftLibrary$$Lambda+0x00000265011b4a10
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011be800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011be400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011be000
@@ -1064,23 +1064,23 @@ instanceKlass  @bci net/neoforged/neoform/runtime/manifests/MinecraftLibrary <in
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011b8800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b8400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b8000
-instanceKlass  @bci net/neoforged/neoform/runtime/manifests/Rule <init> (Lnet/neoforged/neoform/runtime/manifests/RuleAction;Ljava/util/Map;Lnet/neoforged/neoform/runtime/manifests/OsCondition;)V 10 <appendix> argL0 ; # net/neoforged/neoform/runtime/manifests/Rule$$Lambda+0x00000265011b4800
+instanceKlass  @bci net/forged/neoform/runtime/manifests/Rule <init> (Lnet/forged/neoform/runtime/manifests/RuleAction;Ljava/util/Map;Lnet/forged/neoform/runtime/manifests/OsCondition;)V 10 <appendix> argL0 ; # net/forged/neoform/runtime/manifests/Rule$$Lambda+0x00000265011b4800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b3c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b3800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b3400
 instanceKlass com/google/gson/internal/ConstructorConstructor$17
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b3000
 instanceKlass com/google/gson/internal/bind/TypeAdapters$EnumTypeAdapter$1
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2c00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2800
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 4 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011b2400
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL4 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2000
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2c00
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2800
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 4 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011b2400
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL4 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b2000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b1c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b1800
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b1400
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 9 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011b1000
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b1400
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 9 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011b1000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b0c00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL0 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b0800
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL0 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011b0800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b0400
 instanceKlass java/lang/invoke/MethodHandleImpl$TableSwitchCacheKey
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011b0000
@@ -1091,37 +1091,37 @@ instanceKlass java/lang/invoke/MethodHandleImpl$TableSwitchCacheKey
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011aec00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011ae800
 instanceKlass java/util/ReverseOrderListView
-instanceKlass  @bci net/neoforged/neoform/runtime/manifests/UnresolvedArgument <clinit> ()V 8 <appendix> argL0 ; # net/neoforged/neoform/runtime/manifests/UnresolvedArgument$$Lambda+0x0000026501132760
-instanceKlass  @bci net/neoforged/neoform/runtime/manifests/UnresolvedArgument <clinit> ()V 0 <appendix> argL0 ; # net/neoforged/neoform/runtime/manifests/UnresolvedArgument$$Lambda+0x0000026501132550
+instanceKlass  @bci net/forged/neoform/runtime/manifests/UnresolvedArgument <clinit> ()V 8 <appendix> argL0 ; # net/forged/neoform/runtime/manifests/UnresolvedArgument$$Lambda+0x0000026501132760
+instanceKlass  @bci net/forged/neoform/runtime/manifests/UnresolvedArgument <clinit> ()V 0 <appendix> argL0 ; # net/forged/neoform/runtime/manifests/UnresolvedArgument$$Lambda+0x0000026501132550
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011ae400
-instanceKlass  @cpi net/neoforged/neoform/runtime/manifests/UnresolvedArgument 179 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011ae000
+instanceKlass  @cpi net/forged/neoform/runtime/manifests/UnresolvedArgument 179 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x00000265011ae000
 instanceKlass  @bci java/lang/runtime/SwitchBootstraps typeSwitch (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; 90 <appendix> argL0 ; # java/lang/runtime/SwitchBootstraps$$Lambda+0x00000265011de4a8
-instanceKlass net/neoforged/neoform/runtime/manifests/UnresolvedArgument
+instanceKlass net/forged/neoform/runtime/manifests/UnresolvedArgument
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011adc00
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011ad800
 instanceKlass java/lang/runtime/SwitchBootstraps$EnumMap
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011ad400
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ResultRepresentation <clinit> ()V 23 <appendix> argL0 ; # net/neoforged/neoform/runtime/graph/ResultRepresentation$$Lambda+0x0000026501132150
+instanceKlass  @bci net/forged/neoform/runtime/graph/ResultRepresentation <clinit> ()V 23 <appendix> argL0 ; # net/forged/neoform/runtime/graph/ResultRepresentation$$Lambda+0x0000026501132150
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011ad000
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011acc00
 instanceKlass java/lang/runtime/SwitchBootstraps$ResolvedEnumLabel
 instanceKlass java/lang/constant/DynamicConstantDesc
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ResultRepresentation <clinit> ()V 6 <appendix> argL0 ; # net/neoforged/neoform/runtime/graph/ResultRepresentation$$Lambda+0x0000026501131d40
-instanceKlass net/neoforged/neoform/runtime/graph/ResultRepresentation$Loader
+instanceKlass  @bci net/forged/neoform/runtime/graph/ResultRepresentation <clinit> ()V 6 <appendix> argL0 ; # net/forged/neoform/runtime/graph/ResultRepresentation$$Lambda+0x0000026501131d40
+instanceKlass net/forged/neoform/runtime/graph/ResultRepresentation$Loader
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011ac800
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x00000265011ac400
 instanceKlass java/lang/runtime/SwitchBootstraps
 instanceKlass java/util/Formattable
 instanceKlass java/util/Formatter$FixedString
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011ac000
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011ac000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011abc00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011ab800
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL4 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011ab400
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL4 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011ab400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011ab000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011aac00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011aa800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011aa400
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011aa000
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x00000265011aa000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a9c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a9800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a9400
@@ -1132,15 +1132,15 @@ instanceKlass java/util/Formatter$FormatSpecifier
 instanceKlass java/util/Formatter$FormatString
 instanceKlass java/util/Formatter$Conversion
 instanceKlass java/util/Formatter
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine runNode (Lnet/neoforged/neoform/runtime/graph/ExecutionNode;)V 315 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x0000026501131108
-instanceKlass  @bci net/neoforged/neoform/runtime/artifacts/ArtifactManager lambda$getVersionManifest$3 (Ljava/lang/String;Ljava/nio/file/Path;)V 41 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130ef0
-instanceKlass  @bci net/neoforged/neoform/runtime/artifacts/ArtifactManager lambda$getVersionManifest$3 (Ljava/lang/String;Ljava/nio/file/Path;)V 25 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130ca8
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine runNode (Lnet/forged/neoform/runtime/graph/ExecutionNode;)V 315 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x0000026501131108
+instanceKlass  @bci net/forged/neoform/runtime/artifacts/ArtifactManager lambda$getVersionManifest$3 (Ljava/lang/String;Ljava/nio/file/Path;)V 41 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130ef0
+instanceKlass  @bci net/forged/neoform/runtime/artifacts/ArtifactManager lambda$getVersionManifest$3 (Ljava/lang/String;Ljava/nio/file/Path;)V 25 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130ca8
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a8c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a8800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a8400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x00000265011a8000
 instanceKlass sun/nio/fs/WindowsFileCopy
-instanceKlass net/neoforged/neoform/runtime/utils/FileUtil
+instanceKlass net/forged/neoform/runtime/utils/FileUtil
 instanceKlass  @bci jdk/internal/net/http/Http2Connection closeStream (I)V 171 <appendix> member <vmtarget> ; # jdk/internal/net/http/Http2Connection$$Lambda+0x00000265011a5760
 instanceKlass jdk/internal/net/http/websocket/RawChannel
 instanceKlass jdk/internal/net/http/HttpResponseImpl$RawChannelProvider
@@ -1637,9 +1637,9 @@ instanceKlass  @cpi com/sun/tools/javac/comp/Attr 5406 form vmentry <vmtarget> ;
 instanceKlass jdk/internal/net/http/common/SSLTube
 instanceKlass  @bci jdk/internal/net/http/HttpClientImpl$SelectorManager run ()V 1377 <appendix> member <vmtarget> ; # jdk/internal/net/http/HttpClientImpl$SelectorManager$$Lambda+0x000002650118cea0
 instanceKlass jdk/internal/net/http/common/Pair
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501189c00
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501189c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501189800
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501189400
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501189400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501189000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501188c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501188800
@@ -1818,15 +1818,15 @@ instanceKlass jdk/internal/net/http/HttpRequestBuilderImpl
 instanceKlass java/net/http/HttpRequest$Builder
 instanceKlass jdk/internal/math/MathUtils
 instanceKlass jdk/internal/math/DoubleToDecimal
-instanceKlass  @bci net/neoforged/neoform/runtime/downloads/DownloadManager download (Lnet/neoforged/neoform/runtime/downloads/DownloadSpec;Ljava/nio/file/Path;Z)Z 106 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501134400
+instanceKlass  @bci net/forged/neoform/runtime/downloads/DownloadManager download (Lnet/forged/neoform/runtime/downloads/DownloadSpec;Ljava/nio/file/Path;Z)Z 106 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501134400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501134000
 instanceKlass java/lang/Math$RandomNumberGeneratorHolder
-instanceKlass  @bci net/neoforged/neoform/runtime/artifacts/ArtifactManager getVersionManifest (Ljava/lang/String;)Lnet/neoforged/neoform/runtime/artifacts/Artifact; 98 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130000
-instanceKlass net/neoforged/neoform/runtime/artifacts/ArtifactManager$DownloadAction
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/LauncherInstallations getInstallationRoots ()Ljava/util/List; 13 <appendix> argL0 ; # net/neoforged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650112bb40
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/LauncherInstallations resolvePlaceholders (Ljava/lang/String;)Ljava/lang/String; 18 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650112b908
-instanceKlass net/neoforged/neoform/runtime/engine/NeoFormEngine$NodeProcessingEnvironment
-instanceKlass net/neoforged/neoform/runtime/utils/FilenameUtil
+instanceKlass  @bci net/forged/neoform/runtime/artifacts/ArtifactManager getVersionManifest (Ljava/lang/String;)Lnet/forged/neoform/runtime/artifacts/Artifact; 98 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/artifacts/ArtifactManager$$Lambda+0x0000026501130000
+instanceKlass net/forged/neoform/runtime/artifacts/ArtifactManager$DownloadAction
+instanceKlass  @bci net/forged/neoform/runtime/cache/LauncherInstallations getInstallationRoots ()Ljava/util/List; 13 <appendix> argL0 ; # net/forged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650112bb40
+instanceKlass  @bci net/forged/neoform/runtime/cache/LauncherInstallations resolvePlaceholders (Ljava/lang/String;)Ljava/lang/String; 18 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650112b908
+instanceKlass net/forged/neoform/runtime/engine/NeoFormEngine$NodeProcessingEnvironment
+instanceKlass net/forged/neoform/runtime/utils/FilenameUtil
 instanceKlass java/time/LocalTime$1
 instanceKlass java/time/format/DateTimeFormatterBuilder$2
 instanceKlass java/time/LocalDate$1
@@ -1839,18 +1839,18 @@ instanceKlass sun/util/calendar/ZoneInfoFile$ZoneOffsetTransitionRule
 instanceKlass jdk/internal/util/ByteArray
 instanceKlass sun/util/calendar/ZoneInfoFile$1
 instanceKlass sun/util/calendar/ZoneInfoFile
-instanceKlass net/neoforged/neoform/runtime/cli/LockManager$Lock
+instanceKlass net/forged/neoform/runtime/cli/LockManager$Lock
 instanceKlass  @bci java/util/stream/Collectors joining (Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/util/stream/Collector; 22 <appendix> argL0 ; # java/util/stream/Collectors$$Lambda+0x800000043
 instanceKlass  @bci java/util/stream/Collectors joining (Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/util/stream/Collector; 17 <appendix> argL0 ; # java/util/stream/Collectors$$Lambda+0x800000041
 instanceKlass  @bci java/util/stream/Collectors joining (Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/util/stream/Collector; 12 <appendix> argL0 ; # java/util/stream/Collectors$$Lambda+0x80000003e
 instanceKlass  @bci java/util/stream/Collectors joining (Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/util/stream/Collector; 7 <appendix> member <vmtarget> ; # java/util/stream/Collectors$$Lambda+0x800000046
 instanceKlass  @bci com/sun/tools/javac/comp/TransPatterns$BasicBindingContext getBindingFor (Lcom/sun/tools/javac/code/Symbol$BindingSymbol;)Lcom/sun/tools/javac/code/Symbol$VarSymbol; 30 <bsm> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650112ac00
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheKey computeHashValue (Ljava/util/Map;)Ljava/lang/String; 19 <appendix> argL0 ; # net/neoforged/neoform/runtime/cache/CacheKey$$Lambda+0x000002650112b000
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheKey computeHashValue (Ljava/util/Map;)Ljava/lang/String; 19 <appendix> argL0 ; # net/forged/neoform/runtime/cache/CacheKey$$Lambda+0x000002650112b000
 instanceKlass java/util/stream/SortedOps
 instanceKlass  @bci java/util/Map$Entry comparingByKey ()Ljava/util/Comparator; 0 <appendix> argL0 ; # java/util/Map$Entry$$Lambda+0x000002650114af50
-instanceKlass net/neoforged/neoform/runtime/utils/HashingUtil
-instanceKlass  @bci net/neoforged/neoform/runtime/cli/FileHashService getHashValue (Ljava/nio/file/Path;)Ljava/lang/String; 5 <appendix> argL0 ; # net/neoforged/neoform/runtime/cli/FileHashService$$Lambda+0x000002650112f970
-instanceKlass net/neoforged/neoform/runtime/cache/CacheKeyBuilder
+instanceKlass net/forged/neoform/runtime/utils/HashingUtil
+instanceKlass  @bci net/forged/neoform/runtime/cli/FileHashService getHashValue (Ljava/nio/file/Path;)Ljava/lang/String; 5 <appendix> argL0 ; # net/forged/neoform/runtime/cli/FileHashService$$Lambda+0x000002650112f970
+instanceKlass net/forged/neoform/runtime/cache/CacheKeyBuilder
 instanceKlass jdk/internal/misc/Blocker$ForkJoinPools
 instanceKlass jdk/internal/misc/VirtualThreads
 instanceKlass jdk/internal/misc/CarrierThread$1
@@ -1872,7 +1872,7 @@ instanceKlass  @bci java/lang/VirtualThread createDefaultScheduler ()Ljava/util/
 instanceKlass jdk/internal/vm/ContinuationSupport
 instanceKlass java/util/concurrent/ThreadPerTaskExecutor$TaskRunner
 instanceKlass java/util/concurrent/ForkJoinTask$Aux
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine getWaitCondition (Lnet/neoforged/neoform/runtime/graph/ExecutionNode;)Ljava/util/concurrent/CompletableFuture; 20 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112f518
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine getWaitCondition (Lnet/forged/neoform/runtime/graph/ExecutionNode;)Ljava/util/concurrent/CompletableFuture; 20 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112f518
 instanceKlass  @cpi com/sun/tools/javac/comp/InferenceContext 580 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650112a400
 instanceKlass java/util/stream/Node$Builder
 instanceKlass java/util/stream/Nodes$ArrayNode
@@ -1888,11 +1888,11 @@ instanceKlass java/util/function/IntFunction
 instanceKlass java/util/ImmutableCollections$Access$1
 instanceKlass jdk/internal/access/JavaUtilCollectionAccess
 instanceKlass java/util/ImmutableCollections$Access
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine triggerAndWait (Ljava/util/Collection;)V 7 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112f2e0
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine triggerAndWait (Ljava/util/Collection;)V 7 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112f2e0
 instanceKlass java/util/IdentityHashMap$IdentityHashMapSpliterator
-instanceKlass  @bci net/neoforged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/neoforged/neoform/runtime/engine/NeoFormEngine;)V 61 <appendix> argL0 ; # net/neoforged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112eeb0
-instanceKlass  @bci net/neoforged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/neoforged/neoform/runtime/engine/NeoFormEngine;)V 56 <appendix> argL0 ; # net/neoforged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112ec80
-instanceKlass  @bci net/neoforged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/neoforged/neoform/runtime/engine/NeoFormEngine;)V 46 <appendix> argL0 ; # net/neoforged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112ea50
+instanceKlass  @bci net/forged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/forged/neoform/runtime/engine/NeoFormEngine;)V 61 <appendix> argL0 ; # net/forged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112eeb0
+instanceKlass  @bci net/forged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/forged/neoform/runtime/engine/NeoFormEngine;)V 56 <appendix> argL0 ; # net/forged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112ec80
+instanceKlass  @bci net/forged/neoform/runtime/cli/RunNeoFormCommand execute (Lnet/forged/neoform/runtime/engine/NeoFormEngine;)V 46 <appendix> argL0 ; # net/forged/neoform/runtime/cli/RunNeoFormCommand$$Lambda+0x000002650112ea50
 instanceKlass javax/tools/JavaFileManager
 instanceKlass javax/tools/OptionChecker
 instanceKlass javax/tools/JavaFileManager$Location
@@ -1901,35 +1901,35 @@ instanceKlass sun/net/www/MessageHeader
 instanceKlass sun/net/www/protocol/jar/JarFileFactory
 instanceKlass sun/net/www/protocol/jar/URLJarFile$URLJarFileCloseController
 instanceKlass java/net/URLConnection
-instanceKlass net/neoforged/neoform/runtime/actions/PatchActionFactory
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter <clinit> ()V 0 <appendix> argL0 ; # net/neoforged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter$$Lambda+0x000002650112e000
-instanceKlass  @cpi net/neoforged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter 44 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650112a000
+instanceKlass net/forged/neoform/runtime/actions/PatchActionFactory
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter <clinit> ()V 0 <appendix> argL0 ; # net/forged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter$$Lambda+0x000002650112e000
+instanceKlass  @cpi net/forged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter 44 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650112a000
 instanceKlass  @cpi com/sun/tools/javac/comp/Attr 5390 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501129c00
-instanceKlass net/neoforged/neoform/runtime/actions/InjectFromZipFileSource
-instanceKlass net/neoforged/neoform/runtime/actions/InjectSource
-instanceKlass net/neoforged/neoform/runtime/artifacts/ClasspathItem
-instanceKlass net/neoforged/neoform/runtime/actions/ExtensibleClasspath
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine addNodeForStep (Lnet/neoforged/neoform/runtime/graph/ExecutionGraph;Lnet/neoforged/neoform/runtime/config/neoform/NeoFormDistConfig;Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep;)V 717 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112d120
+instanceKlass net/forged/neoform/runtime/actions/InjectFromZipFileSource
+instanceKlass net/forged/neoform/runtime/actions/InjectSource
+instanceKlass net/forged/neoform/runtime/artifacts/ClasspathItem
+instanceKlass net/forged/neoform/runtime/actions/ExtensibleClasspath
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine addNodeForStep (Lnet/forged/neoform/runtime/graph/ExecutionGraph;Lnet/forged/neoform/runtime/config/neoform/NeoFormDistConfig;Lnet/forged/neoform/runtime/config/neoform/NeoFormStep;)V 717 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112d120
 instanceKlass  @cpi com/sun/tools/javac/comp/Attr 5381 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501129800
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine applyFunctionToNode (Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep;Lnet/neoforged/neoform/runtime/config/neoform/NeoFormFunction;Lnet/neoforged/neoform/runtime/graph/ExecutionNodeBuilder;)V 111 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112ccc8
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine applyFunctionToNode (Lnet/forged/neoform/runtime/config/neoform/NeoFormStep;Lnet/forged/neoform/runtime/config/neoform/NeoFormFunction;Lnet/forged/neoform/runtime/graph/ExecutionNodeBuilder;)V 111 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112ccc8
 instanceKlass  @cpi com/sun/tools/javac/comp/InferenceContext 590 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501129400
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine applyFunctionToNode (Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep;Lnet/neoforged/neoform/runtime/config/neoform/NeoFormFunction;Lnet/neoforged/neoform/runtime/graph/ExecutionNodeBuilder;)V 84 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112ca78
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine applyFunctionToNode (Lnet/forged/neoform/runtime/config/neoform/NeoFormStep;Lnet/forged/neoform/runtime/config/neoform/NeoFormFunction;Lnet/forged/neoform/runtime/graph/ExecutionNodeBuilder;)V 84 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/engine/NeoFormEngine$$Lambda+0x000002650112ca78
 instanceKlass java/util/function/UnaryOperator
-instanceKlass net/neoforged/neoform/runtime/engine/NeoFormInterpolator
+instanceKlass net/forged/neoform/runtime/engine/NeoFormInterpolator
 instanceKlass java/util/AbstractMap$2$1
 instanceKlass  @bci java/util/stream/MatchOps makeRef (Ljava/util/function/Predicate;Ljava/util/stream/MatchOps$MatchKind;)Ljava/util/stream/TerminalOp; 20 <appendix> member <vmtarget> ; # java/util/stream/MatchOps$$Lambda+0x0000026501141158
 instanceKlass java/util/stream/MatchOps$BooleanTerminalSink
 instanceKlass java/util/stream/MatchOps$MatchOp
 instanceKlass java/util/stream/MatchOps
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNodeBuilder output (Ljava/lang/String;Lnet/neoforged/neoform/runtime/graph/NodeOutputType;Ljava/lang/String;)Lnet/neoforged/neoform/runtime/graph/NodeOutput; 15 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/graph/ExecutionNodeBuilder$$Lambda+0x00000265011239d8
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNodeBuilder output (Ljava/lang/String;Lnet/forged/neoform/runtime/graph/NodeOutputType;Ljava/lang/String;)Lnet/forged/neoform/runtime/graph/NodeOutput; 15 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/graph/ExecutionNodeBuilder$$Lambda+0x00000265011239d8
 instanceKlass java/util/HashMap$HashMapSpliterator
-instanceKlass net/neoforged/neoform/runtime/graph/NodeInput
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 18 <appendix> argL0 ; # net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122f28
+instanceKlass net/forged/neoform/runtime/graph/NodeInput
+instanceKlass  @bci net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 18 <appendix> argL0 ; # net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122f28
 instanceKlass  @bci java/util/Comparator thenComparing (Ljava/util/Comparator;)Ljava/util/Comparator; 7 <appendix> member <vmtarget> ; # java/util/Comparator$$Lambda+0x00000265011403d8
 instanceKlass  @cpi java/util/Comparator 251 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501129000
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 8 <appendix> argL0 ; # net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122d18
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 0 <appendix> argL0 ; # net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122b08
-instanceKlass net/neoforged/neoform/runtime/engine/ProcessGeneration
+instanceKlass  @bci net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 8 <appendix> argL0 ; # net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122d18
+instanceKlass  @bci net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion <clinit> ()V 0 <appendix> argL0 ; # net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion$$Lambda+0x0000026501122b08
+instanceKlass net/forged/neoform/runtime/engine/ProcessGeneration
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501128c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501128800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501128400
@@ -1952,10 +1952,10 @@ instanceKlass  @bci java/util/stream/Collectors castingIdentity ()Ljava/util/fun
 instanceKlass  @bci java/util/stream/Collectors uniqKeysMapMerger ()Ljava/util/function/BinaryOperator; 0 <appendix> argL0 ; # java/util/stream/Collectors$$Lambda+0x00000265010bfb60
 instanceKlass  @bci java/util/stream/Collectors uniqKeysMapAccumulator (Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/util/function/BiConsumer; 2 <appendix> member <vmtarget> ; # java/util/stream/Collectors$$Lambda+0x00000265010bf938
 instanceKlass  @bci java/util/stream/Collectors toMap (Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/util/stream/Collector; 4 <appendix> argL0 ; # java/util/stream/Collectors$$Lambda+0x00000265010bf728
-instanceKlass  @bci net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep; 90 <appendix> argL0 ; # net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x00000265011222b8
-instanceKlass  @bci net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep; 85 <appendix> argL0 ; # net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x0000026501122088
+instanceKlass  @bci net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/forged/neoform/runtime/config/neoform/NeoFormStep; 90 <appendix> argL0 ; # net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x00000265011222b8
+instanceKlass  @bci net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/forged/neoform/runtime/config/neoform/NeoFormStep; 85 <appendix> argL0 ; # net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x0000026501122088
 instanceKlass  @cpi com/sun/tools/javac/comp/Operators$OperatorHelper 135 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501124c00
-instanceKlass  @bci net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/neoforged/neoform/runtime/config/neoform/NeoFormStep; 75 <appendix> argL0 ; # net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x0000026501121e48
+instanceKlass  @bci net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer deserialize (Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/forged/neoform/runtime/config/neoform/NeoFormStep; 75 <appendix> argL0 ; # net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer$$Lambda+0x0000026501121e48
 instanceKlass java/util/Spliterators$IteratorSpliterator
 instanceKlass com/google/gson/internal/bind/JsonTreeReader$2
 instanceKlass com/google/gson/internal/Streams
@@ -1972,7 +1972,7 @@ instanceKlass sun/reflect/misc/ReflectUtil
 instanceKlass com/google/gson/internal/ConstructorConstructor$18
 instanceKlass com/google/gson/internal/$Gson$Types$ParameterizedTypeImpl
 instanceKlass com/google/gson/annotations/SerializedName
-instanceKlass net/neoforged/neoform/runtime/config/neoform/NeoFormDistConfig
+instanceKlass net/forged/neoform/runtime/config/neoform/NeoFormDistConfig
 instanceKlass java/lang/Short$ShortCache
 instanceKlass java/lang/Byte$ByteCache
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650111c400
@@ -1996,7 +1996,7 @@ instanceKlass com/google/gson/reflect/TypeToken
 instanceKlass com/google/gson/InstanceCreator
 instanceKlass com/google/gson/internal/$Gson$Preconditions
 instanceKlass com/google/gson/JsonSerializer
-instanceKlass net/neoforged/neoform/runtime/config/neoform/NeoFormStepDeserializer
+instanceKlass net/forged/neoform/runtime/config/neoform/NeoFormStepDeserializer
 instanceKlass com/google/gson/JsonDeserializer
 instanceKlass java/lang/ProcessHandleImpl$Info
 instanceKlass java/lang/ProcessHandle$Info
@@ -2008,17 +2008,17 @@ instanceKlass jdk/internal/util/random/RandomSupport
 instanceKlass  @bci java/lang/ProcessHandleImpl <clinit> ()V 32 <appendix> argL0 ; # java/lang/ProcessHandleImpl$$Lambda+0x00000265010bd408
 instanceKlass java/lang/ProcessHandleImpl
 instanceKlass java/lang/ProcessHandle
-instanceKlass net/neoforged/neoform/runtime/engine/BuildOptions
-instanceKlass net/neoforged/neoform/runtime/engine/ProcessingEnvironment
-instanceKlass net/neoforged/neoform/runtime/cli/FileHashService
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650111b400
+instanceKlass net/forged/neoform/runtime/engine/BuildOptions
+instanceKlass net/forged/neoform/runtime/engine/ProcessingEnvironment
+instanceKlass net/forged/neoform/runtime/cli/FileHashService
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650111b400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650111b000
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650111ac00
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650111ac00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650111a800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650111a400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650111a000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501119c00
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501119800
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil capitalize (Ljava/lang/String;)Ljava/lang/String; 13 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501119800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501119400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501119000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501118c00
@@ -2026,7 +2026,7 @@ instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey hashCod
 instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey hashCode ()I 1 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501118400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501118000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501117c00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL4 form names 4 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501117800
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> argL4 form names 4 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501117800
 instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey hashCode ()I 1 <appendix> argL2 argL2 argL2 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501117400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501117000
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000026501116c00
@@ -2038,54 +2038,54 @@ instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey hashCod
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501115400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501115000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501114c00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/neoforged/neoform/runtime/cli/FileHashService;)Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501114800
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/forged/neoform/runtime/cli/FileHashService;)Lnet/forged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501114800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501114400
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/neoforged/neoform/runtime/cli/FileHashService;)Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501114000
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/forged/neoform/runtime/cli/FileHashService;)Lnet/forged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501114000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501113c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501113800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501113400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501113000
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/neoforged/neoform/runtime/cli/FileHashService;)Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501112c00
+instanceKlass  @bci net/forged/neoform/runtime/actions/InjectFromZipFileSource getCacheKey (Lnet/forged/neoform/runtime/cli/FileHashService;)Lnet/forged/neoform/runtime/cache/CacheKey$AnnotatedValue; 225 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501112c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501112800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501112400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501112000
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000026501111c00
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000026501111c00
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x0000026501111800
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501111400
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501111400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501111000
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501110c00
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501110c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501110800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501110400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501110000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110fc00
-instanceKlass  @bci net/neoforged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110f800
+instanceKlass  @bci net/forged/neoform/runtime/utils/StringUtil formatBytes (J)Ljava/lang/String; 112 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110f800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110f400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110f000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110ec00
 instanceKlass  @bci com/sun/tools/javac/code/Types closureCollector (ZLjava/util/function/BiPredicate;)Ljava/util/stream/Collector; 3 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x000002650110e800
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x000002650110e400
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110e000
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110e000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110dc00
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form names 8 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650110d800
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110d400
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form names 8 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650110d800
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110d400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110d000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110cc00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110c800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110c400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110c000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110bc00
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form names 12 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650110b800
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110b400
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> form names 12 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650110b800
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 152 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110b400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110b000
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110ac00
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheKeyBuilder addStrings (Ljava/lang/String;Ljava/util/List;)V 42 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110ac00
 instanceKlass  @bci jdk/internal/net/http/Http2Connection keyString (ZLjava/net/InetSocketAddress;Ljava/lang/String;I)Ljava/lang/String; 79 <appendix> argL1 argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650110a800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110a400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650110a000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501109c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501109800
-instanceKlass  @bci net/neoforged/neoform/runtime/engine/NeoFormEngine lambda$applyFunctionToNode$2 (Ljava/util/Map$Entry;Ljava/lang/String;)Ljava/lang/String; 10 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501109400
+instanceKlass  @bci net/forged/neoform/runtime/engine/NeoFormEngine lambda$applyFunctionToNode$2 (Ljava/util/Map$Entry;Ljava/lang/String;)Ljava/lang/String; 10 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501109400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501109000
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL5 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501108c00
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL5 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501108c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501108800
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501108400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501108000
@@ -2095,7 +2095,7 @@ instanceKlass java/util/function/LongConsumer
 instanceKlass  @bci java/util/stream/LongPipeline sum ()J 2 <appendix> argL0 ; # java/util/stream/LongPipeline$$Lambda+0x00000265010bc0a8
 instanceKlass java/util/function/LongBinaryOperator
 instanceKlass java/util/stream/LongStream
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 116 <appendix> argL0 ; # net/neoforged/neoform/runtime/cache/CacheManager$$Lambda+0x0000026501105330
+instanceKlass  @bci net/forged/neoform/runtime/cache/CacheManager cleanUpIntermediateResults ()V 116 <appendix> argL0 ; # net/forged/neoform/runtime/cache/CacheManager$$Lambda+0x0000026501105330
 instanceKlass java/util/function/ToLongFunction
 instanceKlass java/util/ArrayList$ArrayListSpliterator
 instanceKlass com/google/gson/internal/bind/ReflectiveTypeAdapterFactory$BoundField
@@ -2142,7 +2142,7 @@ instanceKlass java/nio/file/SimpleFileVisitor
 instanceKlass  @bci jdk/nio/zipfs/ZipPath toUri ()Ljava/net/URI; 28 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501097000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501096c00
 instanceKlass  @bci jdk/nio/zipfs/ZipPath toUri ()Ljava/net/URI; 28 <appendix> argL3 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501096800
-instanceKlass  @bci net/neoforged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL4 argL2 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501096400
+instanceKlass  @bci net/forged/neoform/runtime/graph/ExecutionNode complete (Ljava/util/Map;Z)V 339 <appendix> argL4 argL2 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501096400
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501096000
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501095c00
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501095800
@@ -2190,7 +2190,7 @@ instanceKlass sun/util/locale/provider/CalendarDataUtility
 instanceKlass java/text/DecimalFormatSymbols
 instanceKlass java/text/FieldPosition
 instanceKlass java/text/Format
-instanceKlass net/neoforged/neoform/runtime/utils/StringUtil
+instanceKlass net/forged/neoform/runtime/utils/StringUtil
 instanceKlass java/time/Instant$1
 instanceKlass java/nio/file/attribute/FileTime$1
 instanceKlass sun/nio/ch/FileKey
@@ -2760,8 +2760,8 @@ instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey equals 
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x000002650103e400
 instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey equals (Ljava/lang/Object;)Z 2 <appendix> form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650103e000
 instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey equals (Ljava/lang/Object;)Z 2 <appendix> argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650103dc00
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 11 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650103d800
-instanceKlass  @bci net/neoforged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/neoforged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 11 function resolvedHandle form names 5 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650103d400
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 11 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x000002650103d800
+instanceKlass  @bci net/forged/neoform/runtime/actions/ExtensibleClasspath computeCacheKey (Ljava/lang/String;Lnet/forged/neoform/runtime/cache/CacheKeyBuilder;)V 103 <appendix> form names 11 function resolvedHandle form names 5 function resolvedHandle form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x000002650103d400
 # instanceKlass java/lang/invoke/LambdaForm$DMH+0x000002650103d000
 instanceKlass java/lang/invoke/MethodHandleImpl$LoopClauses
 instanceKlass java/lang/invoke/MethodHandleImpl$CasesHolder
@@ -2940,15 +2940,15 @@ instanceKlass java/lang/ThreadBuilders
 instanceKlass java/lang/ThreadBuilders$BaseThreadBuilder
 instanceKlass java/lang/Thread$Builder$OfVirtual
 instanceKlass java/lang/Thread$Builder
-instanceKlass net/neoforged/neoform/runtime/downloads/DownloadSpec
+instanceKlass net/forged/neoform/runtime/downloads/DownloadSpec
 instanceKlass sun/nio/fs/WindowsSecurityDescriptor
 instanceKlass java/nio/file/attribute/FileAttribute
-instanceKlass  @bci net/neoforged/neoform/runtime/cli/Main getWorkDir ()Ljava/nio/file/Path; 5 <appendix> member <vmtarget> ; # net/neoforged/neoform/runtime/cli/Main$$Lambda+0x000002650102ca18
+instanceKlass  @bci net/forged/neoform/runtime/cli/Main getWorkDir ()Ljava/nio/file/Path; 5 <appendix> member <vmtarget> ; # net/forged/neoform/runtime/cli/Main$$Lambda+0x000002650102ca18
 instanceKlass java/nio/file/FileVisitor
 instanceKlass  @bci java/util/Comparator comparingInt (Ljava/util/function/ToIntFunction;)Ljava/util/Comparator; 6 <appendix> member <vmtarget> ; # java/util/Comparator$$Lambda+0x000002650105eb50
 instanceKlass  @bci java/lang/invoke/BootstrapMethodInvoker invoke (Ljava/lang/Class;Ljava/lang/invoke/MethodHandle;Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object; 462 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000026501029000
 instanceKlass  @cpi com/sun/tools/javac/comp/Operators 745 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501028c00
-instanceKlass  @bci net/neoforged/neoform/runtime/cache/LauncherInstallations <clinit> ()V 108 <appendix> argL0 ; # net/neoforged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650102c808
+instanceKlass  @bci net/forged/neoform/runtime/cache/LauncherInstallations <clinit> ()V 108 <appendix> argL0 ; # net/forged/neoform/runtime/cache/LauncherInstallations$$Lambda+0x000002650102c808
 instanceKlass  @cpi com/sun/tools/javac/comp/Modules 1618 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$DMH+0x0000026501028800
 instanceKlass java/util/function/ToIntFunction
 instanceKlass  @bci java/util/regex/Pattern negate (Ljava/util/regex/Pattern$CharPredicate;)Ljava/util/regex/Pattern$CharPredicate; 1 <appendix> member <vmtarget> ; # java/util/regex/Pattern$$Lambda+0x800000031
@@ -2988,7 +2988,7 @@ instanceKlass picocli/CommandLine$Help$DefaultParamLabelRenderer
 instanceKlass java/util/Collections$ReverseComparator2
 instanceKlass java/util/Collections$ReverseComparator
 instanceKlass picocli/CommandLine$Help$ShortestFirst
-instanceKlass net/neoforged/neoform/runtime/cli/DownloadAssetsCommand$Version
+instanceKlass net/forged/neoform/runtime/cli/DownloadAssetsCommand$Version
 instanceKlass java/util/ResourceBundle
 instanceKlass picocli/CommandLine$Model$Messages
 instanceKlass  @bci jdk/internal/reflect/MethodHandleObjectFieldAccessorImpl set (Ljava/lang/Object;Ljava/lang/Object;)V 41 <adapter> ; # java/lang/invoke/LambdaForm$MH+0x0000026501025000
@@ -3008,17 +3008,17 @@ instanceKlass picocli/CommandLine$Model$ArgGroupSpec
 # instanceKlass java/lang/invoke/LambdaForm$MH+0x0000026501024400
 instanceKlass  @bci com/sun/tools/javac/jvm/PoolConstant$Dynamic$PoolKey hashCode ()I 1 <appendix> argL2 argL1 argL1 form vmentry <vmtarget> ; # java/lang/invoke/LambdaForm$MH+0x0000026501024000
 instanceKlass java/util/Collections$UnmodifiableCollection$1
-instanceKlass net/neoforged/neoform/runtime/cli/RunNeoFormCommand$SourceArtifacts
-instanceKlass net/neoforged/neoform/runtime/graph/ExecutionGraph
-instanceKlass net/neoforged/neoform/runtime/graph/transforms/ReplaceNodeOutput$NodeFactory
-instanceKlass net/neoforged/neoform/runtime/graph/NodeOutput
-instanceKlass net/neoforged/neoform/runtime/graph/ExecutionNodeBuilder
-instanceKlass net/neoforged/neoform/runtime/actions/BuiltInAction
-instanceKlass net/neoforged/neoform/runtime/actions/ExternalJavaToolAction
-instanceKlass net/neoforged/neoform/runtime/graph/ExecutionNode
-instanceKlass net/neoforged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter
-instanceKlass net/neoforged/neoform/runtime/graph/transforms/GraphTransform
-instanceKlass net/neoforged/neoform/runtime/graph/ExecutionNodeAction
+instanceKlass net/forged/neoform/runtime/cli/RunNeoFormCommand$SourceArtifacts
+instanceKlass net/forged/neoform/runtime/graph/ExecutionGraph
+instanceKlass net/forged/neoform/runtime/graph/transforms/ReplaceNodeOutput$NodeFactory
+instanceKlass net/forged/neoform/runtime/graph/NodeOutput
+instanceKlass net/forged/neoform/runtime/graph/ExecutionNodeBuilder
+instanceKlass net/forged/neoform/runtime/actions/BuiltInAction
+instanceKlass net/forged/neoform/runtime/actions/ExternalJavaToolAction
+instanceKlass net/forged/neoform/runtime/graph/ExecutionNode
+instanceKlass net/forged/neoform/runtime/actions/InjectFromZipFileSource$ContentFilter
+instanceKlass net/forged/neoform/runtime/graph/transforms/GraphTransform
+instanceKlass net/forged/neoform/runtime/graph/ExecutionNodeAction
 instanceKlass picocli/CommandLine$Model$ObjectBinding
 instanceKlass picocli/CommandLine$Model$ArgSpec$Builder
 instanceKlass picocli/CommandLine$NoCompletionCandidates
@@ -3030,14 +3030,14 @@ instanceKlass java/lang/reflect/ParameterizedType
 instanceKlass picocli/CommandLine$Model$RuntimeTypeInfo
 instanceKlass picocli/CommandLine$Model$ITypeInfo
 instanceKlass picocli/CommandLine$Range
-instanceKlass net/neoforged/neoform/runtime/utils/Logger
-instanceKlass net/neoforged/neoform/runtime/engine/NeoFormEngine
+instanceKlass net/forged/neoform/runtime/utils/Logger
+instanceKlass net/forged/neoform/runtime/engine/NeoFormEngine
 instanceKlass picocli/CommandLine$Model
 instanceKlass java/util/Collections$EmptyIterator
-instanceKlass net/neoforged/neoform/runtime/cli/CacheMaintenance
-instanceKlass net/neoforged/neoform/runtime/cli/CleanCacheCommand
-instanceKlass net/neoforged/neoform/runtime/cli/DownloadAssetsCommand
-instanceKlass net/neoforged/neoform/runtime/cli/NeoFormEngineCommand
+instanceKlass net/forged/neoform/runtime/cli/CacheMaintenance
+instanceKlass net/forged/neoform/runtime/cli/CleanCacheCommand
+instanceKlass net/forged/neoform/runtime/cli/DownloadAssetsCommand
+instanceKlass net/forged/neoform/runtime/cli/NeoFormEngineCommand
 instanceKlass java/util/concurrent/Callable
 instanceKlass picocli/CommandLine$NoOpModelTransformer
 instanceKlass picocli/CommandLine$IModelTransformer
@@ -3395,7 +3395,7 @@ instanceKlass java/lang/ProcessEnvironment$EntryComparator
 instanceKlass java/lang/ProcessEnvironment$NameComparator
 instanceKlass sun/nio/fs/WindowsUriSupport
 instanceKlass sun/nio/fs/WindowsPath$1
-instanceKlass net/neoforged/neoform/runtime/utils/OsUtil
+instanceKlass net/forged/neoform/runtime/utils/OsUtil
 instanceKlass java/net/URI$Parser
 instanceKlass java/nio/file/FileSystems$DefaultFileSystemHolder$1
 instanceKlass java/nio/file/FileSystems$DefaultFileSystemHolder
@@ -3404,14 +3404,14 @@ instanceKlass java/nio/file/Paths
 instanceKlass java/lang/Void
 instanceKlass java/lang/PublicMethods$Key
 instanceKlass java/lang/PublicMethods$MethodList
-instanceKlass net/neoforged/neoform/runtime/artifacts/ArtifactManager
-instanceKlass net/neoforged/neoform/runtime/downloads/DownloadManager
-instanceKlass net/neoforged/neoform/runtime/cache/CacheManager
-instanceKlass net/neoforged/neoform/runtime/cli/LockManager
-instanceKlass net/neoforged/neoform/runtime/cache/LauncherInstallations
+instanceKlass net/forged/neoform/runtime/artifacts/ArtifactManager
+instanceKlass net/forged/neoform/runtime/downloads/DownloadManager
+instanceKlass net/forged/neoform/runtime/cache/CacheManager
+instanceKlass net/forged/neoform/runtime/cli/LockManager
+instanceKlass net/forged/neoform/runtime/cache/LauncherInstallations
 instanceKlass jdk/internal/misc/PreviewFeatures
 instanceKlass jdk/internal/misc/MainMethodFinder
-instanceKlass net/neoforged/neoform/runtime/cli/Main
+instanceKlass net/forged/neoform/runtime/cli/Main
 instanceKlass java/security/SecureClassLoader$DebugHolder
 instanceKlass java/security/Permission
 instanceKlass java/security/Guard
@@ -3894,7 +3894,7 @@ instanceKlass sun/security/pkcs11/wrapper/PKCS11Exception
 instanceKlass java/util/concurrent/ExecutionException
 instanceKlass java/security/GeneralSecurityException
 instanceKlass sun/nio/fs/WindowsException
-instanceKlass net/neoforged/neoform/runtime/downloads/DownloadsFailedException
+instanceKlass net/forged/neoform/runtime/downloads/DownloadsFailedException
 instanceKlass java/lang/CloneNotSupportedException
 instanceKlass java/lang/InterruptedException
 instanceKlass java/sql/SQLException
@@ -4234,7 +4234,7 @@ instanceKlass java/nio/file/attribute/PosixFilePermission
 instanceKlass sun/security/ssl/Alert$Level
 instanceKlass sun/security/ssl/Alert
 instanceKlass java/lang/ProcessBuilder$Redirect$Type
-instanceKlass net/neoforged/neoform/runtime/manifests/RuleAction
+instanceKlass net/forged/neoform/runtime/manifests/RuleAction
 instanceKlass java/nio/file/StandardCopyOption
 instanceKlass jdk/internal/net/http/hpack/Decoder$State
 instanceKlass jdk/internal/net/http/hpack/HPACK$Logger$Level
@@ -4261,13 +4261,13 @@ instanceKlass sun/security/ssl/SSLExtension
 instanceKlass jdk/internal/net/http/common/SubscriberWrapper$SchedulingAction
 instanceKlass jdk/internal/net/http/PlainHttpConnection$ConnectState
 instanceKlass jdk/internal/vm/Continuation$Pinned
-instanceKlass net/neoforged/neoform/runtime/utils/ToolCoordinate
-instanceKlass net/neoforged/neoform/runtime/graph/NodeState
+instanceKlass net/forged/neoform/runtime/utils/ToolCoordinate
+instanceKlass net/forged/neoform/runtime/graph/NodeState
 instanceKlass java/util/stream/MatchOps$MatchKind
-instanceKlass net/neoforged/neoform/runtime/graph/NodeOutputType
+instanceKlass net/forged/neoform/runtime/graph/NodeOutputType
 instanceKlass com/google/gson/ReflectionAccessFilter$FilterResult
 instanceKlass com/google/gson/stream/JsonToken
-instanceKlass net/neoforged/neoform/runtime/utils/AnsiColor
+instanceKlass net/forged/neoform/runtime/utils/AnsiColor
 instanceKlass com/google/gson/ToNumberPolicy
 instanceKlass com/google/gson/FieldNamingPolicy
 instanceKlass com/google/gson/LongSerializationPolicy
@@ -4340,7 +4340,7 @@ instanceKlass java/time/temporal/ChronoField
 instanceKlass picocli/CommandLine$Help$Ansi$Style
 instanceKlass picocli/CommandLine$Help$Ansi
 instanceKlass picocli/CommandLine$TraceLevel
-instanceKlass net/neoforged/neoform/runtime/utils/OsType
+instanceKlass net/forged/neoform/runtime/utils/OsType
 instanceKlass java/util/zip/ZipCoder$Comparison
 instanceKlass java/nio/file/LinkOption
 instanceKlass java/util/concurrent/TimeUnit
@@ -4427,7 +4427,7 @@ instanceKlass java/nio/file/FileSystemAlreadyExistsException
 instanceKlass java/nio/file/FileSystemNotFoundException
 instanceKlass java/lang/IndexOutOfBoundsException
 instanceKlass java/util/ConcurrentModificationException
-instanceKlass net/neoforged/neoform/runtime/graph/NodeExecutionException
+instanceKlass net/forged/neoform/runtime/graph/NodeExecutionException
 instanceKlass java/lang/MatchException
 instanceKlass com/google/gson/JsonParseException
 instanceKlass java/security/ProviderException
@@ -4453,43 +4453,43 @@ instanceKlass com/sun/tools/javac/code/TypeMetadata$Annotations
 instanceKlass com/sun/tools/javac/code/TypeMetadata$ConstantValue
 instanceKlass com/sun/tools/javac/code/Symbol$ClassSymbol$PermittedClassWithPos
 instanceKlass sun/security/pkcs/SignerInfo$AlgorithmInfo
-instanceKlass net/neoforged/neoform/runtime/manifests/UnresolvedArgument$ConditionalValue
-instanceKlass net/neoforged/neoform/runtime/manifests/UnresolvedArgument$Value
-instanceKlass net/neoforged/neoform/runtime/manifests/OsCondition
-instanceKlass net/neoforged/neoform/runtime/manifests/Rule
-instanceKlass net/neoforged/neoform/runtime/manifests/MinecraftLibrary$Downloads
-instanceKlass net/neoforged/neoform/runtime/manifests/MinecraftLibrary
-instanceKlass net/neoforged/neoform/runtime/manifests/MinecraftDownload
-instanceKlass net/neoforged/neoform/runtime/manifests/MinecraftArguments
-instanceKlass net/neoforged/neoform/runtime/manifests/JavaVersionReference
-instanceKlass net/neoforged/neoform/runtime/manifests/AssetIndexReference
-instanceKlass net/neoforged/neoform/runtime/manifests/MinecraftVersionManifest
-instanceKlass net/neoforged/neoform/runtime/graph/ResultRepresentation
-instanceKlass net/neoforged/neoform/runtime/artifacts/ClasspathItem$NodeOutputItem
-instanceKlass net/neoforged/neoform/runtime/artifacts/ClasspathItem$PathItem
-instanceKlass net/neoforged/neoform/runtime/artifacts/ClasspathItem$MinecraftLibraryItem
-instanceKlass net/neoforged/neoform/runtime/manifests/LauncherManifest$Version
-instanceKlass net/neoforged/neoform/runtime/manifests/LauncherManifest
-instanceKlass net/neoforged/neoform/runtime/downloads/SimpleDownloadSpec
-instanceKlass net/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue
-instanceKlass net/neoforged/neoform/runtime/engine/NeoFormEngine$1Pair
-instanceKlass net/neoforged/neoform/runtime/artifacts/ClasspathItem$MavenCoordinateItem
-instanceKlass net/neoforged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion
-instanceKlass net/neoforged/neoform/runtime/engine/DataSource
-instanceKlass net/neoforged/neoform/runtime/config/neoform/NeoFormFunction
-instanceKlass net/neoforged/neoform/runtime/config/neoform/NeoFormStep
-instanceKlass net/neoforged/neoform/runtime/config/neoform/NeoFormConfig
-instanceKlass net/neoforged/neoform/runtime/utils/MavenCoordinate
-instanceKlass net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry
-instanceKlass net/neoforged/neoform/runtime/cache/CacheKey
+instanceKlass net/forged/neoform/runtime/manifests/UnresolvedArgument$ConditionalValue
+instanceKlass net/forged/neoform/runtime/manifests/UnresolvedArgument$Value
+instanceKlass net/forged/neoform/runtime/manifests/OsCondition
+instanceKlass net/forged/neoform/runtime/manifests/Rule
+instanceKlass net/forged/neoform/runtime/manifests/MinecraftLibrary$Downloads
+instanceKlass net/forged/neoform/runtime/manifests/MinecraftLibrary
+instanceKlass net/forged/neoform/runtime/manifests/MinecraftDownload
+instanceKlass net/forged/neoform/runtime/manifests/MinecraftArguments
+instanceKlass net/forged/neoform/runtime/manifests/JavaVersionReference
+instanceKlass net/forged/neoform/runtime/manifests/AssetIndexReference
+instanceKlass net/forged/neoform/runtime/manifests/MinecraftVersionManifest
+instanceKlass net/forged/neoform/runtime/graph/ResultRepresentation
+instanceKlass net/forged/neoform/runtime/artifacts/ClasspathItem$NodeOutputItem
+instanceKlass net/forged/neoform/runtime/artifacts/ClasspathItem$PathItem
+instanceKlass net/forged/neoform/runtime/artifacts/ClasspathItem$MinecraftLibraryItem
+instanceKlass net/forged/neoform/runtime/manifests/LauncherManifest$Version
+instanceKlass net/forged/neoform/runtime/manifests/LauncherManifest
+instanceKlass net/forged/neoform/runtime/downloads/SimpleDownloadSpec
+instanceKlass net/forged/neoform/runtime/cache/CacheKey$AnnotatedValue
+instanceKlass net/forged/neoform/runtime/engine/NeoFormEngine$1Pair
+instanceKlass net/forged/neoform/runtime/artifacts/ClasspathItem$MavenCoordinateItem
+instanceKlass net/forged/neoform/runtime/engine/ProcessGeneration$MinecraftReleaseVersion
+instanceKlass net/forged/neoform/runtime/engine/DataSource
+instanceKlass net/forged/neoform/runtime/config/neoform/NeoFormFunction
+instanceKlass net/forged/neoform/runtime/config/neoform/NeoFormStep
+instanceKlass net/forged/neoform/runtime/config/neoform/NeoFormConfig
+instanceKlass net/forged/neoform/runtime/utils/MavenCoordinate
+instanceKlass net/forged/neoform/runtime/cache/CacheManager$1CacheEntry
+instanceKlass net/forged/neoform/runtime/cache/CacheKey
 instanceKlass jdk/net/UnixDomainPrincipal
 instanceKlass jdk/internal/misc/ThreadTracker$ThreadRef
 instanceKlass java/nio/DirectByteBuffer$Deallocator
 instanceKlass java/util/stream/Collectors$CollectorImpl
 instanceKlass jdk/internal/net/http/common/DebugLogger$LoggerConfig
-instanceKlass net/neoforged/neoform/runtime/cache/LauncherInstallations$LauncherDirectory
-instanceKlass net/neoforged/neoform/runtime/config/neoforge/NeoForgeConfig
-instanceKlass net/neoforged/neoform/runtime/artifacts/Artifact
+instanceKlass net/forged/neoform/runtime/cache/LauncherInstallations$LauncherDirectory
+instanceKlass net/forged/neoform/runtime/config/forge/forgeConfig
+instanceKlass net/forged/neoform/runtime/artifacts/Artifact
 instanceKlass java/lang/reflect/Proxy$ProxyBuilder$ProxyClassContext
 instanceKlass java/security/SecureClassLoader$CodeSourceKey
 instanceKlass jdk/internal/reflect/ReflectionFactory$Config

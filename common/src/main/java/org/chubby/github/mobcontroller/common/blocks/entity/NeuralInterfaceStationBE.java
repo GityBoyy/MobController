@@ -7,12 +7,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -68,22 +69,22 @@ public class NeuralInterfaceStationBE extends BaseStorageTickingBE
         };
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt("progress", progress);
-        tag.putInt("maxProgress", maxProgress);
-        energyStorage.save(tag,registries);
-    }
-
-    @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-
-        progress = tag.getInt("progress");
-        maxProgress = tag.getInt("maxProgress");
-        energyStorage.load(tag,registries);
-    }
+//    @Override
+//    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+//        super.saveAdditional(tag, registries);
+//        tag.putInt("progress", progress);
+//        tag.putInt("maxProgress", maxProgress);
+//        energyStorage.save(tag,registries);
+//    }
+//
+//    @Override
+//    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+//        super.loadAdditional(tag, registries);
+//
+//        progress = tag.getInt("progress");
+//        maxProgress = tag.getInt("maxProgress");
+//        energyStorage.load(tag,registries);
+//    }
 
     @Override
     protected Component getDefaultName() {
@@ -96,103 +97,143 @@ public class NeuralInterfaceStationBE extends BaseStorageTickingBE
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity be) {
-        if (level.isClientSide() || !(be instanceof NeuralInterfaceStationBE neuralBE)) {
-            return;
-        }
-
-        boolean hasRecipe = false;
-        NeuralInterfaceStationRecipeInput recipeInput = new NeuralInterfaceStationRecipeInput(neuralBE.getItems());
-
-        Optional<RecipeHolder<NeuralInterfaceStationRecipe>> recipe = level.getRecipeManager()
-                .getRecipeFor(RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get(), recipeInput, level);
-
-        if (recipe.isPresent()) {
-            NeuralInterfaceStationRecipe actualRecipe = recipe.get().value();
-            neuralBE.maxProgress = actualRecipe.craftTime();
-
-            // Check special item (slot 0)
-            ItemStack specialItemRequired = actualRecipe.specialItemHolder();
-            boolean hasSpecialItem = specialItemRequired.isEmpty() ||
-                    ItemStack.isSameItem(neuralBE.getItems().get(0), specialItemRequired);
-
-            // Check if output slot can accept the result
-            ItemStack resultItem = actualRecipe.getResultItem(level.registryAccess());
-            ItemStack outputSlot = neuralBE.getItems().getLast();
-            boolean canOutput = outputSlot.isEmpty() ||
-                    (ItemStack.isSameItem(outputSlot, resultItem) &&
-                            outputSlot.getCount() + resultItem.getCount() <= outputSlot.getMaxStackSize());
-
-            if (neuralBE.energyStorage.getStoredEnergy() >= actualRecipe.energyRequired() &&
-                    hasSpecialItem && canOutput) {
-
-                hasRecipe = true;
-                neuralBE.progress++;
-
-                // Extract energy gradually during crafting process
-                int energyPerTick = Math.max(1, actualRecipe.energyRequired() / actualRecipe.craftTime());
-                neuralBE.energyStorage.extract(energyPerTick, false);
-
-                if (neuralBE.progress >= neuralBE.maxProgress) {
-                    craftItem(neuralBE, recipe.get());
-                }
-            }
-        }
-
-        if (!hasRecipe) {
-            neuralBE.progress = 0;
-        }
-
-        setChanged(level, pos, state);
+//        if (level.isClientSide() || !(be instanceof NeuralInterfaceStationBE neuralBE)) {
+//            return;
+//        }
+//
+//        boolean hasRecipe = false;
+//        NeuralInterfaceStationRecipeInput recipeInput = new NeuralInterfaceStationRecipeInput(neuralBE.getItems());
+//
+//        Optional<RecipeHolder<NeuralInterfaceStationRecipe>> recipe = level.getRecipeManager()
+//                .getRecipeFor(RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get(), recipeInput, level);
+//
+//        if (recipe.isPresent()) {
+//            NeuralInterfaceStationRecipe actualRecipe = recipe.get().value();
+//            neuralBE.maxProgress = actualRecipe.craftTime();
+//
+//            // Check special item (slot 0)
+//            ItemStack specialItemRequired = actualRecipe.specialItemHolder();
+//            boolean hasSpecialItem = specialItemRequired.isEmpty() ||
+//                    ItemStack.isSameItem(neuralBE.getItems().get(0), specialItemRequired);
+//
+//            // Check if output slot can accept the result
+//            ItemStack resultItem = actualRecipe.getResultItem(level.registryAccess());
+//            ItemStack outputSlot = neuralBE.getItems().getLast();
+//            boolean canOutput = outputSlot.isEmpty() ||
+//                    (ItemStack.isSameItem(outputSlot, resultItem) &&
+//                            outputSlot.getCount() + resultItem.getCount() <= outputSlot.getMaxStackSize());
+//
+//            if (neuralBE.energyStorage.getStoredEnergy() >= actualRecipe.energyRequired() &&
+//                    hasSpecialItem && canOutput) {
+//
+//                hasRecipe = true;
+//                neuralBE.progress++;
+//
+//                // Extract energy gradually during crafting process
+//                int energyPerTick = Math.max(1, actualRecipe.energyRequired() / actualRecipe.craftTime());
+//                neuralBE.energyStorage.extract(energyPerTick, false);
+//
+//                if (neuralBE.progress >= neuralBE.maxProgress) {
+//                    craftItem(neuralBE, recipe.get());
+//                }
+//            }
+//        }
+//
+//        if (!hasRecipe) {
+//            neuralBE.progress = 0;
+//        }
+//
+//        setChanged(level, pos, state);
     }
 
-    private static void craftItem(NeuralInterfaceStationBE be, RecipeHolder<NeuralInterfaceStationRecipe> recipe) {
-        Level level = be.getLevel();
-        if (level == null) return;
-
-        ItemStack resultItem = recipe.value().getResultItem(level.registryAccess()).copy();
-
-        // Get output slot (last slot)
-        int outputSlot = be.getItems().size() - 1;
-        ItemStack outputStack = be.getItems().get(outputSlot);
-
-        if (outputStack.isEmpty()) {
-            be.getItems().set(outputSlot, resultItem);
-        } else if (ItemStack.isSameItem(outputStack, resultItem) &&
-                outputStack.getCount() + resultItem.getCount() <= outputStack.getMaxStackSize()) {
-            outputStack.grow(resultItem.getCount());
-        } else {
-            // Cannot output, so don't craft
-            return;
-        }
-
-        // Consume crafting grid items (slots 1-9)
-        NonNullList<Ingredient> ingredients = recipe.value().getIngredients();
-        int width = recipe.value().getPattern().width();
-        int height = recipe.value().getPattern().height();
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int ingredientIndex = x + y * width;
-                if (ingredientIndex >= ingredients.size()) continue;
-
-                Ingredient ingredient = ingredients.get(ingredientIndex);
-                if (Ingredient.EMPTY.equals(ingredient)) continue;
-
-                // Map to inventory slots (skip special slot 0)
-                int slotIndex = 1 + x + y * 3;
-
-                ItemStack slotStack = be.getItems().get(slotIndex);
-                if (!slotStack.isEmpty() && ingredient.test(slotStack)) {
-                    slotStack.shrink(1);
-                    // Don't break here - consume exactly one item per ingredient
-                }
-            }
-        }
-
-        be.progress = 0;
-    }
+//    private static void craftItem(NeuralInterfaceStationBE be, RecipeHolder<NeuralInterfaceStationRecipe> recipe) {
+//        Level level = be.getLevel();
+//        if (level == null) return;
+//
+//        ItemStack resultItem = recipe.value().getResultItem(level.registryAccess()).copy();
+//
+//        // Get output slot (last slot)
+//        int outputSlot = be.getItems().size() - 1;
+//        ItemStack outputStack = be.getItems().get(outputSlot);
+//
+//        if (outputStack.isEmpty()) {
+//            be.getItems().set(outputSlot, resultItem);
+//        } else if (ItemStack.isSameItem(outputStack, resultItem) &&
+//                outputStack.getCount() + resultItem.getCount() <= outputStack.getMaxStackSize()) {
+//            outputStack.grow(resultItem.getCount());
+//        } else {
+//            // Cannot output, so don't craft
+//            return;
+//        }
+//
+//        // Consume crafting grid items (slots 1-9)
+//        NonNullList<Ingredient> ingredients = recipe.value().getIngredients();
+//        int width = recipe.value().getPattern().width();
+//        int height = recipe.value().getPattern().height();
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int ingredientIndex = x + y * width;
+//                if (ingredientIndex >= ingredients.size()) continue;
+//
+//                Ingredient ingredient = ingredients.get(ingredientIndex);
+//                if (Ingredient.EMPTY.equals(ingredient)) continue;
+//
+//                // Map to inventory slots (skip special slot 0)
+//                int slotIndex = 1 + x + y * 3;
+//
+//                ItemStack slotStack = be.getItems().get(slotIndex);
+//                if (!slotStack.isEmpty() && ingredient.test(slotStack)) {
+//                    slotStack.shrink(1);
+//                    // Don't break here - consume exactly one item per ingredient
+//                }
+//            }
+//        }
+//
+//        be.progress = 0;
+//    }
 
     public EnergyStorageImpl getEnergyStorage() {
         return energyStorage;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public ItemStack getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public ItemStack removeItem(int i, int i1) {
+        return null;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int i) {
+        return null;
+    }
+
+    @Override
+    public void setItem(int i, ItemStack itemStack) {
+
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return false;
+    }
+
+    @Override
+    public void clearContent() {
+
     }
 }

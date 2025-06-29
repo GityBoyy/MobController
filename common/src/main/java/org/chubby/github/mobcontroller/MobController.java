@@ -12,7 +12,6 @@ public final class MobController {
         CreativeTabRegistry.init();
         BlockRegistry.init();
         BlockEntityRegistry.init();
-        DataComponentRegistry.init();
         MenusRegistry.init();
         PotionRegistry.init();
         RecipeRegistry.init();

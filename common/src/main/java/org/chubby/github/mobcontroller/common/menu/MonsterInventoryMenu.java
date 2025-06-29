@@ -14,7 +14,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import org.chubby.github.mobcontroller.common.data.MobControllerData;
 import org.chubby.github.mobcontroller.common.items.ItemController;
-import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
 import org.jetbrains.annotations.NotNull;
 

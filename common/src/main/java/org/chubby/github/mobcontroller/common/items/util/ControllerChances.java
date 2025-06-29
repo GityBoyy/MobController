@@ -48,10 +48,6 @@ public class ControllerChances {
         registerChance(EntityType.SHULKER, ControlChanceData.create(28, 1.8f));
         registerChance(EntityType.ENDERMITE, ControlChanceData.create(56, 1.0f));
         registerChance(EntityType.PHANTOM, ControlChanceData.create(44, 1.2f));
-
-        // New hostile mobs in 1.21
-        registerChance(EntityType.BREEZE, ControlChanceData.create(24, 2.2f));
-        registerChance(EntityType.BOGGED, ControlChanceData.create(48, 1.5f));
     }
 
 

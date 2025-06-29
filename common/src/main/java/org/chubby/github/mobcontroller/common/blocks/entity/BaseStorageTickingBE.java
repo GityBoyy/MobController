@@ -24,43 +24,43 @@ public abstract class BaseStorageTickingBE extends BaseContainerBlockEntity
         super(type, pos, blockState);
     }
 
-    @Override
-    protected NonNullList<ItemStack> getItems() {
-        return inventory;
-    }
-
-    @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-        this.inventory = items;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return getItems().size();
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag,this.getItems(),registries);
-    }
-
-    public void onBroken()
-    {
-        if(this.level==null) return;
-        Containers.dropContents(this.level,this.getBlockPos(),this.inventory);
-    }
-
-    @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        ContainerHelper.loadAllItems(tag,this.getItems(),registries);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return this.saveWithoutMetadata(registries);
-    }
+//    @Override
+//    protected NonNullList<ItemStack> getItems() {
+//        return inventory;
+//    }
+//
+//    @Override
+//    protected void setItems(NonNullList<ItemStack> items) {
+//        this.inventory = items;
+//    }
+//
+//    @Override
+//    public int getContainerSize() {
+//        return getItems().size();
+//    }
+//
+//    @Override
+//    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+//        super.saveAdditional(tag, registries);
+//        ContainerHelper.saveAllItems(tag,this.getItems(),registries);
+//    }
+//
+//    public void onBroken()
+//    {
+//        if(this.level==null) return;
+//        Containers.dropContents(this.level,this.getBlockPos(),this.inventory);
+//    }
+//
+//    @Override
+//    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+//        super.loadAdditional(tag, registries);
+//        ContainerHelper.loadAllItems(tag,this.getItems(),registries);
+//    }
+//
+//    @Override
+//    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+//        return this.saveWithoutMetadata(registries);
+//    }
 
     @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {

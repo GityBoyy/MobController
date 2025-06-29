@@ -9,8 +9,8 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.NeuralInterfaceStationScreen;
 import org.chubby.github.mobcontroller.common.recipe.NeuralInterfaceStationRecipe;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ModJeiPlugin implements IModPlugin {
     @Override
     public @NotNull ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID,"jei_plugin");
+        return new ResourceLocation(Constants.MOD_ID,"jei_plugin");
     }
 
     @Override
@@ -39,10 +39,10 @@ public class ModJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel level = Minecraft.getInstance().level;
 
-        List<NeuralInterfaceStationRecipe> recipes = level.getRecipeManager().getAllRecipesFor(
-                RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get()
-        ).stream().map(RecipeHolder::value).toList();
-        registration.addRecipes(NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE, recipes);
+//        List<NeuralInterfaceStationRecipe> recipes = level.getRecipeManager().getAllRecipesFor(
+//                RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get()
+//        ).stream().map(RecipeHolder::value).toList();
+//        registration.addRecipes(NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE, recipes);
 
     }
 

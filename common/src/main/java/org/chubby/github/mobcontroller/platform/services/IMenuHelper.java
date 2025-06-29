@@ -1,7 +1,6 @@
 package org.chubby.github.mobcontroller.platform.services;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 
@@ -23,5 +22,5 @@ public interface IMenuHelper {
      * @param menuProvider The menu provider
      * @param extraDataWriter Consumer to write extra data to the network packet
      */
-    void openMenu(ServerPlayer player, MenuProvider menuProvider, Consumer<RegistryFriendlyByteBuf> extraDataWriter);
+    void openMenu(ServerPlayer player, MenuProvider menuProvider, Consumer<FriendlyByteBuf> extraDataWriter);
 }

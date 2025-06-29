@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.common.recipe.NeuralInterfaceStationRecipe;
 import org.chubby.github.mobcontroller.common.registry.BlockRegistry;
@@ -21,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInterfaceStationRecipe> {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "neural_crafting");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID,
+    public static final ResourceLocation UID = new ResourceLocation(Constants.MOD_ID, "neural_crafting");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Constants.MOD_ID,
             "textures/gui/menu/neural_interface_station_gui.png");
 
     public static final RecipeType<NeuralInterfaceStationRecipe> NEURAL_STATION_RECIPE_RECIPE_TYPE =
@@ -57,28 +57,28 @@ public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInte
     }
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, NeuralInterfaceStationRecipe recipe, IFocusGroup focuses) {
-        NonNullList<Ingredient> items = recipe.getIngredients();
-        ItemStack resultItem = recipe.getResultItem(null);
-        ItemStack specialItem = recipe.specialItemHolder();
-        ShapedRecipePattern pattern = recipe.getPattern();
-
-        int width = pattern.width();
-        int height = pattern.height();
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int index = x + y * width;
-                if (index < items.size()) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, 30 + x * 18, 17 + y * 18)
-                            .addIngredients(items.get(index));
-                }
-            }
-        }
-
-        builder.addSlot(RecipeIngredientRole.INPUT, 10, 17)
-                .addItemStack(specialItem);
-
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 124, 35)
-                .addItemStack(resultItem);
+//        NonNullList<Ingredient> items = recipe.getIngredients();
+//        ItemStack resultItem = recipe.getResultItem(null);
+//        ItemStack specialItem = recipe.specialItemHolder();
+//        ShapedRecipePattern pattern = recipe.getPattern();
+//
+//        int width = pattern.width();
+//        int height = pattern.height();
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int index = x + y * width;
+//                if (index < items.size()) {
+//                    builder.addSlot(RecipeIngredientRole.INPUT, 30 + x * 18, 17 + y * 18)
+//                            .addIngredients(items.get(index));
+//                }
+//            }
+//        }
+//
+//        builder.addSlot(RecipeIngredientRole.INPUT, 10, 17)
+//                .addItemStack(specialItem);
+//
+//        builder.addSlot(RecipeIngredientRole.OUTPUT, 124, 35)
+//                .addItemStack(resultItem);
     }
 }
