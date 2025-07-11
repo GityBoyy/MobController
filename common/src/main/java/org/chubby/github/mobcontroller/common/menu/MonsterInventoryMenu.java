@@ -28,6 +28,7 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
     public final SimpleContainer container;
     public final Monster monster;
     private final ItemStack headItem;
+    private boolean isUpdating = false;
 
     public MonsterInventoryMenu(int containerId, Inventory playerInventory, Monster monster) {
         super(MenusRegistry.MONSTER_MENU.get(), containerId);
@@ -177,21 +178,38 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
     @Override
     public void slotsChanged(Container container) {
         super.slotsChanged(container);
+        if(isUpdating) return;
+
+        updateMonsterData();
+    }
+
+    private void updateMonsterData() {
         if (monster == null || headItem.isEmpty()) {
             return;
         }
+
         if (headItem.has(DataComponentRegistry.CONTROLLER.get())) {
             MobControllerData controllerData = headItem.get(DataComponentRegistry.CONTROLLER.get());
-            if(controllerData == null ) return;
-            CompoundTag inventoryTag = controllerData.createInventorySnapshot(monster.level().registryAccess());
+            if (controllerData == null) return;
 
-            MobControllerData updatedData = new MobControllerData(controllerData.getControllingPlayer(),
-                    controllerData.getControlledMob());
-            updatedData.loadInventorySnapshot(monster.level().registryAccess(), inventoryTag);
+            isUpdating = true;
 
-            headItem.set(DataComponentRegistry.CONTROLLER.get(), updatedData);
+            try {
+                MobControllerData updatedData = new MobControllerData(
+                        controllerData.getControllingPlayer(),
+                        controllerData.getControlledMob()
+                );
 
-            monster.setItemSlot(EquipmentSlot.HEAD, headItem);
+                for (int i = 0; i < this.container.getContainerSize(); i++) {
+                    updatedData.mobInventory.setItem(i, this.container.getItem(i).copy());
+                }
+
+                headItem.set(DataComponentRegistry.CONTROLLER.get(), updatedData);
+                monster.setItemSlot(EquipmentSlot.HEAD, headItem);
+
+            } finally {
+                isUpdating = false;
+            }
         }
     }
 
@@ -215,6 +233,9 @@ public class MonsterInventoryMenu extends AbstractContainerMenu {
 
         @Override
         public boolean mayPlace(ItemStack stack) {
+            if (this.equipmentSlot == EquipmentSlot.HEAD) {
+                return false;
+            }
             return stack.getItem() instanceof ArmorItem armorItem &&
                     armorItem.getEquipmentSlot() == this.equipmentSlot;
         }

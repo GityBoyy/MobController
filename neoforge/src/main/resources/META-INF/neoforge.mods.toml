@@ -12,21 +12,21 @@ ${mod_desc}
 '''
 
 # Access Transformers (only include if you have the file)
-# [[accessTransformers]]
-# file="META-INF/accesstransformer.cfg"
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
-# Mixins (only include if you have mixins)
-# [[mixins]]
-# config = "${mod_id}.mixins.json"
+#Mixins
+[[mixins]]
+config = "${mod_id}.mixins.json"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
 modId = "neoforge"
 type = "required"
 versionRange = "[21,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft_version_range}"

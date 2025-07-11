@@ -14,22 +14,22 @@ import java.util.function.Supplier;
 public class DataComponentRegistry
 {
 
-    public static final Supplier<DataComponentType<MobControllerData>> CONTROLLER = Services.REGISTRY_HELPER.registerDataComponent(
+    public static final Supplier<DataComponentType<MobControllerData>> CONTROLLER = Services.REGISTRY_HELPER().registerDataComponent(
             Utils.resource("controller"),
             Suppliers.memoize(()-> DataComponentType.<MobControllerData>builder().persistent(MobControllerData.CODEC).networkSynchronized(MobControllerData.STREAM_CODEC).build())
     );
 
-    public static final Supplier<DataComponentType<ControllerTierData>> CONTROLLER_TIER = Services.REGISTRY_HELPER.registerDataComponent(
+    public static final Supplier<DataComponentType<ControllerTierData>> CONTROLLER_TIER = Services.REGISTRY_HELPER().registerDataComponent(
             Utils.resource("controller_tier"),
             Suppliers.memoize(() -> DataComponentType.<ControllerTierData>builder().persistent(ControllerTierData.CODEC).networkSynchronized(ControllerTierData.STREAM_CODEC).build())
     );
 
-    public static final Supplier<DataComponentType<DataDisplayerData>> DISPLAYER = Services.REGISTRY_HELPER.registerDataComponent(
+    public static final Supplier<DataComponentType<DataDisplayerData>> DISPLAYER = Services.REGISTRY_HELPER().registerDataComponent(
             Utils.resource("displayer"),
             Suppliers.memoize(() -> DataComponentType.<DataDisplayerData>builder().persistent(DataDisplayerData.CODEC).networkSynchronized(DataDisplayerData.STREAM_CODEC).build())
     );
 
-    public static final Supplier<DataComponentType<SoulEssenceData>> SOUL_ESSENCE = Services.REGISTRY_HELPER.registerDataComponent(
+    public static final Supplier<DataComponentType<SoulEssenceData>> SOUL_ESSENCE = Services.REGISTRY_HELPER().registerDataComponent(
             Utils.resource("soul_essence_comp"),
             Suppliers.memoize(()-> DataComponentType.<SoulEssenceData>builder().persistent(SoulEssenceData.CODEC).networkSynchronized(SoulEssenceData.STREAM_CODEC).build())
             );

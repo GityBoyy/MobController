@@ -26,7 +26,7 @@ public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInte
             "textures/gui/menu/neural_interface_station_gui.png");
 
     public static final RecipeType<NeuralInterfaceStationRecipe> NEURAL_STATION_RECIPE_RECIPE_TYPE =
-            new RecipeType<>(UID, NeuralInterfaceStationRecipe.class);
+            RecipeType.create(Constants.MOD_ID, "neural_crafting", NeuralInterfaceStationRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -58,7 +58,7 @@ public class NeuralInterfaceRecipeCategory implements IRecipeCategory<NeuralInte
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, NeuralInterfaceStationRecipe recipe, IFocusGroup focuses) {
         NonNullList<Ingredient> items = recipe.getIngredients();
-        ItemStack resultItem = recipe.getResultItem(null);
+        ItemStack resultItem = ModJeiPlugin.getResult(recipe);
         ItemStack specialItem = recipe.specialItemHolder();
         ShapedRecipePattern pattern = recipe.getPattern();
 

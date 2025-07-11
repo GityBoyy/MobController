@@ -38,7 +38,7 @@ public class NeuralInterfaceStation extends BaseEntityBlock
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof NeuralInterfaceStationBE menuProvider) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    Services.MENU_HELPER.openMenu(serverPlayer,menuProvider,buf -> buf.writeBlockPos(menuProvider.getBlockPos()));
+                    Services.MENU_HELPER().openMenu(serverPlayer,menuProvider,buf -> buf.writeBlockPos(menuProvider.getBlockPos()));
                 }
             }
         }

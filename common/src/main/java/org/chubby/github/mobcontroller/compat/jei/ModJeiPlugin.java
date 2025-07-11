@@ -8,9 +8,11 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.*;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.client.screen.NeuralInterfaceStationScreen;
 import org.chubby.github.mobcontroller.common.recipe.NeuralInterfaceStationRecipe;
@@ -20,6 +22,7 @@ import org.chubby.github.mobcontroller.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
@@ -39,10 +42,7 @@ public class ModJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel level = Minecraft.getInstance().level;
 
-        List<NeuralInterfaceStationRecipe> recipes = level.getRecipeManager().getAllRecipesFor(
-                RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get()
-        ).stream().map(RecipeHolder::value).toList();
-        registration.addRecipes(NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE, recipes);
+        registration.addRecipes(NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE, this.getRecipes(RecipeRegistry.NEURAL_INTERFACE_STATION_TYPE.get()));
 
     }
 
@@ -58,5 +58,27 @@ public class ModJeiPlugin implements IModPlugin {
                 new ItemStack(BlockRegistry.NEURAL_INTERFACE_STATION.get()),
                 NeuralInterfaceRecipeCategory.NEURAL_STATION_RECIPE_RECIPE_TYPE
         );
+    }
+
+    private <C extends RecipeInput, T extends Recipe<C>> List<T> getRecipes(RecipeType<T> type)
+    {
+        return getRecipeManager().getAllRecipesFor(type).stream().map(RecipeHolder::value).toList();
+    }
+
+    public static RecipeManager getRecipeManager()
+    {
+        ClientPacketListener listener = Objects.requireNonNull(Minecraft.getInstance().getConnection());
+        return listener.getRecipeManager();
+    }
+
+    private static RegistryAccess getRegistryAccess()
+    {
+        ClientPacketListener listener = Objects.requireNonNull(Minecraft.getInstance().getConnection());
+        return listener.registryAccess();
+    }
+
+    public static ItemStack getResult(Recipe<?> recipe)
+    {
+        return recipe.getResultItem(getRegistryAccess());
     }
 }

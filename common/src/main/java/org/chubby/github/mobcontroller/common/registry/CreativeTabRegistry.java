@@ -15,13 +15,11 @@ import java.util.function.Supplier;
 public class CreativeTabRegistry
 {
 
-    public static final List<Item> ITEM_LIST = new ArrayList<>();
 
-    public static final Supplier<CreativeModeTab> MOB_CONTROLLER_TAB = Services.REGISTRY_HELPER.registerCreativeTab(Utils.resource("mob_controller_tab"),
+    public static final Supplier<CreativeModeTab> MOB_CONTROLLER_TAB = Services.REGISTRY_HELPER().registerCreativeTab(Utils.resource("mob_controller_tab"),
             Suppliers.memoize(()-> CreativeModeTab.builder(CreativeModeTab.Row.TOP,5)
                     .icon(() -> new ItemStack(ItemRegistry.COPPER_CONTROLLER.get()))
                     .title(Component.translatable("creativetab.mobcontroller.tab"))
-                    .displayItems((itemDisplayParameters, output) -> ITEM_LIST.forEach(output::accept))
                     .build()));
 
     public static void init(){}

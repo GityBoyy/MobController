@@ -14,15 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.UUID;
 
 @Mixin(Mob.class)
-public class MobTargetChange
-{
-    @Unique
-    private Mob mobcontroller$mob = (Mob) (Object) this;
+public class MobTargetChange {
 
-    @Inject(method = "setTarget",at = @At("HEAD"), cancellable = true)
-    public void onTargetChange(LivingEntity target, CallbackInfo ci)
-    {
-        if(!(mobcontroller$mob instanceof Monster monster)) return;
+    @Unique
+    private final Mob mobcontroller$mob = (Mob)(Object)this;
+
+    @Inject(method = "setTarget", at = @At("HEAD"), cancellable = true)
+    public void onTargetChange(LivingEntity target, CallbackInfo ci) {
+        if (!(mobcontroller$mob instanceof Monster monster)) return;
+        if (target == null) return;
 
         var headItem = monster.getItemBySlot(EquipmentSlot.HEAD);
         if (!headItem.has(DataComponentRegistry.CONTROLLER.get())) return;
@@ -31,10 +31,7 @@ public class MobTargetChange
         if (attachment == null) return;
 
         UUID playerUUID = attachment.getControllingPlayer();
-        var player = monster.level().getPlayerByUUID(playerUUID);
-        if (player == null) return;
-
-        if (target == player) {
+        if (target.getUUID().equals(playerUUID)) {
             ci.cancel();
         }
     }

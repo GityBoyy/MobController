@@ -15,6 +15,7 @@ public class MCConfig {
     public static IntProperty controlTick = Config.createIntProp("controlTick", 250, "Determines For How Long The MobController Will Function");
     @ConfigProperty
     public static BoolProperty enableDebug = Config.createBoolProp("enable_debug",false, "Toggle Debug Mode");
+
     private static final Map<String, Object> properties = new ConcurrentHashMap<>();
 
     static {

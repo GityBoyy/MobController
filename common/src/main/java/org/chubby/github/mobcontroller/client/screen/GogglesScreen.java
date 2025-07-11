@@ -84,6 +84,6 @@ public class GogglesScreen {
 
     public static boolean isControlledMob(Monster mob)
     {
-        return ItemController.getPlayerMobControlMap().containsValue(mob.getUUID());
+        return ItemController.getPlayerMobControlMap().containsValue(mob.getId());
     }
 }

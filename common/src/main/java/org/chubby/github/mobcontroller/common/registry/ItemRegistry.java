@@ -1,18 +1,19 @@
 package org.chubby.github.mobcontroller.common.registry;
 
-import com.google.common.base.Supplier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.alchemy.PotionContents;
 import org.chubby.github.mobcontroller.common.items.*;
 import org.chubby.github.mobcontroller.platform.services.Services;
 import org.chubby.github.mobcontroller.util.Utils;
 
-import java.util.ArrayList;
-import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class ItemRegistry {
-    public static BiConsumer<ResourceLocation, Supplier<Item>> REGISTER;
 
     public static final Supplier<Item> COPPER_CONTROLLER = registerItem("copper_controller",
             () -> new ItemController(new Item.Properties().stacksTo(1), ControllerType.COPPER));
@@ -37,19 +38,27 @@ public class ItemRegistry {
     public static final Supplier<Item> GOGGLES = registerItem("goggles",
             () -> new ItemGoggles(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> SOUL_ESSENCE = registerItem("soul_essence",
-            ()-> new SoulEssence(new Item.Properties()));
+            () -> new SoulEssence(new Item.Properties()));
 
-    public static final Supplier<Item> BRAIN_PIECE = registerItem("brain_piece",()->new Item(new Item.Properties()));
-    public static final Supplier<Item> BRAIN = registerItem("brain",()->new Item(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> BRAIN_PIECE = registerItem("brain_piece",
+            () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> BRAIN = registerItem("brain",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
-//    public static final Supplier<Item> CHARGED_POTION_BOTTLE = registerItem("charged_potion_bottle", ()->new PotionItem(new Item.Properties().stacksTo(1).component(DataComponents.POTION_CONTENTS, new PotionContents(PotionRegistry.CHARGED_POTION))));
-//    public static final Supplier<Item> ELECTROLYTE = registerItem("electrolyte", ()->new PotionItem(new Item.Properties().stacksTo(8).component(DataComponents.POTION_CONTENTS,new PotionContents(PotionRegistry.ELECTROLYTE_POTION))));
+    // Fixed potion items - uncomment when ready to use
+    // public static final Supplier<Item> CHARGED_POTION_BOTTLE = registerItem("charged_potion_bottle",
+    //         () -> new PotionItem(new Item.Properties().stacksTo(1)
+    //                 .component(DataComponents.POTION_CONTENTS, new PotionContents(PotionRegistry.CHARGED_POTION))));
+    // public static final Supplier<Item> ELECTROLYTE = registerItem("electrolyte",
+    //         () -> new PotionItem(new Item.Properties().stacksTo(8)
+    //                 .component(DataComponents.POTION_CONTENTS, new PotionContents(Holder.direct(PotionRegistry.ELECTROLYTE_POTION.get())))));
 
     public static Supplier<Item> registerItem(String name, Supplier<Item> supplier) {
         ResourceLocation id = Utils.resource(name);
-        //CreativeTabRegistry.ITEM_LIST.add(supplier.get());
-        Services.REGISTRY_HELPER.registerItem(id,supplier);
-        return supplier;
+        return Services.REGISTRY_HELPER().registerItem(id, supplier);
     }
-    public static void init(){}
+
+    public static void init() {
+        // This method ensures the class is loaded and all static fields are initialized
+    }
 }

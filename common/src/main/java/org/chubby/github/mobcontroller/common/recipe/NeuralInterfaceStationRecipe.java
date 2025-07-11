@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.Level;
 import org.chubby.github.mobcontroller.common.recipe.input.NeuralInterfaceStationRecipeInput;
 import org.chubby.github.mobcontroller.common.registry.RecipeRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -103,8 +104,8 @@ public class NeuralInterfaceStationRecipe implements Recipe<NeuralInterfaceStati
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return this.result.copy();
+    public @NotNull ItemStack getResultItem(HolderLookup.Provider registries) {
+        return this.result;
     }
 
     @Override

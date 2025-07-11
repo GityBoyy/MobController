@@ -15,8 +15,8 @@ public class BlockEntityRegistry
 {
 
     public static final Supplier<BlockEntityType<NeuralInterfaceStationBE>> NEURAL_INTERFACE_STATION_BE =
-            Services.REGISTRY_HELPER.registerBE(Utils.resource("neural_interface_station_be"
-            ), ()-> Services.REGISTRY_HELPER.createBlockEntityType(NeuralInterfaceStationBE::new,()->new Block[]{
+            Services.REGISTRY_HELPER().registerBE(Utils.resource("neural_interface_station_be"
+            ), ()-> Services.REGISTRY_HELPER().createBlockEntityType(NeuralInterfaceStationBE::new,()->new Block[]{
                     BlockRegistry.NEURAL_INTERFACE_STATION.get()
             }));
     public static void init(){}

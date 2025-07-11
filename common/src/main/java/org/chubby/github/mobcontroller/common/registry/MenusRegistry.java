@@ -21,13 +21,13 @@ import java.util.function.Supplier;
 public class MenusRegistry
 {
 
-    public static final Supplier<MenuType<MonsterInventoryMenu>> MONSTER_MENU = Services.CLIENT_REGISTRY_HELPER.registerMenu(
+    public static final Supplier<MenuType<MonsterInventoryMenu>> MONSTER_MENU = Services.CLIENT_REGISTRY_HELPER().registerMenu(
             Utils.resource("monster_menu"),
             MonsterInventoryMenu::new
     );
 
 
-    public static final Supplier<MenuType<DataDisplayerMenu>> DATA_DISPLAYER_MENU = Services.CLIENT_REGISTRY_HELPER.registerMenu(
+    public static final Supplier<MenuType<DataDisplayerMenu>> DATA_DISPLAYER_MENU = Services.CLIENT_REGISTRY_HELPER().registerMenu(
             Utils.resource("data_displayer_menu"),
             (id, inventory,  buf) -> {
                 var player = inventory.player;
@@ -40,7 +40,7 @@ public class MenusRegistry
             }
     );
 
-    public static final Supplier<MenuType<NeuralInterfaceStationMenu>> NEURAL_INTERFACE_STATION_MENU = Services.CLIENT_REGISTRY_HELPER
+    public static final Supplier<MenuType<NeuralInterfaceStationMenu>> NEURAL_INTERFACE_STATION_MENU = Services.CLIENT_REGISTRY_HELPER()
             .registerMenu(Utils.resource("neural_interface_station_menu"),
                     NeuralInterfaceStationMenu::new);
 

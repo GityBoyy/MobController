@@ -10,12 +10,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import org.chubby.github.mobcontroller.common.enums.EnumControlledStates;
+import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.util.MCCodec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,8 +24,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public static final Codec<MobControllerData> CODEC = RecordCodecBuilder.create(inst-> inst.group(
             MCCodec.UUID_CODEC.fieldOf("controllingPlayer").forGetter(data -> data.controllingPlayer),
             Codec.INT.fieldOf("controlledMob").forGetter(data -> data.controlledMob),
-            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(data->data.mobInventory.getItems()),
-            EnumControlledStates.CODEC.fieldOf("currentState").forGetter(data->data.state)
+            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(data -> data.getSerializableItems())
     ).apply(inst, MobControllerData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf,MobControllerData> STREAM_CODEC =
@@ -35,15 +33,14 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public final UUID controllingPlayer;
     public final int controlledMob;
     public final SimpleContainer mobInventory;
-    public EnumControlledStates state;
+
     public MobControllerData(UUID controllingPlayer, int controlledMob) {
         this.controllingPlayer = controllingPlayer;
         this.controlledMob = controlledMob;
         this.mobInventory = new SimpleContainer(14);
-        this.state = EnumControlledStates.STAY;
     }
 
-    public MobControllerData(UUID controllingPlayer, int controlledMob, List<ItemStack> inventoryItems, EnumControlledStates state) {
+    public MobControllerData(UUID controllingPlayer, int controlledMob, List<ItemStack> inventoryItems) {
         this.controllingPlayer = controllingPlayer;
         this.controlledMob = controlledMob;
         this.mobInventory = new SimpleContainer(14);
@@ -53,7 +50,6 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                 this.mobInventory.setItem(i, inventoryItems.get(i));
             }
         }
-        this.state = state;
     }
 
     public MobControllerData(MobControllerData self){
@@ -62,9 +58,39 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         this.mobInventory = new SimpleContainer(14);
 
         for (int i = 0; i < self.mobInventory.getContainerSize(); i++) {
-            this.mobInventory.setItem(i, self.mobInventory.getItem(i).copy());
+            ItemStack original = self.mobInventory.getItem(i);
+            if (!original.isEmpty()) {
+                // Prevent circular reference by not copying controller items that reference this data
+                if (original.has(DataComponentRegistry.CONTROLLER.get())) {
+                    MobControllerData itemData = original.get(DataComponentRegistry.CONTROLLER.get());
+                    if (itemData != null && itemData.controlledMob == self.controlledMob &&
+                            Objects.equals(itemData.controllingPlayer, self.controllingPlayer)) {
+                        // Skip copying this item to prevent circular reference
+                        continue;
+                    }
+                }
+                this.mobInventory.setItem(i, original.copy());
+            }
         }
-        this.state = EnumControlledStates.STAY;
+    }
+
+    /**
+     * Get items for serialization, excluding items that would cause circular references
+     */
+    private List<ItemStack> getSerializableItems() {
+        return mobInventory.getItems().stream()
+                .map(stack -> {
+                    if (stack.has(DataComponentRegistry.CONTROLLER.get())) {
+                        MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
+                        if (itemData != null && itemData.controlledMob == this.controlledMob &&
+                                Objects.equals(itemData.controllingPlayer, this.controllingPlayer)) {
+                            // Return empty stack to prevent circular reference
+                            return ItemStack.EMPTY;
+                        }
+                    }
+                    return stack;
+                })
+                .toList();
     }
 
     public int getControlledMob() {
@@ -73,14 +99,6 @@ public class MobControllerData implements DataComponentType<MobControllerData>
 
     public UUID getControllingPlayer() {
         return controllingPlayer;
-    }
-
-    public EnumControlledStates getState() {
-        return state;
-    }
-
-    public void setState(EnumControlledStates state) {
-        this.state = state;
     }
 
     public MobControllerData copy() {return new MobControllerData(this);}
@@ -96,6 +114,16 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         for (int i = 0; i < this.mobInventory.getContainerSize(); i++) {
             ItemStack stack = this.mobInventory.getItem(i);
             if (!stack.isEmpty()) {
+                // Check for circular reference
+                if (stack.has(DataComponentRegistry.CONTROLLER.get())) {
+                    MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
+                    if (itemData != null && itemData.controlledMob == this.controlledMob &&
+                            Objects.equals(itemData.controllingPlayer, this.controllingPlayer)) {
+                        // Skip saving this item to prevent circular reference
+                        continue;
+                    }
+                }
+
                 CompoundTag slotTag = new CompoundTag();
                 slotTag.putInt("Slot", i);
                 stack.save(levelRegistry, slotTag);
@@ -125,7 +153,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                             this.mobInventory.setItem(slot, stack);
                         }
                     } catch (Exception ignored) {
-
+                        ignored.printStackTrace();
                     }
                 }
             }
@@ -140,6 +168,16 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         for (int i = 0; i < data.mobInventory.getContainerSize(); i++) {
             ItemStack stack = data.mobInventory.getItem(i);
             if (!stack.isEmpty()) {
+                // Check for circular reference
+                if (stack.has(DataComponentRegistry.CONTROLLER.get())) {
+                    MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
+                    if (itemData != null && itemData.controlledMob == data.controlledMob &&
+                            Objects.equals(itemData.controllingPlayer, data.controllingPlayer)) {
+                        // Skip writing this item to prevent circular reference
+                        continue;
+                    }
+                }
+
                 CompoundTag itemTag = new CompoundTag();
                 itemTag.putInt("Slot", i);
                 stack.save(buf.registryAccess(), itemTag);
@@ -178,6 +216,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                                 data.mobInventory.setItem(slot, stack);
                             }
                         } catch (Exception e) {
+                            // Ignore parsing errors
                         }
                     }
                 }
@@ -201,6 +240,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public int hashCode() {
         return Objects.hash(controllingPlayer, controlledMob);
     }
+
     @Override
     public @Nullable Codec<MobControllerData> codec() {
         return CODEC;

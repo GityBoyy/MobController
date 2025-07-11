@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "mobcontroller",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "MobController",
-  "description": "",
+  "description": "${mod_description}",
   "authors": [
     "Small_Chubby"
   ],
@@ -19,6 +19,9 @@
     ],
     "client": [
       "org.chubby.github.mobcontroller.fabric.client.MobcontrollerFabricClient"
+    ],
+    "jei_mod_plugin": [
+      "org.chubby.github.mobcontroller.compat.jei.ModJeiPlugin"
     ]
   },
   "mixins": [
@@ -26,9 +29,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.7",
-    "minecraft": "~1.21",
+    "minecraft": "~1.21.1",
     "java": ">=21",
-    "architectury": ">=13.0.8",
     "fabric-api": "*"
   },
   "suggests": {

@@ -29,6 +29,7 @@ import org.chubby.github.mobcontroller.client.screen.GogglesScreen;
 import org.chubby.github.mobcontroller.common.data.ControllerTierData;
 import org.chubby.github.mobcontroller.common.data.MobControllerData;
 import org.chubby.github.mobcontroller.common.data.SoulEssenceData;
+import org.chubby.github.mobcontroller.common.enums.EnumControlledStates;
 import org.chubby.github.mobcontroller.common.items.ItemController;
 import org.chubby.github.mobcontroller.common.items.SoulEssence;
 import org.chubby.github.mobcontroller.common.menu.MonsterInventoryMenu;
@@ -36,15 +37,20 @@ import org.chubby.github.mobcontroller.common.registry.DataComponentRegistry;
 import org.chubby.github.mobcontroller.core.config.MCConfig;
 import org.chubby.github.mobcontroller.debug.screen.DebugScreen;
 import org.chubby.github.mobcontroller.platform.services.Services;
+import org.chubby.github.mobcontroller.util.EntityStateHandler;
 import org.chubby.github.mobcontroller.util.UtilityMethods;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommonEvents {
 
     private static final DebugScreen DEBUG_SCREEN = new DebugScreen();
+    private static final Map<Integer, EntityStateHandler> MONSTER_STATE_HANDLERS = new HashMap<>();
 
     @SubscribeEvent
     public static void onPlayerRightClickMob(PlayerInteractEvent.EntityInteract event) {
@@ -66,35 +72,27 @@ public class CommonEvents {
 
         if (!(heldItem.getItem() instanceof ItemController controller)) return;
 
-        ItemStack controllerItem = new ItemStack(controller);
-
+        // Create the controller data
         MobControllerData controllerData = new MobControllerData(player.getUUID(), monster.getId());
-        controllerItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
-
         ControllerTierData tierData = new ControllerTierData(controller.getType());
-        controllerItem.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
 
+        // Create the helmet item (what the monster wears)
         ItemStack helmetItem = new ItemStack(controller);
         helmetItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
         helmetItem.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
 
+        // Set the helmet on the monster
         monster.setItemSlot(EquipmentSlot.HEAD, helmetItem);
 
-        if (helmetItem.has(DataComponentRegistry.CONTROLLER.get())) {
-            MobControllerData mobData = helmetItem.get(DataComponentRegistry.CONTROLLER.get());
-            if (mobData != null) {
-                mobData.mobInventory.setItem(4, controllerItem.copy());
-
-                helmetItem.set(DataComponentRegistry.CONTROLLER.get(), mobData);
-                monster.setItemSlot(EquipmentSlot.HEAD, helmetItem);
-            }
-        }
+        // CHANGED: Don't store the controller in its own inventory initially
+        // Let the tick event handle adding a simple version if needed
 
         heldItem.shrink(1);
         ItemController.getPlayerMobControlMap().put(player.getUUID(), monster.getId());
 
-        if (controllerItem.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
-            SoulEssenceData essenceData = controllerItem.get(DataComponentRegistry.SOUL_ESSENCE.get());
+        // Handle soul essence data
+        if (heldItem.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
+            SoulEssenceData essenceData = heldItem.get(DataComponentRegistry.SOUL_ESSENCE.get());
             if (essenceData != null) {
                 essenceData.addControlledMob(monster.getId(), player.getUUID());
 
@@ -116,14 +114,14 @@ public class CommonEvents {
     }
 
     private static void openMonsterInventory(ServerPlayer player, Monster monster) {
-        Services.MENU_HELPER.openMenu(player, new MenuProvider() {
+        Services.MENU_HELPER().openMenu(player, new MenuProvider() {
             @Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.empty();
             }
 
             @Override
-            public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+            public @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
                 return new MonsterInventoryMenu(i,inventory,monster);
             }
         },buf -> buf.writeInt(monster.getId()));
@@ -148,37 +146,46 @@ public class CommonEvents {
             monster.setAggressive(false);
         }
 
+        EntityStateHandler stateHandler = MONSTER_STATE_HANDLERS.computeIfAbsent(
+                monster.getId(),
+                id -> new EntityStateHandler(EnumControlledStates.FOLLOW)
+        );
+
         if (player.getLastHurtMob() != null) {
-            ItemController.setMonsterState(ItemController.MonsterStates.AGGRESSIVE);
+            stateHandler.transitionTo(EnumControlledStates.ATTACK);
         } else if (player.getLastHurtByMob() != null) {
-            ItemController.setMonsterState(ItemController.MonsterStates.DEFENSIVE);
+            stateHandler.transitionTo(EnumControlledStates.DEFEND);
         } else {
-            ItemController.setMonsterState(ItemController.MonsterStates.PASSIVE);
+            if (stateHandler.isAggressiveState() && stateHandler.hasBeenInStateFor(3000)) {
+                stateHandler.transitionTo(EnumControlledStates.FOLLOW);
+            }
         }
 
-        EquipmentSlot[] armorSlots = { EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET };
+        EquipmentSlot[] armorSlots = { EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET };
+        int[] inventorySlots = { 1, 2, 3 };
         for (int i = 0; i < armorSlots.length; i++) {
-            ItemStack armorPiece = attachment.mobInventory.getItem(i);
+            ItemStack armorPiece = attachment.mobInventory.getItem(inventorySlots[i]);
             if (armorPiece.getItem() instanceof ArmorItem) {
                 monster.setItemSlot(armorSlots[i], armorPiece);
             }
         }
 
         ItemStack controllerSlotItem = attachment.mobInventory.getItem(4);
-        if (controllerSlotItem.isEmpty() || !(controllerSlotItem.getItem() instanceof ItemController)) {
-            ItemStack controllerForSlot = new ItemStack(headItem.getItem());
-            controllerForSlot.set(DataComponentRegistry.CONTROLLER.get(), attachment);
+        if (controllerSlotItem.isEmpty()) {
+            ItemStack simpleController = new ItemStack(headItem.getItem());
+
             if (headItem.has(DataComponentRegistry.CONTROLLER_TIER.get())) {
-                controllerForSlot.set(DataComponentRegistry.CONTROLLER_TIER.get(),
+                simpleController.set(DataComponentRegistry.CONTROLLER_TIER.get(),
                         headItem.get(DataComponentRegistry.CONTROLLER_TIER.get()));
             }
-            attachment.mobInventory.setItem(4, controllerForSlot);
+
+            attachment.mobInventory.setItem(4, simpleController);
 
             headItem.set(DataComponentRegistry.CONTROLLER.get(), attachment);
             monster.setItemSlot(EquipmentSlot.HEAD, headItem);
         }
 
-        UtilityMethods.updateMobBehavior(monster, player);
+        UtilityMethods.updateMobBehaviorWithAutoTransition(monster, player, stateHandler);
     }
 
     @SubscribeEvent
@@ -211,6 +218,8 @@ public class CommonEvents {
 
         var attachment = headItem.get(DataComponentRegistry.CONTROLLER.get());
         if (attachment == null) return;
+
+        MONSTER_STATE_HANDLERS.remove(monster.getId());
 
         attachment.mobInventory.getItems().forEach(item ->
                 Containers.dropItemStack(monster.level(), monster.getX(), monster.getY(), monster.getZ(), item));

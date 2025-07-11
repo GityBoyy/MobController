@@ -14,11 +14,11 @@ public class RecipeRegistry
 {
 
     public static final Supplier<RecipeType<NeuralInterfaceStationRecipe>> NEURAL_INTERFACE_STATION_TYPE =
-            Services.REGISTRY_HELPER.registerRecipe(Utils.resource("neural_crafting"),
+            Services.REGISTRY_HELPER().registerRecipe(Utils.resource("neural_crafting"),
                     ()-> new Type<>("neural_crafting"));
 
     public static final Supplier<RecipeSerializer<NeuralInterfaceStationRecipe>> NEURAL_INTERFACE_STATION_SERIALIZER =
-            Services.REGISTRY_HELPER.registerRecipeSerializer(Utils.resource("neural_crafting"),
+            Services.REGISTRY_HELPER().registerRecipeSerializer(Utils.resource("neural_crafting"),
                     NeuralInterfaceStationRecipe.Serializer::new);
     public record Type<T extends Recipe<?>>(String id) implements RecipeType<T> {
         @Override
