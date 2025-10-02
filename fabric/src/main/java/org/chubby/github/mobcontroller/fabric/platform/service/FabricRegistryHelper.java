@@ -82,7 +82,7 @@ public class FabricRegistryHelper {
 
         @Override
         public <M extends AbstractContainerMenu> Supplier<MenuType<M>> registerMenu(ResourceLocation id, IRegistryHelper.ScreenConstructor<M> constructor) {
-            ExtendedScreenHandlerType<M, RegistryFriendlyByteBuf> type = new ExtendedScreenHandlerType<>(constructor::create,);
+            ExtendedScreenHandlerType<M, RegistryFriendlyByteBuf> type = new ExtendedScreenHandlerType<>(constructor::create,null);
             return () -> Registry.register(BuiltInRegistries.MENU, id, type);
         }
 

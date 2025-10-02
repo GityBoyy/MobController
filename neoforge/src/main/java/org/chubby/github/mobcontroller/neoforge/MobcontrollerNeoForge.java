@@ -1,36 +1,46 @@
 package org.chubby.github.mobcontroller.neoforge;
 
-import net.minecraft.client.gui.components.DebugScreenOverlay;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
-import net.neoforged.neoforge.registries.RegisterEvent;
 import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.MobController;
+import org.chubby.github.mobcontroller.api.model.obj.loader.ObjModelLoader;
 import org.chubby.github.mobcontroller.client.MobControllerClient;
+import org.chubby.github.mobcontroller.client.renderer.blockEntity.ScepticTankRenderer;
 import org.chubby.github.mobcontroller.client.screen.DataDisplayerScreen;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
 import org.chubby.github.mobcontroller.client.screen.NeuralInterfaceStationScreen;
-import org.chubby.github.mobcontroller.common.registry.CreativeTabRegistry;
-import org.chubby.github.mobcontroller.common.registry.ItemRegistry;
-import org.chubby.github.mobcontroller.common.registry.MenusRegistry;
-import org.chubby.github.mobcontroller.common.registry.PotionRegistry;
+import org.chubby.github.mobcontroller.common.registry.*;
 import org.chubby.github.mobcontroller.core.CommandsInit;
-import org.chubby.github.mobcontroller.debug.screen.DebugScreen;
+import org.chubby.github.mobcontroller.neoforge.datagen.ModBlockStateGenerator;
+import org.chubby.github.mobcontroller.neoforge.datagen.ModItemModelGenerator;
+import org.chubby.github.mobcontroller.neoforge.datagen.ModRecipeGenerator;
+import org.chubby.github.mobcontroller.neoforge.platform.service.NeoforgeNetworkHelper;
 import org.chubby.github.mobcontroller.neoforge.platform.service.NeoforgeRegistryHelper;
 import org.chubby.github.mobcontroller.neoforge.wrapper.NeoForgeEnergyWrapper;
-import org.chubby.github.mobcontroller.util.Utils;
+
+import java.util.concurrent.CompletableFuture;
 
 @Mod(Constants.MOD_ID)
 public final class MobcontrollerNeoForge {
@@ -46,6 +56,9 @@ public final class MobcontrollerNeoForge {
         eventBus.addListener(this::registerMenuScreens);
         eventBus.addListener(this::buildCreativeContent);
         eventBus.addListener(NeoForgeEnergyWrapper::registerCapabilities);
+        eventBus.addListener(NeoforgeNetworkHelper::register);
+        eventBus.addListener(this::onRegisterReloadListeners);
+        eventBus.addListener(this::onGatherData);
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
         NeoForge.EVENT_BUS.addListener(this::registerBrewingRecipes);
     }
@@ -83,12 +96,38 @@ public final class MobcontrollerNeoForge {
         event.register(MenusRegistry.NEURAL_INTERFACE_STATION_MENU.get(), NeuralInterfaceStationScreen::new);
     }
 
-    public void registerBrewingRecipes(RegisterBrewingRecipesEvent event)
-    {
+    public void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
         PotionBrewing.Builder builder = event.getBuilder();
 
         builder.addMix(Potions.WATER, Items.QUARTZ, Holder.direct(PotionRegistry.CHARGED_POTION.get()));
         builder.addMix(Holder.direct(PotionRegistry.CHARGED_POTION.get()), Items.REDSTONE, Holder.direct(PotionRegistry.ELECTROLYTE_POTION.get()));
     }
 
+    public void onRegisterReloadListeners(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(ObjModelLoader.getInstance());
+    }
+
+    @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
+    public static class ClientSetup {
+
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(() -> {
+
+            });
+            BlockEntityRenderers.register(BlockEntityRegistry.SCEPTIC_TANK_BE.get(), ScepticTankRenderer::new);
+        }
+    }
+
+    public void onGatherData(GatherDataEvent event)
+    {
+        DataGenerator generator = event.getGenerator();
+        PackOutput packOutput = generator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> completableFuture = event.getLookupProvider();
+        ExistingFileHelper fileHelper = event.getExistingFileHelper();
+
+        generator.addProvider(event.includeClient(),new ModBlockStateGenerator(packOutput,fileHelper));
+        generator.addProvider(event.includeClient(),new ModItemModelGenerator(packOutput,fileHelper));
+        generator.addProvider(event.includeServer(),new ModRecipeGenerator(packOutput,completableFuture));
+    }
 }

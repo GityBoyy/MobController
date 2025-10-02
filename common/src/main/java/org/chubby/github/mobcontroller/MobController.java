@@ -3,9 +3,11 @@ package org.chubby.github.mobcontroller;
 import org.chubby.github.mobcontroller.common.registry.*;
 import org.chubby.github.mobcontroller.core.config.Config;
 
-import java.lang.reflect.Field;
+public final class MobController
+{
 
-public final class MobController {
+    private static MobController instance;
+    private MobController() {}
 
     public static void init() {
         ItemRegistry.init();
@@ -16,6 +18,7 @@ public final class MobController {
         MenusRegistry.init();
         PotionRegistry.init();
         RecipeRegistry.init();
+
         handleConfig();
     }
 
@@ -30,4 +33,9 @@ public final class MobController {
             Config.saveConfig();
         }
     }
+
+    public static MobController getInstance() {
+        return instance;
+    }
+
 }

@@ -1,27 +1,53 @@
-
 plugins {
     id 'multiloader-common'
-    id 'net.neoforged.moddev'
+    id 'net.neoforged.moddev' version '2.0.73'
 }
 
 neoForge {
-    // Look for versions on https://projects.neoforged.net/neoforged/neoform
     neoFormVersion = neo_form_version
 
-    // Automatically enable AccessTransformers if the file exists
     def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformers.add(at.absolutePath)
     }
+
+    // Performance optimizations
+    parchment {
+        mappingsVersion = parchment_mapping_version
+        minecraftVersion = minecraft_version
+    }
+}
+
+// Optimize Java compilation
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.addAll([
+            '-Xlint:none',
+            '-nowarn',
+            '--enable-preview'
+    ])
+    options.fork = true
+    options.forkOptions.jvmArgs.addAll([
+            '-XX:+UseParallelGC',
+            '-Xmx2G'
+    ])
 }
 
 dependencies {
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "com.blamejared.crafttweaker:CraftTweaker-common-${minecraft_version}:${crafttweaker_version}"
+    // Use compileOnlyApi for better dependency resolution
+    compileOnlyApi "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnlyApi "com.blamejared.crafttweaker:CraftTweaker-common-${minecraft_version}:${crafttweaker_version}"
 
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
+    // Optimized Mixin dependencies
+    compileOnlyApi('org.spongepowered:mixin:0.8.5') {
+        exclude group: 'com.google.guava'
+    }
+    compileOnlyApi('io.github.llamalad7:mixinextras-common:0.4.0') {
+        exclude group: 'org.ow2.asm'
+    }
+    annotationProcessor('io.github.llamalad7:mixinextras-common:0.4.0') {
+        exclude group: 'org.ow2.asm'
+    }
 }
 
 configurations {
@@ -38,4 +64,21 @@ configurations {
 artifacts {
     commonJava sourceSets.main.java.sourceDirectories.singleFile
     commonResources sourceSets.main.resources.sourceDirectories.singleFile
+}
+
+// Optimize resource processing
+processResources {
+    inputs.properties([
+            "version": project.version,
+            "group": project.group,
+            "mod_id": mod_id
+    ])
+
+    filesMatching(['pack.mcmeta', '*.json']) {
+        expand([
+                "version": project.version,
+                "group": project.group,
+                "mod_id": mod_id
+        ])
+    }
 }

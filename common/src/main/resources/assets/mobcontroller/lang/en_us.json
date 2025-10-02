@@ -10,10 +10,10 @@
   "item.mobcontroller.gold_to_diamond_upgrade": "Gold to Diamond Upgrade",
   "item.mobcontroller.diamond_to_netherite_upgrade": "Diamond to Netherite Upgrade",
 
-  "item.mobcontroller.brain": "Copper Controller",
-  "item.mobcontroller.brain_piece": "Iron Controller",
-  "item.mobcontroller.soul_essence": "Gold Controller",
-  "item.mobcontroller.goggles": "Diamond Controller",
+  "item.mobcontroller.brain": "Brain",
+  "item.mobcontroller.brain_piece": "Brain Piece",
+  "item.mobcontroller.soul_essence": "Soul Essence",
+  "item.mobcontroller.goggles": "Goggles",
 
   "message.mobcontroller.already_controlling":"You are already controlling a mob",
   "message.mobcontroller.mob_already_controlled":"This mob is already being controlled",

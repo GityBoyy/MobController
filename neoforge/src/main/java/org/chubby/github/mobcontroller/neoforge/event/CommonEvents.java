@@ -18,8 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -46,7 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class CommonEvents {
 
     private static final DebugScreen DEBUG_SCREEN = new DebugScreen();
@@ -76,21 +75,15 @@ public class CommonEvents {
         MobControllerData controllerData = new MobControllerData(player.getUUID(), monster.getId());
         ControllerTierData tierData = new ControllerTierData(controller.getType());
 
-        // Create the helmet item (what the monster wears)
         ItemStack helmetItem = new ItemStack(controller);
         helmetItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
         helmetItem.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
 
-        // Set the helmet on the monster
         monster.setItemSlot(EquipmentSlot.HEAD, helmetItem);
-
-        // CHANGED: Don't store the controller in its own inventory initially
-        // Let the tick event handle adding a simple version if needed
 
         heldItem.shrink(1);
         ItemController.getPlayerMobControlMap().put(player.getUUID(), monster.getId());
 
-        // Handle soul essence data
         if (heldItem.has(DataComponentRegistry.SOUL_ESSENCE.get())) {
             SoulEssenceData essenceData = heldItem.get(DataComponentRegistry.SOUL_ESSENCE.get());
             if (essenceData != null) {
@@ -225,6 +218,28 @@ public class CommonEvents {
                 Containers.dropItemStack(monster.level(), monster.getX(), monster.getY(), monster.getZ(), item));
 
     }
+
+    @SubscribeEvent
+    public static void onLivingAttackEvent(LivingIncomingDamageEvent event) {
+        if (!(event.getEntity() instanceof Monster victim)) return;
+
+        var victimHead = victim.getItemBySlot(EquipmentSlot.HEAD);
+        if (!victimHead.has(DataComponentRegistry.CONTROLLER.get())) return;
+        var victimData = victimHead.get(DataComponentRegistry.CONTROLLER.get());
+        if (victimData == null) return;
+
+        if (!(event.getSource().getEntity() instanceof Monster attacker)) return;
+
+        var attackerHead = attacker.getItemBySlot(EquipmentSlot.HEAD);
+        if (!attackerHead.has(DataComponentRegistry.CONTROLLER.get())) return;
+        var attackerData = attackerHead.get(DataComponentRegistry.CONTROLLER.get());
+        if (attackerData == null) return;
+
+        if (victimData.getControllingPlayer().equals(attackerData.getControllingPlayer())) {
+            event.setCanceled(true);
+        }
+    }
+
 
     @SubscribeEvent
     public static void onLevelSave(LevelEvent.Save event)

@@ -1,7 +1,6 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
 }
 
 base {
@@ -11,15 +10,22 @@ base {
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(java_version)
     withSourcesJar()
-    withJavadocJar()
+    // Only generate javadoc in CI or when explicitly requested
+    if (System.getenv("CI") || project.hasProperty("generateJavadoc")) {
+        withJavadocJar()
+    }
 }
 
 javadoc {
-    options.addStringOption('Xdoclint:-missing', '-quiet')
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addBooleanOption('html5', true)
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
 }
 
 repositories {
     mavenCentral()
+
     exclusiveContent {
         forRepository {
             maven {
@@ -31,38 +37,42 @@ repositories {
             includeGroupAndSubgroups('org.spongepowered')
         }
     }
+
     exclusiveContent {
         forRepositories(
                 maven {
                     name = 'ParchmentMC'
                     url = 'https://maven.parchmentmc.org/'
-                },
-                maven {
-                    name = "NeoForge"
-                    url = 'https://maven.neoforged.net/releases'
                 }
         )
         filter {
             includeGroup('org.parchmentmc.data')
         }
     }
+
     exclusiveContent {
         forRepository {
             maven {
-                url "https://cursemaven.com"
+                name = 'CurseMaven'
+                url = "https://cursemaven.com"
+                content {
+                    includeGroup "curse.maven"
+                }
             }
         }
         filter {
             includeGroup "curse.maven"
         }
     }
+
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }
 }
 
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+// Optimize capability declarations
+['apiElements', 'runtimeElements', 'sourcesElements'].each { variant ->
     configurations."$variant".outgoing {
         capability("$group:${base.archivesName.get()}:$version")
         capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
@@ -70,6 +80,15 @@ repositories {
     }
     publishing.publications.configureEach {
         suppressPomMetadataWarningsFor(variant)
+    }
+}
+
+// Add javadocElements only when javadoc is generated
+if (System.getenv("CI") || project.hasProperty("generateJavadoc")) {
+    configurations.javadocElements.outgoing {
+        capability("$group:${base.archivesName.get()}:$version")
+        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
+        capability("$group:$mod_id:$version")
     }
 }
 
@@ -93,10 +112,18 @@ jar {
                 'Implementation-Version': project.jar.archiveVersion,
                 'Implementation-Vendor' : mod_author,
                 'Built-On-Minecraft'    : minecraft_version,
+                'Built-On-Java'         : System.getProperty('java.version'),
+                'Built-By'              : System.getProperty('user.name'),
+                'Build-Time'            : new Date().toString(),
                 'CurseForge'            : curse_page,
                 'Modrinth'              : modrinth_page
         ])
     }
+
+    // Exclude development files
+    exclude 'META-INF/maven/**'
+    exclude '**/*.psd'
+    exclude '**/*.xcf'
 }
 
 processResources {
@@ -120,10 +147,36 @@ processResources {
             "mod_source"                   : mod_repo,
             "mod_issues"                   : mod_issues
     ]
-    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+
+    filesMatching([
+            'pack.mcmeta',
+            'fabric.mod.json',
+            'META-INF/mods.toml',
+            'META-INF/neoforge.mods.toml',
+            '*.mixins.json'
+    ]) {
         expand expandProps
     }
+
     inputs.properties(expandProps)
+
+    // Enable incremental processing
+    outputs.upToDateWhen { true }
+}
+
+// Optimize compilation tasks
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.addAll([
+            '-Xlint:none',
+            '-nowarn',
+            '-parameters'
+    ])
+    options.fork = true
+    options.forkOptions.jvmArgs.addAll([
+            '-XX:+UseParallelGC',
+            '-Xmx2G'
+    ])
 }
 
 publishing {
@@ -131,11 +184,36 @@ publishing {
         register('mavenJava', MavenPublication) {
             artifactId base.archivesName.get()
             from components.java
+
+            pom {
+                name = mod_name
+                description = mod_description
+                url = mod_repo
+
+                licenses {
+                    license {
+                        name = mod_license
+                    }
+                }
+
+                developers {
+                    developer {
+                        name = mod_author
+                    }
+                }
+
+                scm {
+                    url = mod_repo
+                }
+            }
         }
     }
+
     repositories {
-        maven {
-            url System.getenv('local_maven_url')
+        if (System.getenv('local_maven_url')) {
+            maven {
+                url System.getenv('local_maven_url')
+            }
         }
     }
 }

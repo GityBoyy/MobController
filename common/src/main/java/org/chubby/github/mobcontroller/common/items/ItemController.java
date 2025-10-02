@@ -20,7 +20,6 @@ public class ItemController extends Item implements Equipable {
     private final ControllerType type;
     private static ItemController INSTANCE;
     public static final Map<UUID, Integer> playerControlledMobs = new ConcurrentHashMap<>();
-    public static MonsterStates currentState = MonsterStates.PASSIVE;
 
     public ItemController(Properties properties, ControllerType type) {
         super(properties);
@@ -28,17 +27,12 @@ public class ItemController extends Item implements Equipable {
         INSTANCE = this;
     }
 
-    public static void setMonsterState(MonsterStates newMonsterState)
-    {
-        currentState = newMonsterState;
-    }
-
     public ControllerType getType() {
         return type;
     }
 
     @Override
-    public EquipmentSlot getEquipmentSlot() {
+    public @NotNull EquipmentSlot getEquipmentSlot() {
         return EquipmentSlot.HEAD;
     }
 
@@ -46,16 +40,10 @@ public class ItemController extends Item implements Equipable {
     {
         return playerControlledMobs;
     }
-    public enum MonsterStates {
-        AGGRESSIVE,
-        PASSIVE,
-        DEFENSIVE
-    }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("tooltip.mobcontroller.type",
-                Component.literal(type.getName()).withStyle(ChatFormatting.GOLD)));
+        tooltipComponents.add(Component.translatable("tooltip.mobcontroller.type" + type.getName().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GOLD));
     }
 }

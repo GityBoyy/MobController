@@ -1,33 +1,35 @@
 {
   "type": "mobcontroller:neural_crafting",
-  "pattern": [
-    "BEB",
-    "RCR",
-    "LLL"
-  ],
-  "key": {
-    "B": {
-      "item": "mobcontroller:brain"
+  "group": "controllers",
+  "pattern": {
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EEE"
+    ],
+    "key": {
+      "A": {
+        "item": "mobcontroller:brain"
+      },
+      "B": {
+        "item": "minecraft:cobblestone"
+      },
+      "C": {
+        "item": "minecraft:redstone"
+      },
+      "D": {
+        "item": "minecraft:copper_ingot"
+      },
+      "E": {
+        "item": "minecraft:leather"
+      }
     },
-    "E": {
-      "item": "mobcontroller:electrolyte"
-    },
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "C": {
-      "item": "minecraft:copper"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "show_notification": true
   },
   "result": {
-    "id": "mobcontroller:copper_controller"
+    "id": "mobcontroller:copper_controller",
+    "count": 1
   },
-  "specialItem": {
-    "id": "mobcontroller:soul_essence"
-  },
-  "craftTime": 200,
-  "energyRequired": 500
+  "energyRequired": 500,
+  "craftingTime": 200
 }

@@ -38,7 +38,7 @@ public class UtilityMethods {
 
         return entities.stream()
                 .filter(e -> e.getBoundingBox().clip(eyePosition, endPos).isPresent())
-                .min((e1, e2) -> Double.compare(e1.distanceToSqr(eyePosition), e2.distanceToSqr(eyePosition)));
+                .min(Comparator.comparingDouble(e -> e.distanceToSqr(eyePosition)));
     }
 
     /**
@@ -192,7 +192,7 @@ public class UtilityMethods {
                 .filter(entity -> entity != monster)
                 .filter(entity -> isHostileToPlayer(entity, controller))
                 .filter(LivingEntity::isAlive)
-                .min((e1, e2) -> Double.compare(e1.distanceToSqr(monster), e2.distanceToSqr(monster)))
+                .min(Comparator.comparingDouble(e -> e.distanceToSqr(monster)))
                 .orElse(null);
     }
 

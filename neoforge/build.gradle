@@ -1,5 +1,3 @@
-
-
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.gradle.userdev' version '7.0.167'
@@ -31,36 +29,67 @@ runs {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-dependencies {
-    // Core dependencies
-    implementation "net.neoforged:neoforge:${neoforge_version}"
+repositories {
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+        content {
+            includeGroupAndSubgroups("com.blamejared")
+        }
+    }
+}
 
-    // JEI
+dependencies {
+    // Core dependencies with optimized configurations
+    implementation("net.neoforged:neoforge:${neoforge_version}") {
+        exclude group: 'org.apache.maven'
+    }
+
+    // JEI with proper scope
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    // CraftTweaker
-    //compileOnly "com.blamejared.crafttweaker:CraftTweaker-common-${crafttweaker_minecraft_version}:${crafttweaker_version}"
-    compileOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}") {
+    // CraftTweaker optimized
+    compileOnly "com.blamejared.crafttweaker:CraftTweaker-common-${minecraft_version}:${crafttweaker_version}"
+    runtimeOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}") {
         exclude group: "me.shedaniel", module: "RoughlyEnoughItems-neoforge"
     }
 }
 
-//tasks.register('signJar', PotentiallySignJar) {
-//    dependsOn jar
-//    onlyIf {
-//        hasProperty('keyStore') || System.getenv("KEYSTORE")
-//    }
-//    keyStore = findProperty('keyStore') ?: System.getenv("KEYSTORE")
-//    alias = findProperty('keyStoreAlias') ?: System.getenv("KEYSTORE_ALIAS")
-//    storePass = findProperty('keyStorePass') ?: System.getenv("KEYSTORE_PASS")
-//    input = jar.archiveFile
-//}
-//
-//jar.finalizedBy 'signJar'
+// Optimize compilation
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.addAll([
+            '-Xlint:none',
+            '-nowarn'
+    ])
+    options.fork = true
+    options.forkOptions.jvmArgs.addAll([
+            '-XX:+UseParallelGC',
+            '-Xmx2G'
+    ])
+}
+
+// Optimize JAR creation
+jar {
+    archiveClassifier = ''
+
+    // Exclude unnecessary files
+    exclude 'META-INF/maven/**'
+    exclude 'META-INF/versions/**'
+    exclude '**/*.psd'
+    exclude '**/*.xcf'
+
+    from(rootProject.file('LICENSE')) {
+        rename { "${mod_id}_LICENSE.txt" }
+    }
+}
+
+// IDE optimizations
 idea {
     module {
         downloadSources = true
-        downloadJavadoc = true
+        downloadJavadoc = false // Disable to save time
+        inheritOutputDirs = true
     }
 }

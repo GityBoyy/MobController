@@ -9,6 +9,8 @@ public class Services {
     private static IRegistryHelper.IServerRegistry serverRegistry;
     private static IRegistryHelper.IClientRegistry clientRegistry;
     private static IMenuHelper menuHelper;
+    private static IFluidHelper fluidHelper;
+    private static INetworkHelper networkHelper;
 
     public static IRegistryHelper.IServerRegistry REGISTRY_HELPER() {
         if (serverRegistry == null) {
@@ -31,11 +33,25 @@ public class Services {
         return menuHelper;
     }
 
-    @Deprecated(forRemoval = true)
+    public static IFluidHelper FLUID_HELPER() {
+        if(fluidHelper == null){
+            fluidHelper = load(IFluidHelper.class);
+        }
+        return fluidHelper;
+    }
+
+    public static INetworkHelper NETWORK_HELPER() {
+        if(networkHelper == null){
+            networkHelper = load(INetworkHelper.class);
+        }
+        return networkHelper;
+    }
+
+    @Deprecated(forRemoval = true,since = "0.2-beta")
     public static final IRegistryHelper.IServerRegistry REGISTRY_HELPER = REGISTRY_HELPER();
-    @Deprecated(forRemoval = true)
+    @Deprecated(forRemoval = true,since = "0.2-beta")
     public static final IRegistryHelper.IClientRegistry CLIENT_REGISTRY_HELPER = CLIENT_REGISTRY_HELPER();
-    @Deprecated(forRemoval = true)
+    @Deprecated(forRemoval = true,since = "0.2-beta")
     public static final IMenuHelper MENU_HELPER = MENU_HELPER();
 
     private static <T> T load(Class<T> clazz) {

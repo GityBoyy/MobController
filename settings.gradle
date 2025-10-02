@@ -55,8 +55,19 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
 }
 
+// Enable build cache
+buildCache {
+    local {
+        enabled = true
+        directory = "${settingsDir}/.gradle-cache"
+    }
+}
+
+// Performance optimizations
+gradle.startParameter.maxWorkerCount = Runtime.runtime.availableProcessors()
+
 def includeModloader(String name) {
-    String targetLoader = Boolean.getBoolean("CI") ?: System.getenv("TARGET_LOADER")
+    String targetLoader = Boolean.getBoolean("CI") ? System.getenv("TARGET_LOADER") : System.getenv("TARGET_LOADER")
     if(targetLoader == null || targetLoader == name) {
         include(name)
     }
@@ -65,7 +76,12 @@ def includeModloader(String name) {
 rootProject.name = 'Mob Controller'
 
 include("common")
-//includeModloader("forge")
 includeModloader("fabric")
 includeModloader("neoforge")
 
+// Project-specific optimizations
+//gradle.projectsLoaded {
+//    rootProject.allprojects { project ->
+//        project.ext.set('buildTime', System.currentTimeMillis())
+//    }
+//}

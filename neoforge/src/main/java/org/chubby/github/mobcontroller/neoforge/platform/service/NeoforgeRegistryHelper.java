@@ -119,7 +119,7 @@ public class NeoforgeRegistryHelper implements IRegistryHelper {
 
         @Override
         public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> function, Supplier<Block[]> validBlocksSupplier) {
-            return BlockEntityType.Builder.<T>of(function::apply, validBlocksSupplier.get()).build(null);
+            return BlockEntityType.Builder.of(function::apply, validBlocksSupplier.get()).build(null);
         }
     }
 

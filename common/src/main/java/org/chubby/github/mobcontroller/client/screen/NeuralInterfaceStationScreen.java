@@ -22,10 +22,8 @@ public class NeuralInterfaceStationScreen extends AbstractContainerScreen<Neural
     @Override
     protected void init() {
         super.init();
-        // The total size of the GUI
         this.imageWidth = 176;
         this.imageHeight = 166;
-        // Center the title
         this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
     }
 
@@ -38,15 +36,10 @@ public class NeuralInterfaceStationScreen extends AbstractContainerScreen<Neural
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        // Draw the background
         graphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
-        // Draw the progress arrow if crafting is in progress
         if (menu.isCrafting()) {
-            // The progress arrow is typically 24 pixels wide in vanilla Minecraft GUIs
             int progress = menu.getScaledProgress();
-            // This assumes the arrow texture is located at coordinates (176, 14) in your texture file
-            // and is 24x17 pixels in size
             graphics.blit(TEXTURE, x + 79, y + 34, 176, 14, progress, 17);
         }
     }

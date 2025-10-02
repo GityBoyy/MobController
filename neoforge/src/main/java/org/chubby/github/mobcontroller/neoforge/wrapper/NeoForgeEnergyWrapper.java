@@ -1,39 +1,41 @@
 package org.chubby.github.mobcontroller.neoforge.wrapper;
 
+import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import org.chubby.github.mobcontroller.api.energy.EnergyStorageImpl;
 import org.chubby.github.mobcontroller.common.blocks.entity.NeuralInterfaceStationBE;
 import org.chubby.github.mobcontroller.common.registry.BlockEntityRegistry;
-import org.chubby.github.mobcontroller.common.registry.BlockRegistry;
 
+/**
+ * Wrapper that adapts our common EnergyStorageImpl to NeoForge's IEnergyStorage interface
+ */
 public class NeoForgeEnergyWrapper implements IEnergyStorage {
     private final EnergyStorageImpl energyStorage;
+
     public NeoForgeEnergyWrapper(EnergyStorageImpl energyStorage) {
         this.energyStorage = energyStorage;
     }
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        return (int) energyStorage.insert(maxReceive, simulate);
+        return energyStorage.insert(maxReceive, simulate);
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        return (int) energyStorage.extract(maxExtract, simulate);
+        return energyStorage.extract(maxExtract, simulate);
     }
 
     @Override
     public int getEnergyStored() {
-        return (int) energyStorage.getStoredEnergy();
+        return energyStorage.getStoredEnergy();
     }
 
     @Override
     public int getMaxEnergyStored() {
-        return (int) energyStorage.getCapacity();
+        return energyStorage.getCapacity();
     }
 
     @Override
@@ -51,6 +53,10 @@ public class NeoForgeEnergyWrapper implements IEnergyStorage {
                 Capabilities.EnergyStorage.BLOCK,
                 BlockEntityRegistry.NEURAL_INTERFACE_STATION_BE.get(),
                 (be, side) -> {
+                    if (side == Direction.UP || side == Direction.DOWN) {
+                        return null;
+                    }
+
                     if (be instanceof NeuralInterfaceStationBE neuralBE) {
                         return new NeoForgeEnergyWrapper(neuralBE.getEnergyStorage());
                     }

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseStorageTickingBE extends BaseContainerBlockEntity
 {
-    private NonNullList<ItemStack> inventory = NonNullList.withSize(11, ItemStack.EMPTY);
+    private NonNullList<ItemStack> inventory = NonNullList.withSize(getSize(), ItemStack.EMPTY);
 
     public BaseStorageTickingBE(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -45,7 +45,7 @@ public abstract class BaseStorageTickingBE extends BaseContainerBlockEntity
         ContainerHelper.saveAllItems(tag,this.getItems(),registries);
     }
 
-    public void onBroken()
+    public void drops()
     {
         if(this.level==null) return;
         Containers.dropContents(this.level,this.getBlockPos(),this.inventory);
@@ -66,4 +66,6 @@ public abstract class BaseStorageTickingBE extends BaseContainerBlockEntity
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
+
+    public abstract int getSize();
 }

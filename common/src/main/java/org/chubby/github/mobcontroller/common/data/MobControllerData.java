@@ -24,7 +24,7 @@ public class MobControllerData implements DataComponentType<MobControllerData>
     public static final Codec<MobControllerData> CODEC = RecordCodecBuilder.create(inst-> inst.group(
             MCCodec.UUID_CODEC.fieldOf("controllingPlayer").forGetter(data -> data.controllingPlayer),
             Codec.INT.fieldOf("controlledMob").forGetter(data -> data.controlledMob),
-            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(data -> data.getSerializableItems())
+            ItemStack.OPTIONAL_CODEC.listOf().fieldOf("inventoryItems").forGetter(MobControllerData::getSerializableItems)
     ).apply(inst, MobControllerData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf,MobControllerData> STREAM_CODEC =
@@ -60,12 +60,10 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         for (int i = 0; i < self.mobInventory.getContainerSize(); i++) {
             ItemStack original = self.mobInventory.getItem(i);
             if (!original.isEmpty()) {
-                // Prevent circular reference by not copying controller items that reference this data
                 if (original.has(DataComponentRegistry.CONTROLLER.get())) {
                     MobControllerData itemData = original.get(DataComponentRegistry.CONTROLLER.get());
                     if (itemData != null && itemData.controlledMob == self.controlledMob &&
                             Objects.equals(itemData.controllingPlayer, self.controllingPlayer)) {
-                        // Skip copying this item to prevent circular reference
                         continue;
                     }
                 }
@@ -84,7 +82,6 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                         MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
                         if (itemData != null && itemData.controlledMob == this.controlledMob &&
                                 Objects.equals(itemData.controllingPlayer, this.controllingPlayer)) {
-                            // Return empty stack to prevent circular reference
                             return ItemStack.EMPTY;
                         }
                     }
@@ -119,7 +116,6 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                     MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
                     if (itemData != null && itemData.controlledMob == this.controlledMob &&
                             Objects.equals(itemData.controllingPlayer, this.controllingPlayer)) {
-                        // Skip saving this item to prevent circular reference
                         continue;
                     }
                 }
@@ -168,12 +164,10 @@ public class MobControllerData implements DataComponentType<MobControllerData>
         for (int i = 0; i < data.mobInventory.getContainerSize(); i++) {
             ItemStack stack = data.mobInventory.getItem(i);
             if (!stack.isEmpty()) {
-                // Check for circular reference
                 if (stack.has(DataComponentRegistry.CONTROLLER.get())) {
                     MobControllerData itemData = stack.get(DataComponentRegistry.CONTROLLER.get());
                     if (itemData != null && itemData.controlledMob == data.controlledMob &&
                             Objects.equals(itemData.controllingPlayer, data.controllingPlayer)) {
-                        // Skip writing this item to prevent circular reference
                         continue;
                     }
                 }
@@ -216,7 +210,6 @@ public class MobControllerData implements DataComponentType<MobControllerData>
                                 data.mobInventory.setItem(slot, stack);
                             }
                         } catch (Exception e) {
-                            // Ignore parsing errors
                         }
                     }
                 }
