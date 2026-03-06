@@ -17,7 +17,7 @@ out
 # gradle
 build
 .gradle
-
+.gradle-cache
 # other
 .docusaurus
 eclipse

@@ -20,7 +20,9 @@ public class ElectrolyticDiffuserMenu extends SimpleContainerMenu{
         super(MenusRegistry.ELECTROLYTIC_DIFFUSER_MENU.get(), windowId, container);
         this.level = container.player.level();
 
-        this.addContainerSlots(80,32,1,1,0);
+        this.addContainerSlots(16,16,1,1,0);
+        this.addContainerSlots(62,32,1,1,1);
+        this.addContainerSlots(116,32,1,1,2);
         this.addPlayerInventorySlots(8,84,container);
     }
 

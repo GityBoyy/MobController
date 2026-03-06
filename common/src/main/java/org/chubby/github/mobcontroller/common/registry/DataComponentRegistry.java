@@ -3,7 +3,6 @@ package org.chubby.github.mobcontroller.common.registry;
 import com.google.common.base.Suppliers;
 import net.minecraft.core.component.DataComponentType;
 import org.chubby.github.mobcontroller.common.data.ControllerTierData;
-import org.chubby.github.mobcontroller.common.data.DataDisplayerData;
 import org.chubby.github.mobcontroller.common.data.MobControllerData;
 import org.chubby.github.mobcontroller.common.data.SoulEssenceData;
 import org.chubby.github.mobcontroller.platform.services.Services;
@@ -22,11 +21,6 @@ public class DataComponentRegistry
     public static final Supplier<DataComponentType<ControllerTierData>> CONTROLLER_TIER = Services.REGISTRY_HELPER().registerDataComponent(
             Utils.resource("controller_tier"),
             Suppliers.memoize(() -> DataComponentType.<ControllerTierData>builder().persistent(ControllerTierData.CODEC).networkSynchronized(ControllerTierData.STREAM_CODEC).build())
-    );
-
-    public static final Supplier<DataComponentType<DataDisplayerData>> DISPLAYER = Services.REGISTRY_HELPER().registerDataComponent(
-            Utils.resource("displayer"),
-            Suppliers.memoize(() -> DataComponentType.<DataDisplayerData>builder().persistent(DataDisplayerData.CODEC).networkSynchronized(DataDisplayerData.STREAM_CODEC).build())
     );
 
     public static final Supplier<DataComponentType<SoulEssenceData>> SOUL_ESSENCE = Services.REGISTRY_HELPER().registerDataComponent(

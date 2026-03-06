@@ -6,7 +6,7 @@ import net.fabricmc.api.ModInitializer;
 public final class MobcontrollerFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        MobController.getInstance().init();
+        MobController.init();
         MobcontrollerEntityInteractionHandler.register();
     }
 }

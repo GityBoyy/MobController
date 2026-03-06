@@ -14,6 +14,14 @@
   "item.mobcontroller.brain_piece": "Brain Piece",
   "item.mobcontroller.soul_essence": "Soul Essence",
   "item.mobcontroller.goggles": "Goggles",
+  "item.mobcontroller.empty_electrolyte_bottle": "Empty Electrolyte Bottle",
+  "item.mobcontroller.unprepared_controller": "Unprepared Controller",
+  "item.mobcontroller.prepared_controller": "Prepared Controller",
+
+  "block.mobcontroller.neural_interface_station" : "Neural Interface Station",
+  "block.mobcontroller.sceptic_tank": "Sceptic Tank",
+  "block.mobcontroller.electrolytic_diffuser": "Electrolytic Diffuser",
+  "block.mobcontroller.quartz_glass": "Quartz Glass",
 
   "message.mobcontroller.already_controlling":"You are already controlling a mob",
   "message.mobcontroller.mob_already_controlled":"This mob is already being controlled",

@@ -73,7 +73,7 @@ processResources {
             "group": project.group,
             "mod_id": mod_id
     ])
-
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     filesMatching(['pack.mcmeta', '*.json']) {
         expand([
                 "version": project.version,

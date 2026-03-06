@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mobcontroller:block/sceptic_tank",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mobcontroller:block/sceptic_tank"
+    },
+    "facing=south": {
+      "model": "mobcontroller:block/sceptic_tank",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mobcontroller:block/sceptic_tank",
+      "y": 270
+    }
+  }
+}

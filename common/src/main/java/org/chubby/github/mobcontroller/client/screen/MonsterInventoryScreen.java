@@ -34,9 +34,10 @@ public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInven
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
-    {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+        renderBackground(graphics,mouseX,mouseY,delta);
+        super.render(graphics, mouseX, mouseY, delta);
+        renderTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -52,4 +53,5 @@ public class MonsterInventoryScreen extends AbstractContainerScreen<MonsterInven
     private void renderEntity(Monster entity, int x, int y, int mouseX, int mouseY, GuiGraphics graphics){
         InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, x + 26, y + 18, x + 78, y + 70, 24, 0.15F, mouseX, mouseY, entity);
     }
+
 }

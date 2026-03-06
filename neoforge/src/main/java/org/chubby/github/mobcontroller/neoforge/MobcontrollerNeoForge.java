@@ -5,6 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -18,6 +19,7 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -27,15 +29,17 @@ import org.chubby.github.mobcontroller.Constants;
 import org.chubby.github.mobcontroller.MobController;
 import org.chubby.github.mobcontroller.api.model.obj.loader.ObjModelLoader;
 import org.chubby.github.mobcontroller.client.MobControllerClient;
-import org.chubby.github.mobcontroller.client.renderer.blockEntity.ScepticTankRenderer;
 import org.chubby.github.mobcontroller.client.screen.DataDisplayerScreen;
+import org.chubby.github.mobcontroller.client.screen.ElectrolyticDiffuserScreen;
 import org.chubby.github.mobcontroller.client.screen.MonsterInventoryScreen;
 import org.chubby.github.mobcontroller.client.screen.NeuralInterfaceStationScreen;
+import org.chubby.github.mobcontroller.common.menu.ElectrolyticDiffuserMenu;
 import org.chubby.github.mobcontroller.common.registry.*;
 import org.chubby.github.mobcontroller.core.CommandsInit;
 import org.chubby.github.mobcontroller.neoforge.datagen.ModBlockStateGenerator;
 import org.chubby.github.mobcontroller.neoforge.datagen.ModItemModelGenerator;
 import org.chubby.github.mobcontroller.neoforge.datagen.ModRecipeGenerator;
+import org.chubby.github.mobcontroller.neoforge.datagen.ModTagProvider;
 import org.chubby.github.mobcontroller.neoforge.platform.service.NeoforgeNetworkHelper;
 import org.chubby.github.mobcontroller.neoforge.platform.service.NeoforgeRegistryHelper;
 import org.chubby.github.mobcontroller.neoforge.wrapper.NeoForgeEnergyWrapper;
@@ -92,8 +96,8 @@ public final class MobcontrollerNeoForge {
 
     private void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(MenusRegistry.MONSTER_MENU.get(), MonsterInventoryScreen::new);
-        event.register(MenusRegistry.DATA_DISPLAYER_MENU.get(), DataDisplayerScreen::new);
         event.register(MenusRegistry.NEURAL_INTERFACE_STATION_MENU.get(), NeuralInterfaceStationScreen::new);
+        event.register(MenusRegistry.ELECTROLYTIC_DIFFUSER_MENU.get(), ElectrolyticDiffuserScreen::new);
     }
 
     public void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
@@ -115,19 +119,32 @@ public final class MobcontrollerNeoForge {
             event.enqueueWork(() -> {
 
             });
-            BlockEntityRenderers.register(BlockEntityRegistry.SCEPTIC_TANK_BE.get(), ScepticTankRenderer::new);
         }
     }
 
+    //TODO::NOT USE THIS AND FIX THIS BULLSHIT
     public void onGatherData(GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> completableFuture = event.getLookupProvider();
         ExistingFileHelper fileHelper = event.getExistingFileHelper();
-
+        boolean strictValidation = false;
+        if (!strictValidation) {
+            System.out.println("=".repeat(60));
+            System.out.println("WARNING: Texture validation is DISABLED");
+            System.out.println("Missing textures will be allowed but logged as warnings");
+            System.out.println("=".repeat(60));
+        }
         generator.addProvider(event.includeClient(),new ModBlockStateGenerator(packOutput,fileHelper));
         generator.addProvider(event.includeClient(),new ModItemModelGenerator(packOutput,fileHelper));
         generator.addProvider(event.includeServer(),new ModRecipeGenerator(packOutput,completableFuture));
+        BlockTagsProvider blockTagsProvider = generator.addProvider(event.includeServer(), new BlockTagsProvider(packOutput, completableFuture,Constants.MOD_ID,fileHelper) {
+            @Override
+            protected void addTags(HolderLookup.Provider p_256380_) {
+
+            }
+        });
+        generator.addProvider(event.includeServer(),new ModTagProvider(packOutput,completableFuture,blockTagsProvider.contentsGetter(),fileHelper));
     }
 }

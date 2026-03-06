@@ -17,7 +17,7 @@ import org.chubby.github.mobcontroller.common.blocks.entity.NeuralInterfaceStati
 import org.chubby.github.mobcontroller.common.registry.BlockEntityRegistry;
 import org.chubby.github.mobcontroller.platform.services.Services;
 import org.jetbrains.annotations.Nullable;
-
+@SuppressWarnings("unchecked")
 public class ElectrolyticDiffuser extends BaseEntityBlock
 {
     public ElectrolyticDiffuser(Properties properties) {
@@ -44,5 +44,10 @@ public class ElectrolyticDiffuser extends BaseEntityBlock
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ElectrolyticDiffuserBE(pos,state);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        return (BlockEntityTicker<T>) createTickerHelper(BlockEntityRegistry.ELECTROLYTIC_DIFFUSER_BE.get(),BlockEntityRegistry.ELECTROLYTIC_DIFFUSER_BE.get(),ElectrolyticDiffuserBE::tick);
     }
 }

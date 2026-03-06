@@ -24,6 +24,9 @@ runs {
     }
     data {
         programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+
+        // Add common resources to existing file helper
+        programArguments.addAll '--existing', file('../common/src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -73,6 +76,7 @@ tasks.withType(JavaCompile).configureEach {
 // Optimize JAR creation
 jar {
     archiveClassifier = ''
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     // Exclude unnecessary files
     exclude 'META-INF/maven/**'

@@ -3,7 +3,7 @@
   "id": "mobcontroller",
   "version": "${mod_version}",
   "name": "MobController",
-  "description": "${mod_description}",
+  "description": "${mod_desc}",
   "authors": [
     "Small_Chubby"
   ],
@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "org.chubby.github.mobcontroller.fabric.MobcontrollerFabric"
+    ],
+    "fabric-datagen": [
+      "org.chubby.github.mobcontroller.fabric.MobControllerFabricDatagen"
     ],
     "client": [
       "org.chubby.github.mobcontroller.fabric.client.MobcontrollerFabricClient"

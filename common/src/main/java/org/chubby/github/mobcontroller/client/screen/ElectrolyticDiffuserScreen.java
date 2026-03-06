@@ -29,4 +29,11 @@ public class ElectrolyticDiffuserScreen extends AbstractContainerScreen<Electrol
 
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
     }
+
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+        renderBackground(graphics,mouseX,mouseY,delta);
+        super.render(graphics, mouseX, mouseY, delta);
+        renderTooltip(graphics, mouseX, mouseY);
+    }
 }

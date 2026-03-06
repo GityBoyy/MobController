@@ -17,6 +17,13 @@ public class ItemRegistry {
 
     public static final List<Supplier<Item>> ITEM_LIST = new ArrayList<>();
 
+    //ControllerItems
+
+    public static final Supplier<Item> UN_PREPARED_CONTROLLER = registerItem("unprepared_controller",
+            ()-> new Item(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> PREPARED_CONTROLLER = registerItem("prepared_controller",
+            ()-> new Item(new Item.Properties().stacksTo(1)));
+
     public static final Supplier<Item> COPPER_CONTROLLER = registerItem("copper_controller",
             () -> new ItemController(new Item.Properties().stacksTo(1), ControllerType.COPPER));
     public static final Supplier<Item> IRON_CONTROLLER = registerItem("iron_controller",
@@ -28,6 +35,9 @@ public class ItemRegistry {
     public static final Supplier<Item> NETHERITE_CONTROLLER = registerItem("netherite_controller",
             () -> new ItemController(new Item.Properties().stacksTo(1), ControllerType.NETHERITE));
 
+    //UpgradeItems
+    public static final Supplier<Item> COPPER_UPGRADE = registerItem("copper_upgrade",
+            ()-> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON).craftRemainder(Items.COPPER_INGOT)));
     public static final Supplier<Item> COPPER_TO_IRON_UPGRADE = registerItem("copper_to_iron_upgrade",
             () -> new ItemControllerUpgrade(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON), ControllerType.IRON));
     public static final Supplier<Item> IRON_TO_GOLD_UPGRADE = registerItem("iron_to_gold_upgrade",

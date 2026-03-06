@@ -71,9 +71,8 @@ public class CommonEvents {
 
         if (!(heldItem.getItem() instanceof ItemController controller)) return;
 
-        // Create the controller data
         MobControllerData controllerData = new MobControllerData(player.getUUID(), monster.getId());
-        ControllerTierData tierData = new ControllerTierData(controller.getType());
+        ControllerTierData tierData = new ControllerTierData(controller.getType(),controller.getType().getElectrolyteAmount());
 
         ItemStack helmetItem = new ItemStack(controller);
         helmetItem.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
@@ -276,7 +275,7 @@ public class CommonEvents {
             MobControllerData controllerData = new MobControllerData(player.getUUID(), -1);
             craftedStack.set(DataComponentRegistry.CONTROLLER.get(), controllerData);
 
-            ControllerTierData tierData = new ControllerTierData(controller.getType());
+            ControllerTierData tierData = new ControllerTierData(controller.getType(),controller.getType().getElectrolyteAmount());
             craftedStack.set(DataComponentRegistry.CONTROLLER_TIER.get(), tierData);
 
             for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
@@ -302,7 +301,7 @@ public class CommonEvents {
     public static void onRenderOverlay(RenderGuiLayerEvent.Post event) {
         if (event.getName() == VanillaGuiLayers.DEBUG_OVERLAY && MCConfig.enableDebug.getValue()) {
             Minecraft minecraft = Minecraft.getInstance();
-            DEBUG_SCREEN.layer.render(event.getGuiGraphics(), event.getPartialTick());
+            //DEBUG_SCREEN.layer.render(event.getGuiGraphics(), event.getPartialTick());
         }
     }
 }
